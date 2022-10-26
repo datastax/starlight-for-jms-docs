@@ -1,7 +1,14 @@
-* xref:index.adoc[Overview]
-
-* JMS Migration
-
+* Getting Started
+** xref:index.adoc[About {starlight_jms}]
+** xref:pulsar-jms-install.adoc[Installation]
+** xref:pulsar-jms-mappings.adoc[Mapping Pulsar concepts to JMS]
+** xref:pulsar-jms-implementation.adoc[Implementation details]
+** xref:pulsar-jms-server-side-filters.adoc[Server-side filters]
+** xref:pulsar-jms-batch-ack.adoc[Batch index acknowledgement]
+* Guides and Examples
+** xref:pulsar-jms-quickstart-sa.adoc[Pulsar standalone quick start]
+** xref:pulsar-jms-quickstart-astra.adoc[Astra Streaming quick start]
 * Reference
-
-* Examples
+** xref:pulsar-jms-reference.adoc[{starlight_jms} Reference]
+** xref:pulsar-jms-faq.adoc[FAQs]
+** {jms_repo}[Github repo,window=_blank]

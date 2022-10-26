@@ -1,0 +1,42 @@
+= Batch index acknowledgement
+
+{starlight_jms} version {product_version} improves acknowledgement of batched messages by supporting the tracking of 'ack' status by *batch index*. +
+
+By default, filtering works on the *entry* level in Pulsar. An *entry* is a *single message* or a *single batch of messages*. The client will not filter out a few messages in a batch; it either passes completely or fails completely. +
+
+With *batch index acknowledgement*, when the broker dispatches messages, it will carry the batch index that has been acknowledged. The client will filter out batch indexes that have been acked. +
+
+The client sends the batch index ack information to the broker, so the broker can maintain the batch index ack status. +
+
+This approach requires cooperation between the client and broker, so we must modify both `broker.conf` and the `consumerConfig` JMS client property to enable batch acknowledgement. +
+
+DataStax *strongly recommends* these configurations for increased efficiency, whether using *broker-side* or *client-side* selectors.
+
+== Enable batch index acknowledgement
+
+. Add the configuration property `acknowledgmentAtBatchIndexLevelEnabled=true` to `broker.conf`:
++
+[source,java]
+----
+acknowledgmentAtBatchIndexLevelEnabled=true
+----
+
+. Set the `consumerConfig` property on the JMS client by adding `consumerConfig.put("batchIndexAckEnabled", true);` to `consumerConfig` in the ConnectionFactory configuration:
++
+[source,java]
+----
+    Map<String, Object> properties = new HashMap<>();
+    properties.put("webServiceUrl", cluster.getAddress());
+    Map<String, Object> consumerConfig = new HashMap<>();
+    consumerConfig.put("batchIndexAckEnabled", true);
+    properties.put("consumerConfig", consumerConfig);
+    try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties));
+----
+
+== What's next?
+
+For more on *server-side filtering*, see xref:pulsar-jms-server-side-filters.adoc[Server side filters]. +
+For more on acknowledgements in {starlight_jms}, see xref:pulsar-jms-mappings.adoc#consumer-mappings[Consumer Mappings].
+
+
+
