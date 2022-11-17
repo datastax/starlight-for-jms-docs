@@ -1,7 +1,7 @@
 = Installing {starlight_jms} 
 
 :page-tag: starlight-jms,install,dev,admin,pulsar,jms,java,maven
-
+:page-alias: docs@starlight-for-jms::pulsar-jms-install.adoc
 == Compatibility
 
 The current version of {starlight_jms} is {product_version}. Version {product_version} includes:
