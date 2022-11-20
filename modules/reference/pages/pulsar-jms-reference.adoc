@@ -1,7 +1,7 @@
 = {starlight_jms} configuration reference 
 
 :page-tag: starlight-jms,dev,admin,manage,pulsar,jms
-:page-alias: docs@starlight-for-jms::pulsar-jms-reference.adoc
+:page-aliases: docs@starlight-for-jms::pulsar-jms-reference.adoc
 
 A complete configuration reference for {starlight_jms}. 
 

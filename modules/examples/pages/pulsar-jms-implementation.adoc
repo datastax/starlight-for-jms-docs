@@ -1,7 +1,7 @@
 = {starlight_jms} implementation details
 
 :page-tag: starlight-jms,dev,pulsar,jms
-:page-alias: docs@starlight-for-jms::pulsar-jms-implementation.adoc
+:page-aliases: docs@starlight-for-jms::pulsar-jms-implementation.adoc
 
 A discussion of design and implementation decisions made to support JMS requirements.
 

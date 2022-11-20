@@ -1,7 +1,7 @@
 = {starlight_jms} Astra Streaming quick start 
 
 :page-tag: starlight-jms,dev,quickstart,pulsar,jms
-:page-alias: docs@starlight-for-jms::pulsar-jms-quickstart-astra.adoc
+:page-aliases: docs@starlight-for-jms::pulsar-jms-quickstart-astra.adoc
 
 This quick start will get you up and running with a simple command-line Java JMS client that can talk to an Apache Pulsar™ streaming instance. The client:
 
