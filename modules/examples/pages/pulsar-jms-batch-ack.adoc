@@ -37,7 +37,7 @@ acknowledgmentAtBatchIndexLevelEnabled=true
 == What's next?
 
 For more on *server-side filtering*, see xref:pulsar-jms-server-side-filters.adoc[Server side filters]. +
-For more on acknowledgements in {starlight_jms}, see xref:pulsar-jms-mappings.adoc#consumer-mappings[Consumer Mappings].
+For more on acknowledgements in {starlight_jms}, see xref:reference:pulsar-jms-mappings.adoc#consumer-mappings[Consumer Mappings].
 
 
 

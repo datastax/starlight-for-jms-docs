@@ -122,7 +122,7 @@ The default value assigned to every Connection.
 | boolean
 | false
 a| When a `SESSION_TRANSACTED` session is created in this mode, the Session behaves like a transacted Session but is not transactional: a produced message is sent immediately, and acknowledgements are sent during `session.commit()`. +
-See xref:pulsar-jms-implementation.adoc#transaction-emulations[Transaction Emulation].
+See xref:examples:pulsar-jms-implementation.adoc[Transaction Emulation].
 
 | `jms.enableClientSideEmulation`
 | no
@@ -195,7 +195,7 @@ Set this to `false` if your client cannot access the Admin HTTP API.
 | no
 | boolean
 | false
-a| Offloads message filtering to the Broker nodes. See xref:pulsar-jms-server-side-filters.adoc[Server Side Filters].
+a| Offloads message filtering to the Broker nodes. See xref:examples:pulsar-jms-server-side-filters.adoc[Server Side Filters].
 
 | `jms.waitForServerStartupTimeout`
 | no
@@ -231,14 +231,14 @@ TIP: Please check https://pulsar.apache.org/docs/en/standalone/[Apache Pulsar do
 
 == Implementation details
 
-Please refer to xref:pulsar-jms-implementation.adoc[Implementation details] in order to read about how {starlight_jms} emulates some features that are not directly supported by Pulsar.
+Please refer to xref:examples:pulsar-jms-implementation.adoc[Implementation details] in order to read about how {starlight_jms} emulates some features that are not directly supported by Pulsar.
 
 == Next
 
-* *xref:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
+* *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
+* *xref:jms-migration:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
+* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
 * *xref:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
-* *xref:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
+* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
+* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
 * *{jms_repo}[{starlight_jms} Github repo,window=_blank]*

@@ -187,10 +187,10 @@ public class StandaloneTest {
 In the code example above, note the following points of interest:
 
 . The topic URI the client will use to publish and consume messages. We're using the default tenant and namespace here, but you can call the topic itself anything you like and it will be auto-created.
-. Creates an empty properties hashmap. Refer to xref:pulsar-jms-reference.adoc[] for additional {starlight_jms} configuration options.
+. Creates an empty properties hashmap. Refer to xref:reference:pulsar-jms-reference.adoc[] for additional {starlight_jms} configuration options.
 +
 TIP: You'll need to override `webServiceUrl` if you're not using the default Pulsar Docker instance in this example.
-. Creates a {starlight_jms} queue. For more information on mapping Pulsar to JMS concepts, see xref:pulsar-jms-mappings.adoc[].
+. Creates a {starlight_jms} queue. For more information on mapping Pulsar to JMS concepts, see xref:reference:pulsar-jms-mappings.adoc[].
 . Creates a {starlight_jms} consumer context using the `createConsumer` method...
 . ... and initializes an `onMessage` callback to consume the messages as they arrive.
 . Sends 10 "Hello World!" messages to the queue using the `createProducer` method.
@@ -311,8 +311,8 @@ docker rm 5116f0d16eb3
 
 * *xref:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
 * *xref:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
-* *xref:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
-* *xref:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
-* *xref:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
+* *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
+* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
+* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
+* *xref:reference:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
 * *{jms_repo}[{starlight_jms} Github repo,window=_blank]*

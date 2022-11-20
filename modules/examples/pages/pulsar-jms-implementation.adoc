@@ -14,7 +14,7 @@ A discussion of design and implementation decisions made to support JMS requirem
 * xref:pulsar-jms-implementation.adoc#message-selectors[Message selectors and `noLocal` subscriptions]
 * xref:pulsar-jms-implementation.adoc#schema-registry[]
 * xref:pulsar-jms-implementation.adoc#subscription-creation[Subscription creation]
-* xref:pulsar-jms-implementation.adoc#system-properites[System properties and fields]
+* xref:pulsar-jms-implementation.adoc#system-properties[System properties and fields]
 * xref:pulsar-jms-implementation.adoc#temporary-destinations[]
 * xref:pulsar-jms-implementation.adoc#transaction-emulation[]
 * xref:pulsar-jms-implementation.adoc#unsupported-features[Unsupported and emulated features]
@@ -36,7 +36,7 @@ When you set a `clientId`, the actual subscription name in Pulsar is constructed
 
 One solution for this situation is the *dead letter topic* policy. The *dead-letter topic* policy routes the unsuccessful messages to the *dead-letter topic* for storage, so consumers can keep consuming while the unsuccessful messages are stored in the dead-letter topic for processing or evaluation. 
 
-{starlight_jms} allows further configuration of `deadLetterPolicy`. For more on `deadLetterTopic` configuration properties, see xref:pulsar-jms-reference.adoc[].
+{starlight_jms} allows further configuration of `deadLetterPolicy`. For more on `deadLetterTopic` configuration properties, see xref:reference:pulsar-jms-reference.adoc[].
 [source,language-java]
 ----
 Map<String, Object> deadLetterPolicy = new HashMap<>();
@@ -86,7 +86,7 @@ A few usage notes on negative acknowledgement in {starlight_jms}:
 
 * Calling `Session.recover()` stops delivery in the session, restarts message delivery with the oldest unacked message, and sends *negative acknowledgements* to the broker for the unacked messages. 
 
-* When using xref:pulsar-jms-reference.adoc#client-side-emulation[client side emulation] with *JMS Queues* and *Shared Subscriptions*, if a message does not match the xref:pulsar-jms-implementation.adoc#message-selectors[Selector], the JMS Client *negatively acknowledges* the message to let another consume pick up the message. +
+* When using xref:reference:pulsar-jms-reference.adoc[client side emulation] with *JMS Queues* and *Shared Subscriptions*, if a message does not match the xref:pulsar-jms-implementation.adoc#message-selectors[Selector], the JMS Client *negatively acknowledges* the message to let another consume pick up the message. +
 
 * When using xref:pulsar-jms-server-side-filters.adoc[server side filtering] and xref:pulsar-jms-implementation.adoc#message-selectors[Selectors], there is still a chance that a *negative acknowledgement* will be sent when one message in a batch does not match the filter. +
 Using *negative acknowledgement* increases the count of deliveries of the message, which can trigger routing to the dead-letter topic if the number exceeds `maxRedeliverCount`. So if you're seeing messages in the dead-letter topic that shouldn't be there, they might be hitting a consumer with a local selector that doesn't match too many times. 
@@ -157,7 +157,7 @@ NOTE: Apache ActiveMQ is licensed under Apache 2.0.
 
 For {starlight_jms} to create subscriptions it must be granted permission, and the broker must be configured to automatically create subscriptions by setting the `allowAutoSubscriptionCreation=true` parameter on the broker configuration.
 
-For more on subscription creation, including disabling automatic subscription creation, see xref:pulsar-jms-mappings.adoc#subscriptions[JMS subscriptions].
+For more on subscription creation, including disabling automatic subscription creation, see xref:reference:pulsar-jms-mappings.adoc#subscriptions[JMS subscriptions].
 
 [#system-properties]
 === System properties and fields:
@@ -401,10 +401,10 @@ For more on multi-topic subscriptions in Pulsar, see the https://pulsar.apache.o
 
 == What's next?
 
-* *xref:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
-* *xref:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
-* *xref:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
+* *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
+* *xref:jms-migration:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
+* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
+* *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
+* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
+* *xref:reference:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
 * *{jms_repo}[{starlight_jms} Github repo,window=_blank]*

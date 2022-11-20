@@ -19,11 +19,11 @@
 
 == What's next?
 
-* *xref:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
-* *xref:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
+* *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
+* *xref:jms-migration:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
+* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
+* *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
+* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
 * *xref:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
-* *xref:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
+* *xref:reference:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
 * *{jms_repo}[{starlight_jms} Github repo,window=_blank]*

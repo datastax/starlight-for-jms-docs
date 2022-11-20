@@ -144,11 +144,11 @@ If both `allowAutoSubscriptionCreation` and `jms.precreateQueueSubscription` are
 
 There are five consumer mode session objects in JMS. This section describes how they map to Pulsar concepts. +
 
-* xref:pulsar-jms-mappings#auto-ack[Session.AUTO_ACKNOWLEDGE]
-* xref:pulsar-jms-mappings#dups-ok[Session.DUPS_OK_ACKNOWLEDGE]
-* xref:pulsar-jms-mappings#client-ack[Session.CLIENT_ACKNOWLEDGE]
-* xref:pulsar-jms-mappings#individual[PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE]
-* xref:pulsar-jms-mappings#transacted[Session.SESSION_TRANSACTED]
+* xref:pulsar-jms-mappings.adoc#auto-ack[Session.AUTO_ACKNOWLEDGE]
+* xref:pulsar-jms-mappings.adoc#dups-ok[Session.DUPS_OK_ACKNOWLEDGE]
+* xref:pulsar-jms-mappings.adoc#client-ack[Session.CLIENT_ACKNOWLEDGE]
+* xref:pulsar-jms-mappings.adoc#individual[PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE]
+* xref:pulsar-jms-mappings.adoc#transacted[Session.SESSION_TRANSACTED]
 
 [#auto-ack]
 === Session.AUTO_ACKNOWLEDGE
@@ -292,7 +292,7 @@ public class JMSExample {
 [#client-ack]
 === Session.CLIENT_ACKNOWLEDGE
 
-In this mode the JMS client works like `AUTO_ACKNOWLEDGE`, automatically acknowledging all messages received before the message inside the same session. To acknowledge only the individual message, use xref:pulsar-jms-mappings#individual[PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE].
+In this mode the JMS client works like `AUTO_ACKNOWLEDGE`, automatically acknowledging all messages received before the message inside the same session. To acknowledge only the individual message, use xref:pulsar-jms-mappings.adoc#individual[PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE].
 
 In the example below, we create a consumer on `mytopic` with `Session.CLIENT_ACKNOWLEDGE`, send 100 `foo` messages, and acknowledge them by calling `Message.acknowledge()`in the `onMessage` method. +
 This message and all previous messages in the session are acknowledged.
@@ -438,7 +438,7 @@ public class JMSExample {
 The acknowledgement is bound to the Transaction, and the acknowledgement is sent to the broker only during `Transaction.commit()`.
 [NOTE]
 ====
-If you're porting a JMS application that is using `SESSION_TRANSACTED` but don't need to perform the transaction's operations, enable `jms.emulateTransactions`. See xref:pulsar-jms-implementation.adoc#transaction-emulations[Transaction Emulation].
+If you're porting a JMS application that is using `SESSION_TRANSACTED` but don't need to perform the transaction's operations, enable `jms.emulateTransactions`. See xref:examples:pulsar-jms-implementation.adoc[Transaction Emulation].
 ====
 
 [#interoperability]
@@ -466,10 +466,10 @@ NOTE: This is the same behavior implemented in https://activemq.apache.org/messa
 
 == What's next?
 
-* *xref:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
-* *xref:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
-* *xref:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
+* *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
+* *xref:jms-migration:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
+* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
+* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
+* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
 * *xref:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
 * *{jms_repo}[{starlight_jms} Github repo,window=_blank]*
