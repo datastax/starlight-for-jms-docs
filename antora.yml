@@ -11,3 +11,6 @@ asciidoc:
 
 nav:
   - modules/ROOT/nav.adoc
+  - modules/examples/nav.adoc
+  - modules/jms-migration/nav.adoc
+  - modules/reference/nav.adoc
