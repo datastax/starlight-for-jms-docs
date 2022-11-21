@@ -1,5 +1,5 @@
 = Batch index acknowledgement
-:page-aliases: docs@starlight-for-jms::pulsar-jms-batch-ack.adoc
+:page-aliases: docs@starlight-jms::pulsar-jms-batch-ack.adoc
 
 {starlight_jms} version {product_version} improves acknowledgement of batched messages by supporting the tracking of 'ack' status by *batch index*. +
 

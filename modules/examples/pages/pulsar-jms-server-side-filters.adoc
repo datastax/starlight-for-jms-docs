@@ -1,5 +1,5 @@
 = Enabling server-side filters
-:page-aliases: docs@starlight-for-jms::pulsar-jms-server-side-filters.adoc
+:page-aliases: docs@starlight-jms::pulsar-jms-server-side-filters.adoc
 
 {starlight_jms} version {product_version} offers *server-side filtering*, which executes JMS filtering features on the Pulsar Broker instead of the Client. +
 Before {product_version}, filtering was implemented with `jms.enableClientSideEmulation=true` on the Client side, which meant the Client application received all messages, even if they didn't match the filter. This caused inefficient network, CPU, and memory usage.

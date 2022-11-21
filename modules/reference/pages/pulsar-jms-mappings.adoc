@@ -1,7 +1,7 @@
 = Mapping Pulsar concepts to JMS specifications
 
 :page-tag: starlight-jms,planner,dev,admin,pulsar,jms
-:page-aliases: docs@starlight-for-jms::pulsar-jms-mappings.adoc
+:page-aliases: docs@starlight-jms::pulsar-jms-mappings.adoc
 
 JMS specifications are built upon the concepts of *Topics* and *Queues*, but Apache Pulsar™ has only a general concept of *Topics* that can model both of those two domains.
 
