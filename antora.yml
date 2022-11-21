@@ -1,7 +1,7 @@
 name: starlight-for-jms
 title: Starlight For JMS Documentation
 version: 3.0.0
-start_page: starlight-for-jms::index.adoc
+start_page: index.adoc
 
 asciidoc:
   attributes:
