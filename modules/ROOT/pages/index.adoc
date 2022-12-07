@@ -1,5 +1,5 @@
 = About {starlight_jms}
-
+:navtitle: Starlight for JMS
 :page-tag: starlight-jms,planner,dev,admin,pulsar,jms
 :page-aliases: docs@starlight-jms::index.adoc,
 
