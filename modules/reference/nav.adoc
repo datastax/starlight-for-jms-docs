@@ -1,3 +1,0 @@
-* xref:pulsar-jms-mappings.adoc[Reference]
-** xref:pulsar-jms-mappings.adoc[]
-** xref:pulsar-jms-reference.adoc[]
