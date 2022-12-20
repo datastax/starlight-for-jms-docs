@@ -14,12 +14,12 @@ A discussion of design and implementation decisions made to support JMS requirem
 * xref:pulsar-jms-implementation.adoc#message-selectors[Message selectors and `noLocal` subscriptions]
 * xref:pulsar-jms-implementation.adoc#schema-registry[]
 * xref:pulsar-jms-implementation.adoc#subscription-creation[Subscription creation]
-* xref:pulsar-jms-implementation.adoc#system-properties[System properties and fields]
+* xref:pulsar-jms-implementation.adoc#system-properites[System properties and fields]
 * xref:pulsar-jms-implementation.adoc#temporary-destinations[]
 * xref:pulsar-jms-implementation.adoc#transaction-emulation[]
 * xref:pulsar-jms-implementation.adoc#unsupported-features[Unsupported and emulated features]
 * xref:pulsar-jms-implementation.adoc#auth-on-creation[Username and password authentication]
-* xref:pulsar-jms-implementation.adoc#schema-registry[Using the Pulsar Schema Registry]
+* xref:pulsar-jms-implementation.adoc#jms-priority[]
 * xref:pulsar-jms-implementation.adoc#virtual-destinations[]
 
 [#client-id]
@@ -398,6 +398,46 @@ try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); 
 ----
 
 For more on multi-topic subscriptions in Pulsar, see the https://pulsar.apache.org/docs/client-libraries-java/#multi-topic-subscriptions[Pulsar documentation].
+
+[#jms-priority]
+== JMS priority
+
+*JMS priority* allows messages to be dispatched at different rates according to priority. +
+Priorities are <<Mapping JMS priority to partitions,mapped to Pulsar partition IDs>> with the `jms.priorityMapping` parameter in the ConnectionFactory. +
+
+When a producer writes a message, the message is routed to a partition based on its priority mapping. By default, the higher the partition name (0 is highest priority), the higher the priority. +
+On the consumer side, messages are re-ordered in memory so high priority partitions are drained faster than other partitions. +
+Both producers and consumers advertise their priority routing behavior in metadata, so priority behavior can be detected and used by Pulsar admin for subscriptions, filters, and metrics. +
+Even if a consumer is not looking for a message's priority mapping metadata, it will still consume the message.
+
+[#jms-priority-mapping]
+=== Mapping JMS priority to partitions
+
+The parameter `jms.priorityMapping` controls how priorities are mapped to partitions. 
+
+The `jms.priorityMapping` parameter can be set to `linear` or `non-linear`. The default is `linear`. +
+
+In `jms.priorityMapping = "linear"` mode, the priority level (from 0 to 9) is linearly mapped to the partition id. +
+If you have 10 partitions, priority 0 goes to partition 0, priority 1 to partition 1, and so on. +
+If you have 20 partitions, priority 0 goes to partitions 0 and 1, priority 1 goes to partitions 2 and 3, and so on.
+
+The benefit of this approach is that you are guaranteed that each priority level is sent to different partitions. +
+The drawback is that if you don't use all the priority levels, then some partitions will be left underutilized.
+
+In `jms.priorityMapping = "non-linear"`, the mapping between JMSPriority and the partition id is not linear. 
+The assumption is that there will be more regular messages than high/low priority messages. 
+
+Priorities are divided into 3 classes: low, default, and high priority.
+
+* 1/4 of the partitions are for low priority messages.
+* 1/2 of the partitions are for the default priority.
+* 1/4 of the partitions are for high priority messages.
+
+With non-linear partition mapping, the JMS Client will tend to:
+
+* use more partitions for default level priorities (especially 4, the default priority).
+* map higher level priorities to higher partition ids.
+* map lower level priorities to lower partition ids.
 
 == What's next?
 
