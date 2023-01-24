@@ -1,18 +1,18 @@
-= {starlight_jms} FAQs 
+= Starlight for JMS FAQs
 
 :page-tag: starlight-jms,planner,dev,admin,pulsar,jms
 
-Answers to the (arguably) most common {starlight_jms} questions.
+Answers to the (arguably) most common Starlight for JMS questions.
 
-== What is the pricing for {starlight_jms}?
+== What is the pricing for Starlight for JMS?
 
-{starlight_jms} is free open-source software. Enterprise support is available through https://www.datastax.com/products/luna-streaming[Luna Streaming,window=_blank], the DataStax commercial support offering for Apache Pulsar™.
+Starlight for JMS is free open-source software. Enterprise support is available through https://www.datastax.com/products/luna-streaming[Luna Streaming,window=_blank], the DataStax commercial support offering for Apache Pulsar™.
 
-== How is {starlight_jms} licensed?
+== How is Starlight for JMS licensed?
 
-{starlight_jms} is licensed under https://www.apache.org/licenses/LICENSE-2.0.txt[Apache version 2.0,window=_blank].
+Starlight for JMS is licensed under https://www.apache.org/licenses/LICENSE-2.0.txt[Apache version 2.0,window=_blank].
 
-== How can I use {starlight_jms} in a JakartaEE® or JavaEE® application?
+== How can I use Starlight for JMS in a JakartaEE® or JavaEE® application?
 
 You can use the `resourceAdapter` {jms_repo}blob/master/resource-adapter[here,window=_blank].
 
@@ -51,9 +51,9 @@ We've provided the following integration examples:
 * {jms_repo}blob/master/examples/payara-micro[Payara Micro®,window=_blank]
 * {jms_repo}blob/master/resource-adapter-tests[Apache TomEE®,window=_blank]
 
-== How can I build {starlight_jms} from source?
+== How can I build Starlight for JMS from source?
 
-If you'd like to fork or contribute to {starlight_jms}:
+If you'd like to fork or contribute to Starlight for JMS:
 
 . Clone the git repo:
 +
@@ -77,9 +77,9 @@ This https://javaee.github.io/jms-spec/[website,window=_blank] is useful as well
 == What's next?
 
 * *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:jms-migration:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
+* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
+* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
 * *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
-* *xref:reference:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
-* *{jms_repo}[{starlight_jms} Github repo,window=_blank]*
+* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
+* *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
+* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*

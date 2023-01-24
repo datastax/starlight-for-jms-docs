@@ -1,9 +1,9 @@
-= {starlight_jms} configuration reference 
+= Starlight for JMS configuration reference
 
 :page-tag: starlight-jms,dev,admin,manage,pulsar,jms
 :page-aliases: docs@starlight-jms::pulsar-jms-reference.adoc
 
-A complete configuration reference for {starlight_jms}. 
+A complete configuration reference for Starlight for JMS.
 
 Configuration information is passed to the `PulsarConnectionFactory` constructor:
 
@@ -231,14 +231,14 @@ TIP: Please check https://pulsar.apache.org/docs/en/standalone/[Apache Pulsar do
 
 == Implementation details
 
-Please refer to xref:examples:pulsar-jms-implementation.adoc[Implementation details] in order to read about how {starlight_jms} emulates some features that are not directly supported by Pulsar.
+Please refer to xref:examples:pulsar-jms-implementation.adoc[Implementation details] in order to read about how Starlight for JMS emulates some features that are not directly supported by Pulsar.
 
 == Next
 
 * *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:jms-migration:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
+* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
+* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
 * *xref:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
-* *{jms_repo}[{starlight_jms} Github repo,window=_blank]*
+* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
+* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
+* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*

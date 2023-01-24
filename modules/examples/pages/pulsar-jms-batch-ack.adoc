@@ -1,7 +1,7 @@
 = Batch index acknowledgement
 :page-aliases: docs@starlight-jms::pulsar-jms-batch-ack.adoc
 
-{starlight_jms} version {product_version} improves acknowledgement of batched messages by supporting the tracking of 'ack' status by *batch index*. +
+Starlight for JMS improves acknowledgement of batched messages by supporting the tracking of 'ack' status by *batch index*. +
 
 By default, filtering works on the *entry* level in Pulsar. An *entry* is a *single message* or a *single batch of messages*. The client will not filter out a few messages in a batch; it either passes completely or fails completely. +
 
@@ -37,7 +37,7 @@ acknowledgmentAtBatchIndexLevelEnabled=true
 == What's next?
 
 For more on *server-side filtering*, see xref:pulsar-jms-server-side-filters.adoc[Server side filters]. +
-For more on acknowledgements in {starlight_jms}, see xref:reference:pulsar-jms-mappings.adoc#consumer-mappings[Consumer Mappings].
+For more on acknowledgements in Starlight for JMS, see xref:reference:pulsar-jms-mappings.adoc#consumer-mappings[Consumer Mappings].
 
 
 

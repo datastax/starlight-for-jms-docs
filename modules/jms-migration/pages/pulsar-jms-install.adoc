@@ -1,13 +1,8 @@
-= Installing {starlight_jms} 
+= Installing Starlight for JMS
 
 :page-tag: starlight-jms,install,dev,admin,pulsar,jms,java,maven
 :page-aliases: docs@starlight-jms::pulsar-jms-install.adoc
 == Compatibility
-
-The current version of {starlight_jms} is {product_version}. Version {product_version} includes:
-
-* Server side filtering
-* Upgraded Pulsar client compatibility to *Pulsar 2.10*
 
 Wire protocol changes introduced in *Pulsar 2.9* can cause compatibility issues when using *Transactions*. +
 To avoid issues, DataStax recommends using: +
@@ -18,18 +13,18 @@ To avoid issues, DataStax recommends using: +
 
 == Installation
 
-Install {starlight_jms} by adding the following dependency to your Java Maven project `pom.xml`:
+Install Starlight for JMS by adding the following dependency to your Java Maven project `pom.xml`. Remember to choose the most recent version.
 
 [source,language-xml]
 ----
 <dependency>
    <artifactId>pulsar-jms</artifactId>
    <groupId>com.datastax.oss</groupId>
-   <version>1.0.0</version>
+   <version>XXXX</version>
 </dependency>
 ----
 
-That file contains only {starlight_jms} code and transitively imports the Apache Pulsar™ client and the Jakarta JMS 2.0 specifications JAR.
+That file contains only Starlight for JMS code and transitively imports the Apache Pulsar™ client and the Jakarta JMS 2.0 specifications JAR.
 
 You can also use a "fat" JAR that includes all dependencies:
 
@@ -38,16 +33,16 @@ You can also use a "fat" JAR that includes all dependencies:
 <dependency>
    <artifactId>pulsar-jms-all</artifactId>
    <groupId>com.datastax.oss</groupId>
-   <version>1.0.0</version>
+   <version>XXXX</version>
 </dependency>
 ----
 
 == Next
 
 * *xref:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
+* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
 * *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
-* *xref:reference:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
-* *{jms_repo}[{starlight_jms} Github repo,window=_blank]*
+* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
+* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
+* *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
+* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*

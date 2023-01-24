@@ -1,8 +1,8 @@
 = Enabling server-side filters
 :page-aliases: docs@starlight-jms::pulsar-jms-server-side-filters.adoc
 
-{starlight_jms} version {product_version} offers *server-side filtering*, which executes JMS filtering features on the Pulsar Broker instead of the Client. +
-Before {product_version}, filtering was implemented with `jms.enableClientSideEmulation=true` on the Client side, which meant the Client application received all messages, even if they didn't match the filter. This caused inefficient network, CPU, and memory usage.
+Starlight for JMS offers *server-side filtering*, which executes JMS filtering features on the Pulsar Broker instead of the Client. +
+Previously, filtering was implemented with `jms.enableClientSideEmulation=true` on the Client side, which meant the Client application received all messages, even if they didn't match the filter. This caused inefficient network, CPU, and memory usage.
 
 Server-side filtering offloads the filtering to the Broker nodes and includes the following JMS filtering features:
 
@@ -14,9 +14,9 @@ Server-side filtering requires Pulsar *2.10.1+* or Luna Streaming *2.10+*.
 
 == Enable server-side filtering
 
-The `.nar` file filter is packaged with Luna Streaming *2.10.03+* and also available in the GitHub repo https://github.com/datastax/pulsar-jms/releases/tag/2.0.0[here].
+The `.nar` file filter is packaged with Luna Streaming *2.10.03+* and also available in the GitHub repo https://github.com/datastax/pulsar-jms/releases[here].
 
-. Install {starlight_jms} version {product_version} with the fat JAR that includes all dependencies. Put the `.nar` file in `/pulsar/filters`.
+. Install Starlight for JMS with the fat JAR that includes all dependencies. Put the `.nar` file in `/pulsar/filters`.
 +
 [NOTE]
 ====
@@ -24,7 +24,7 @@ The path for the .nar is relative to your Pulsar directory.
 ====
 For more, see xref:jms-migration:pulsar-jms-quickstart-sa.adoc[Standalone quick start].
 
-. Modify `PulsarConnectionFactory` in {starlight_jms} to disable client-side emulation and use server-side filtering:
+. Modify `PulsarConnectionFactory` in Starlight for JMS to disable client-side emulation and use server-side filtering:
 +
 [source,java]
 ----
@@ -45,7 +45,7 @@ You're ready to use server-side filtering.
 [#selectors]
 == Configure per-subscription message selectors on the Broker
 
-{starlight_jms} allows you to pre-configure the `selector` property when creating your Pulsar subscription. Modify `PulsarConnectionFactory` in {starlight_jms} to include:
+Starlight for JMS allows you to pre-configure the `selector` property when creating your Pulsar subscription. Modify `PulsarConnectionFactory` in Starlight for JMS to include:
 
 [source,java]
 ----
@@ -83,15 +83,15 @@ For more, see xref:pulsar-jms-batch-ack.adoc[Batch index acknowledgement].
 DataStax recommends disabling compression and batching for messages that will be filtered on the Broker.
 Batch messages with compression will consume a non-negligible amount of CPU, heap, and direct memory, because filtering requires decompressing the batch to access Message Properties. This *does not* apply to compressed single messages.
 
-* *Unsupported message types* - {starlight_jms} does not support encrypted batch messages because the filter can't decode the payload of the entry.
-For the same reason, {starlight_jms} does not support custom formats like native Kafka messages.
+* *Unsupported message types* - Starlight for JMS does not support encrypted batch messages because the filter can't decode the payload of the entry.
+For the same reason, Starlight for JMS does not support custom formats like native Kafka messages.
 
 == What's next?
 
 * *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
+* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
 * *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
-* *xref:reference:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
-* *{jms_repo}[{starlight_jms} Github repo,window=_blank]*
+* *xref:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
+* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
+* *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
+* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*
