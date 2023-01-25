@@ -1,4 +1,4 @@
-= {starlight_jms} implementation details
+= Starlight for JMS implementation details
 
 :page-tag: starlight-jms,dev,pulsar,jms
 :page-aliases: docs@starlight-jms::pulsar-jms-implementation.adoc
@@ -14,7 +14,7 @@ A discussion of design and implementation decisions made to support JMS requirem
 * xref:pulsar-jms-implementation.adoc#message-selectors[Message selectors and `noLocal` subscriptions]
 * xref:pulsar-jms-implementation.adoc#schema-registry[]
 * xref:pulsar-jms-implementation.adoc#subscription-creation[Subscription creation]
-* xref:pulsar-jms-implementation.adoc#system-properites[System properties and fields]
+* xref:pulsar-jms-implementation.adoc#system-properties[System properties and fields]
 * xref:pulsar-jms-implementation.adoc#temporary-destinations[]
 * xref:pulsar-jms-implementation.adoc#transaction-emulation[]
 * xref:pulsar-jms-implementation.adoc#unsupported-features[Unsupported and emulated features]
@@ -36,7 +36,7 @@ When you set a `clientId`, the actual subscription name in Pulsar is constructed
 
 One solution for this situation is the *dead letter topic* policy. The *dead-letter topic* policy routes the unsuccessful messages to the *dead-letter topic* for storage, so consumers can keep consuming while the unsuccessful messages are stored in the dead-letter topic for processing or evaluation. 
 
-{starlight_jms} allows further configuration of `deadLetterPolicy`. For more on `deadLetterTopic` configuration properties, see xref:reference:pulsar-jms-reference.adoc[].
+Starlight for JMS allows further configuration of `deadLetterPolicy`. For more on `deadLetterTopic` configuration properties, see xref:reference:pulsar-jms-reference.adoc[].
 [source,language-java]
 ----
 Map<String, Object> deadLetterPolicy = new HashMap<>();
@@ -82,7 +82,7 @@ Map<String, Object> negativeAckRedeliveryBackoff = new HashMap<>();
     negativeAckRedeliveryBackoff.put("multiplier", 2.0);
 ----
 
-A few usage notes on negative acknowledgement in {starlight_jms}:
+A few usage notes on negative acknowledgement in Starlight for JMS:
 
 * Calling `Session.recover()` stops delivery in the session, restarts message delivery with the oldest unacked message, and sends *negative acknowledgements* to the broker for the unacked messages. 
 
@@ -94,7 +94,7 @@ Using *negative acknowledgement* increases the count of deliveries of the messag
 [#delayed-messages]
 == Delayed messages
 
-In Pulsar, delayed messages are delivered immediately, without respecting the delay, in the case of exclusive subscriptions. In order to mitigate that behavior, {starlight_jms} allows you to use shared subscriptions even where an exclusive subscription would be a better fit. The most notable case is `Session.createConsumer(destination)`, which creates an unnamed subscription, and an exclusive subscription would be a better fit.
+In Pulsar, delayed messages are delivered immediately, without respecting the delay, in the case of exclusive subscriptions. In order to mitigate that behavior, Starlight for JMS allows you to use shared subscriptions even where an exclusive subscription would be a better fit. The most notable case is `Session.createConsumer(destination)`, which creates an unnamed subscription, and an exclusive subscription would be a better fit.
 
 If you set `jms.useExclusiveSubscriptionsForSimpleConsumers=false` the client will use a Shared subscription, and the delay is respected.
 
@@ -110,12 +110,12 @@ The most notable side effects while using Pulsar with the JMS API are:
 * `Session.unsubscribe(String subscriptionName)` cannot be used, because it refers to the `subscriptionName` without a topic name.
 * In instances such as changing a message selector, you must _unsubscribe_ the old subscription and create a new subscription.
 
-In Pulsar, {starlight_jms} can't attach labels or metadata to subscriptions, and can't enforce that a subscription is accessed globally using the same "message selector" and `noLocal` options. Pulsar does not have the concept of `clientId`, so it is not possible to prevent the existence of multiple connections with the same `clientId` in the cluster. Such a check is performed only _locally_ in the context of the JVM/Classloader execution using a _static_ registry.
+In Pulsar, Starlight for JMS can't attach labels or metadata to subscriptions, and can't enforce that a subscription is accessed globally using the same "message selector" and `noLocal` options. Pulsar does not have the concept of `clientId`, so it is not possible to prevent the existence of multiple connections with the same `clientId` in the cluster. Such a check is performed only _locally_ in the context of the JVM/Classloader execution using a _static_ registry.
 
 [#message-listeners]
 == Message listeners and concurrency
 
-The JMS specifications require a specific behavior for `MessageListener` in respect to concurrency, and to support that, {starlight_jms} starts a dedicated thread per `MessageListener` session.
+The JMS specifications require a specific behavior for `MessageListener` in respect to concurrency, and to support that, Starlight for JMS starts a dedicated thread per `MessageListener` session.
 
 There are also specific behaviors mandates regarding these APIs:
 
@@ -124,18 +124,18 @@ There are also specific behaviors mandates regarding these APIs:
 * `Session.close()/JMSContext.close()`
 * `Connection/JMSContext.close()`
 
-{starlight_jms} implements its own concurrent processing model in order to obey the specs, but it cannot use the built-in facilities provider by the Pulsar client.
+Starlight for JMS implements its own concurrent processing model in order to obey the specs, but it cannot use the built-in facilities provider by the Pulsar client.
 
-For `CompletionListeners`, which are useful for asynchronous sending of messages, {starlight_jms} relies on the Apache Pulsar™ asynchronous API, but there are some behaviors that are yet to be enforced with respect to `Session/JMSContext.close()`.
+For `CompletionListeners`, which are useful for asynchronous sending of messages, Starlight for JMS relies on the Apache Pulsar™ asynchronous API, but there are some behaviors that are yet to be enforced with respect to `Session/JMSContext.close()`.
 
 [#message-properties]
 == Message properties
 
-In Pulsar properties are always of type String, but the JMS specs require support for every Java primitive type. In order to emulate that behavior for every custom property set on the message, {starlight_jms} sets an additional property that describes the original type of the property.
+In Pulsar properties are always of type String, but the JMS specs require support for every Java primitive type. In order to emulate that behavior for every custom property set on the message, Starlight for JMS sets an additional property that describes the original type of the property.
 
-For instance if you set a message property `my-key=1234` (integer), {starlight_jms} adds a property `my-key_jmstype=integer` in order to properly reconstruct the value when the receiver calls `getObjectProperty`.
+For instance if you set a message property `my-key=1234` (integer), Starlight for JMS adds a property `my-key_jmstype=integer` in order to properly reconstruct the value when the receiver calls `getObjectProperty`.
 
-The value is always serialized as string. For floating point numbers, {starlight_jms} uses `Double.toString/parseString` and `Float.toString/parseString` with the behavior mandated by Java specifications.
+The value is always serialized as string. For floating point numbers, Starlight for JMS uses `Double.toString/parseString` and `Float.toString/parseString` with the behavior mandated by Java specifications.
 
 [#message-selectors]
 == Message selectors and `noLocal` subscriptions
@@ -148,21 +148,21 @@ Both of those features can be emulated on the client side with the following lim
 * For shared subscriptions, especially on queues, the message is discarded on the client and is "negative acknowledged" in order to let other consumers receive the message.
 * For `QueueBrowsers`, the message is discarded on the client side.
 
-Currently, the implementation of message selectors is based on Apache ActiveMQ® Java client classes, which are imported as a dependency in {starlight_jms}.
+Currently, the implementation of message selectors is based on Apache ActiveMQ® Java client classes, which are imported as a dependency in Starlight for JMS.
 
 NOTE: Apache ActiveMQ is licensed under Apache 2.0.
 
 [#subscription-creation]
 == Subscription creation
 
-For {starlight_jms} to create subscriptions it must be granted permission, and the broker must be configured to automatically create subscriptions by setting the `allowAutoSubscriptionCreation=true` parameter on the broker configuration.
+For Starlight for JMS to create subscriptions it must be granted permission, and the broker must be configured to automatically create subscriptions by setting the `allowAutoSubscriptionCreation=true` parameter on the broker configuration.
 
 For more on subscription creation, including disabling automatic subscription creation, see xref:reference:pulsar-jms-mappings.adoc#subscriptions[JMS subscriptions].
 
 [#system-properties]
 === System properties and fields:
 
-Properties processed by {starlight_jms} in a special way:
+Properties processed by Starlight for JMS in a special way:
 
 * All properties with a name ending in `_jsmtype`: Additional properties that contain the original data type.
 * `JMSType`: Value for the standard field `JMSType`.
@@ -198,7 +198,7 @@ For more details on JMS properties, refer to section "3.5.9. JMS defined propert
 [#transaction-emulation]
 == Transaction Emulation
 
-{starlight_jms} and Pulsar fully support JMS transactions, and also support emulating `SESSION_TRANSACTED` behavior without actually performing the transaction's operations. 
+Starlight for JMS and Pulsar fully support JMS transactions, and also support emulating `SESSION_TRANSACTED` behavior without actually performing the transaction's operations.
 
 For example, when porting a JMS application that is using `SESSION_TRANSACTED`, you can emulate `SESSION_TRANSACTED` behavior with the `jms.emulateTransactions` feature. 
 
@@ -217,15 +217,15 @@ Map<String, Object> properties = new HashMap<>();
 [#unsupported-features]
 == Unsupported and emulated features
 
-The JMS 2.0 specifications describes broadly a generic messaging service and defines many interfaces and services. Apache Pulsar® does not support all of the required features, and {starlight_jms} is a wrapper over the Apache Pulsar Client.
+The JMS 2.0 specifications describes broadly a generic messaging service and defines many interfaces and services. Apache Pulsar® does not support all of the required features, and Starlight for JMS is a wrapper over the Apache Pulsar Client.
 
-Most of the features that are not natively supported by Pulsar are emulated by {starlight_jms}, which helps in porting existing JMS based applications. 
+Most of the features that are not natively supported by Pulsar are emulated by Starlight for JMS, which helps in porting existing JMS based applications.
 
 TIP: If you want to use emulated features, but the emulated behavior does not fit your needs, please open an issue in order to request an improvement for the Pulsar core.
 
 [cols="a,a,a"]
 |===
-| Feature | Supported by Pulsar | Emulated by {starlight_jms}
+| Feature | Supported by Pulsar | Emulated by Starlight for JMS
 
 | Message selectors
 | Unsupported
@@ -257,7 +257,7 @@ TIP: If you want to use emulated features, but the emulated behavior does not fi
 
 | Delayed messages
 | Unsupported for Exclusive subscriptions
-| {starlight_jms} provides an option to use shared subscriptions even in cases where an exclusive subscription would be preferred
+| Starlight for JMS provides an option to use shared subscriptions even in cases where an exclusive subscription would be preferred
 
 | Message Priority
 | Unsupported
@@ -288,21 +288,21 @@ TIP: If you want to use emulated features, but the emulated behavior does not fi
 | The behavior of the delivery counter in Pulsar follows different semantics from JMS
 |===
 
-NOTE: {starlight_jms}, when run using Apache Pulsar 2.7.x passes most of the TCK, except for the few tests requiring globally unique subscription names.
+NOTE: Starlight for JMS, when run using Apache Pulsar 2.7.x passes most of the TCK, except for the few tests requiring globally unique subscription names.
 
 [#temporary-destinations]
 == Temporary destinations
 
 Temporary destinations are created using `Session.createTemporaryQueue` and `Session.createTemporaryTopic` and should create a destination that is automatically deleted then the connection is closed. In Pulsar, since there is no concept of a JMS Connection, that behavior cannot be implemented.
 
-{starlight_jms} emulates the behavior by trying to delete the destination on `Connection.close()` and in `ConnectionFactory.close()` but there is no guarantee that that will eventually happen, if, for instance, the client application crashes or a temporary error occurs during the deletion of the destination.
+Starlight for JMS emulates the behavior by trying to delete the destination on `Connection.close()` and in `ConnectionFactory.close()` but there is no guarantee that that will eventually happen, if, for instance, the client application crashes or a temporary error occurs during the deletion of the destination.
 
 NOTE: Creating a temporary destination requires the client to be allowed to create the destination and also to configure the broker to allow automatic topic creation using `allowAutoTopicCreation=true`.
 
 [#auth-on-creation]
 == Username and password authentication 
 
-{starlight_jms} currently supports only JWT (JSON Web Token) authentication, but offers an alternate method of registering `authParams` when connections are created. +
+Starlight for JMS currently supports only JWT (JSON Web Token) authentication, but offers an alternate method of registering `authParams` when connections are created. +
 
 Setting the configuration property `jms.useCredentialsFromCreateConnection=true` when creating a new connection will pass the `username` and `password` pair from the `createConnection(username, password)` or `createContext(username, password, mode)` methods into `authParams`.
 
@@ -442,9 +442,9 @@ With non-linear partition mapping, the JMS Client will tend to:
 == What's next?
 
 * *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:jms-migration:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
+* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
+* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
 * *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
-* *xref:reference:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
-* *{jms_repo}[{starlight_jms} Github repo,window=_blank]*
+* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
+* *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
+* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*

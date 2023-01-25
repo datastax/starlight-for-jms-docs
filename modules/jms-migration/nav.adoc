@@ -1,4 +1,3 @@
 * xref:pulsar-jms-install.adoc[JMS Migration]
 ** xref:pulsar-jms-install.adoc[]
-** xref:pulsar-jms-quickstart-astra.adoc[]
 ** xref:pulsar-jms-quickstart-sa.adoc[]

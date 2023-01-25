@@ -5,7 +5,7 @@
 
 JMS specifications are built upon the concepts of *Topics* and *Queues*, but Apache Pulsar™ has only a general concept of *Topics* that can model both of those two domains.
 
-In Pulsar there is no concept of a queue: {starlight_jms} *treats Pulsar topics as queues when queue-related JMS API are in use*. There is no strict, cluster wide, verification that you are accessing a JMS Queue using the Topic API or vice versa.
+In Pulsar there is no concept of a queue: Starlight for JMS *treats Pulsar topics as queues when queue-related JMS API are in use*. There is no strict, cluster wide, verification that you are accessing a JMS Queue using the Topic API or vice versa.
 
 In JMS a *Topic* is written by many *Producers* and read by many *Consumers* that share one or many *Subscriptions*. Subscriptions may be *Durable* or *Non-Durable* (meaning the client position not retained on restart), and *Shared* or *Non-Shared* determining whether the same message may be received and processed by more than one consumer.
 
@@ -46,7 +46,7 @@ For `SharedConsumer` and `SharedDurableConsumer`, set `jms.topicSharedSubscripti
 
 In JMS a *Queue* is written by many *Producers* but only one *Consumer* eventually processes each message.
 
-In order to emulate that behavior, the first time you create a consumer over a queue, {starlight_jms} creates a durable subscription named `jms-queue` at the beginning (initial position = Earliest) of the Pulsar topic.
+In order to emulate that behavior, the first time you create a consumer over a queue, Starlight for JMS creates a durable subscription named `jms-queue` at the beginning (initial position = Earliest) of the Pulsar topic.
 
 Every access to the queue passes through the shared subscription and guarantees that only one consumer receives and processes each message.
 
@@ -69,7 +69,7 @@ Every access to the queue passes through the shared subscription and guarantees 
 
 TIP: You can change the name of the shared subscription using the `jms.queueSubscriptionName` configuration parameter, but you must ensure that you change it on every client.
 
-In order to implement `QueueBrowser`, {starlight_jms} uses the Pulsar Reader API, starting from the next message available on the `jms-queue` subscription. In order to peek at the next message {starlight_jms} uses the Pulsar Admin API `peekMessages`. 
+In order to implement `QueueBrowser`, Starlight for JMS uses the Pulsar Reader API, starting from the next message available on the `jms-queue` subscription. In order to peek at the next message Starlight for JMS uses the Pulsar Admin API `peekMessages`.
 
 NOTE: In certain cases, the `peekMessages` API can return the last consumed message of the subscription, so the `QueueBrowser` may return inaccurate results.
 
@@ -225,7 +225,7 @@ public class JMSExample {
 
 This mode maps to `Consumer.acknowledgeAsync()` without waiting for the `CompleteableFuture` returned by the method to complete. 
 
-{starlight_jms} logs an error in case there is something wrong, but the application will continue running and is not aware of the failure. 
+Starlight for JMS logs an error in case there is something wrong, but the application will continue running and is not aware of the failure.
 
 In the example below, we create a consumer on `mytopic` with `Session.DUPS_OK_ACKNOWLEDGE`, send 100 `foo` messages, and acknowledge them without waiting for the `CompleteableFuture` method to complete.
 
@@ -442,9 +442,9 @@ If you're porting a JMS application that is using `SESSION_TRANSACTED` but don't
 ====
 
 [#interoperability]
-== Interoperability between {starlight_jms} and other Pulsar clients
+== Interoperability between Starlight for JMS and other Pulsar clients
 
-{starlight_jms} doesn't deal with schema, and it treats every message as a raw array of bytes, interpreting the content of the message according to the JMS API that is used, and to a special `JMSPulsarMessageType` property.
+Starlight for JMS doesn't deal with schema, and it treats every message as a raw array of bytes, interpreting the content of the message according to the JMS API that is used, and to a special `JMSPulsarMessageType` property.
 
 JMS specs require that, on the consumer side, you receive a message of the *same type* sent by the producer:
 
@@ -454,22 +454,22 @@ JMS specs require that, on the consumer side, you receive a message of the *same
 * `MapMessage`
 * `ObjectMessage`
 
-When the JMS consumer receives a message that has not been produced by {starlight_jms} itself and lacks the `JMSPulsarMessageType` property, it converts the message to a `BytesMessage`.
+When the JMS consumer receives a message that has not been produced by Starlight for JMS itself and lacks the `JMSPulsarMessageType` property, it converts the message to a `BytesMessage`.
 
 === Pulsar message keys and JMSXGroupID
 
 The special `JMSXGroupID` property is defined in the JMS specs as a way to group messages and enable routing to the same destination.
 
-{starlight_jms} maps that property to the message key in Pulsar, ensuring that `JMSXGroupID` is used as the routing key.
+Starlight for JMS maps that property to the message key in Pulsar, ensuring that `JMSXGroupID` is used as the routing key.
 
 NOTE: This is the same behavior implemented in https://activemq.apache.org/message-groups[Apache ActiveMQ,window=_blank].
 
 == What's next?
 
 * *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:jms-migration:pulsar-jms-quickstart-astra.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install {starlight_jms} in your own JMS project.
-* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {starlight_jms}.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {starlight_jms}.
-* *xref:pulsar-jms-reference.adoc[]*: {starlight_jms} configuration reference.
-* *{jms_repo}[{starlight_jms} Github repo,window=_blank]*
+* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
+* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
+* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
+* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
+* *xref:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
+* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*
