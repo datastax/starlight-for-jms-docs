@@ -85,7 +85,7 @@ Other entries are ignored.
 | `brokerServiceUrl`
 | no
 | String
-| If not specified, for Pulsar standalone instances running on localhost, defaults to the same value as `webServiceUrl`, `http://localhost:8080`. Can also be specified as `pulsar://localhost:6650` for Pulsar standalone instances on localhost.
+| If not specified, for Pulsar standalone instances running on localhost, defaults to the same value as `webServiceUrl`, \`http://localhost:8080`. Can also be specified as \`pulsar://localhost:6650` for Pulsar standalone instances on localhost.
 a| The URL to connect to the Pulsar broker or proxy +
 The `brokerServiceUrl` must be specified for Astra Streaming. Must be customized as required for Pulsar standalone instances that are not running on localhost.
 
@@ -219,7 +219,7 @@ a| Additional configuration for each Pulsar Producer
 | `webServiceUrl`
 | yes
 | String
-| `http://localhost:8080` (default)
+| \`http://localhost:8080` (default)
 a| Main Pulsar HTTP endpoint +
 Must be customized as required for Pulsar standalone instances that are not running on localhost.
 
