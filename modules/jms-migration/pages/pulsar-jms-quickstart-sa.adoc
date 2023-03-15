@@ -15,7 +15,7 @@ This quick start will get you up and running with a simple command-line Java JMS
 * https://openjdk.java.net/install/[Java OpenJDK 8 or 11,window=_blank]
 * A local installation of Apache Pulsar™, either the https://pulsar.apache.org/ja/download/[download binary,window=_blank] or a docker instance.
 +
-IMPORTANT: If you choose an existing local Pulsar installation, make sure the Pulsar endpoints are http://localhost:8080 and http://localhost:6650, otherwise you'll need to modify the initialization properties in the example.
+IMPORTANT: If you choose an existing local Pulsar installation, make sure the Pulsar endpoints are \http://localhost:8080 and \http://localhost:6650, otherwise you'll need to modify the initialization properties in the example.
 
 == Install a Pulsar instance using Docker
 
