@@ -1,7 +1,5 @@
 = Starlight for JMS configuration reference
-
 :page-tag: starlight-jms,dev,admin,manage,pulsar,jms
-:page-aliases: docs@starlight-jms::pulsar-jms-reference.adoc
 
 A complete configuration reference for Starlight for JMS.
 
@@ -29,7 +27,7 @@ factory.close();
 
 Configuration information can be passed when a `JMSContext` or `Session` is created with `JMSContext.createContext` or `Session.createSession`.
 
-Create a `PulsarConnectionFactory` with `initialContext` for configuration. 
+Create a `PulsarConnectionFactory` with `initialContext` for configuration.
 
 [source,language-java]
 ----
@@ -68,18 +66,18 @@ Other entries are ignored.
 [width="100%",cols="3,1,1,2,4"]
 
 |===
-| Configuration Entry | Required | Type | Default value | Notes 
+| Configuration Entry | Required | Type | Default value | Notes
 
 | `ackTimeout`
 | no
 | long
 | Disabled
-| Set timeout for unacked messages. Must be >1 second. 
+| Set timeout for unacked messages. Must be >1 second.
 
 | `ackTimeoutMillis`
 | no
 | long
-| 
+|
 | Same as `ackTimeout`, but expressed in milliseconds
 
 | `brokerServiceUrl`

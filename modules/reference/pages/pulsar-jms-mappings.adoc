@@ -1,7 +1,5 @@
 = Mapping Pulsar concepts to JMS specifications
-
 :page-tag: starlight-jms,planner,dev,admin,pulsar,jms
-:page-aliases: docs@starlight-jms::pulsar-jms-mappings.adoc
 
 JMS specifications are built upon the concepts of *Topics* and *Queues*, but Apache Pulsar™ has only a general concept of *Topics* that can model both of those two domains.
 
@@ -137,7 +135,7 @@ Or modify the Pulsar broker's `broker.conf` file:
 allowAutoSubscriptionCreation=false
 ----
 
-If both `allowAutoSubscriptionCreation` and `jms.precreateQueueSubscription` are set to `false`, automatic subscription creation is completely disabled. 
+If both `allowAutoSubscriptionCreation` and `jms.precreateQueueSubscription` are set to `false`, automatic subscription creation is completely disabled.
 
 [#consumer-mappings]
 == Mappings between JMS consumer modes and Pulsar
@@ -153,7 +151,7 @@ There are five consumer mode session objects in JMS. This section describes how 
 [#auto-ack]
 === Session.AUTO_ACKNOWLEDGE
 
-This mode maps to the Pulsar `acknowledgeMessage` API. 
+This mode maps to the Pulsar `acknowledgeMessage` API.
 
 By default, acknowledgements in Pulsar are asynchronous and best effort, enabling duplicates to always be displayed on the Consumer.
 
@@ -195,7 +193,7 @@ public class JMSExample {
                         public void onMessage(Message message) {
                             try {
                                 System.out.println("received " + message.getBody(String.class));
- 
+
                             } catch (Exception err) {
                                 err.printStackTrace();
                             }
@@ -223,7 +221,7 @@ public class JMSExample {
 [#dups-ok]
 === Session.DUPS_OK_ACKNOWLEDGE
 
-This mode maps to `Consumer.acknowledgeAsync()` without waiting for the `CompleteableFuture` returned by the method to complete. 
+This mode maps to `Consumer.acknowledgeAsync()` without waiting for the `CompleteableFuture` returned by the method to complete.
 
 Starlight for JMS logs an error in case there is something wrong, but the application will continue running and is not aware of the failure.
 
@@ -265,7 +263,7 @@ public class JMSExample {
                         public void onMessage(Message message) {
                             try {
                                 System.out.println("received " + message.getBody(String.class));
- 
+
                             } catch (Exception err) {
                                 err.printStackTrace();
                             }

@@ -1,7 +1,5 @@
 = Starlight for JMS implementation details
-
 :page-tag: starlight-jms,dev,pulsar,jms
-:page-aliases: docs@starlight-jms::pulsar-jms-implementation.adoc
 
 A discussion of design and implementation decisions made to support JMS requirements.
 

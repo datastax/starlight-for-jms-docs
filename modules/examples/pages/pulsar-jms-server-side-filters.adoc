@@ -1,5 +1,4 @@
 = Enabling server-side filters
-:page-aliases: docs@starlight-jms::pulsar-jms-server-side-filters.adoc
 
 Starlight for JMS offers *server-side filtering*, which executes JMS filtering features on the Pulsar Broker instead of the Client. +
 Previously, filtering was implemented with `jms.enableClientSideEmulation=true` on the Client side, which meant the Client application received all messages, even if they didn't match the filter. This caused inefficient network, CPU, and memory usage.
@@ -20,7 +19,7 @@ The `.nar` file filter is packaged with Luna Streaming *2.10.03+* and also avail
 +
 [NOTE]
 ====
-The path for the .nar is relative to your Pulsar directory.  
+The path for the .nar is relative to your Pulsar directory.
 ====
 For more, see xref:jms-migration:pulsar-jms-quickstart-sa.adoc[Standalone quick start].
 
@@ -61,7 +60,7 @@ In this case, the server-side filter applies both to JMS queues and JMS topics. 
 
 [NOTE]
 ====
-If you set `jms.selector` on the subscription **and** set a message selector on the JMS client, the conditions on the subscription **and** the JMS client will both be fulfilled. 
+If you set `jms.selector` on the subscription **and** set a message selector on the JMS client, the conditions on the subscription **and** the JMS client will both be fulfilled.
 ====
 
 == Limitations

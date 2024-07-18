@@ -1,5 +1,4 @@
 = Batch index acknowledgement
-:page-aliases: docs@starlight-jms::pulsar-jms-batch-ack.adoc
 
 Starlight for JMS improves acknowledgement of batched messages by supporting the tracking of 'ack' status by *batch index*. +
 
