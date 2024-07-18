@@ -6,19 +6,19 @@ Answers to the (arguably) most common Starlight for JMS questions.
 
 == What is the pricing for Starlight for JMS?
 
-Starlight for JMS is free open-source software. Enterprise support is available through https://www.datastax.com/products/luna-streaming[Luna Streaming,window=_blank], the DataStax commercial support offering for Apache Pulsar™.
+Starlight for JMS is free open-source software. Enterprise support is available through https://www.datastax.com/products/luna-streaming[Luna Streaming], the DataStax commercial support offering for Apache Pulsar™.
 
 == How is Starlight for JMS licensed?
 
-Starlight for JMS is licensed under https://www.apache.org/licenses/LICENSE-2.0.txt[Apache version 2.0,window=_blank].
+Starlight for JMS is licensed under https://www.apache.org/licenses/LICENSE-2.0.txt[Apache version 2.0].
 
 == How can I use Starlight for JMS in a JakartaEE® or JavaEE® application?
 
-You can use the `resourceAdapter` {jms_repo}blob/master/resource-adapter[here,window=_blank].
+You can use the `resourceAdapter` {jms_repo}blob/master/resource-adapter[here].
 
 == How can I run the Test Compatibility Kit (TCK)
 
-You can download the TCK https://jakarta.ee/specifications/messaging/2.0/[here,window=_blank]. The repository contains a copy of the TCK that automates the execution of the tests.
+You can download the TCK https://jakarta.ee/specifications/messaging/2.0/[here]. The repository contains a copy of the TCK that automates the execution of the tests.
 
 In the tck-executor module you'll find:
 
@@ -47,9 +47,9 @@ IMPORTANT: Globally unique subscription names are not supported so the correspon
 
 We've provided the following integration examples:
 
-* {jms_repo}blob/master/examples/spring[Spring Boot®,window=_blank]
-* {jms_repo}blob/master/examples/payara-micro[Payara Micro®,window=_blank]
-* {jms_repo}blob/master/resource-adapter-tests[Apache TomEE®,window=_blank]
+* {jms_repo}blob/master/examples/spring[Spring Boot®]
+* {jms_repo}blob/master/examples/payara-micro[Payara Micro®]
+* {jms_repo}blob/master/resource-adapter-tests[Apache TomEE®]
 
 == How can I build Starlight for JMS from source?
 
@@ -71,8 +71,8 @@ mvn clean install
 
 == Where can I find additional information on JMS?
 
-Refer to the https://jakarta.ee/specifications/messaging/2.0/[official JMS documentation,window=_blank] in order to learn about JMS.
-This https://javaee.github.io/jms-spec/[website,window=_blank] is useful as well as it contains the former JMS 2.0 specifications before the Jakarta transition.
+Refer to the https://jakarta.ee/specifications/messaging/2.0/[official JMS documentation] in order to learn about JMS.
+This https://javaee.github.io/jms-spec/[website] is useful as well as it contains the former JMS 2.0 specifications before the Jakarta transition.
 
 == What's next?
 
@@ -82,4 +82,4 @@ This https://javaee.github.io/jms-spec/[website,window=_blank] is useful as well
 * *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
 * *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
 * *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*
+* *{jms_repo}[Starlight for JMS Github repo]*

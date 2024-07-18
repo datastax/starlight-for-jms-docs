@@ -462,7 +462,7 @@ The special `JMSXGroupID` property is defined in the JMS specs as a way to group
 
 Starlight for JMS maps that property to the message key in Pulsar, ensuring that `JMSXGroupID` is used as the routing key.
 
-NOTE: This is the same behavior implemented in https://activemq.apache.org/message-groups[Apache ActiveMQ,window=_blank].
+NOTE: This is the same behavior implemented in https://activemq.apache.org/message-groups[Apache ActiveMQ].
 
 == What's next?
 
@@ -472,4 +472,4 @@ NOTE: This is the same behavior implemented in https://activemq.apache.org/messa
 * *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
 * *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
 * *xref:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*
+* *{jms_repo}[Starlight for JMS Github repo]*

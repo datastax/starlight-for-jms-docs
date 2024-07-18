@@ -45,4 +45,4 @@ You can also use a "fat" JAR that includes all dependencies:
 * *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
 * *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
 * *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*
+* *{jms_repo}[Starlight for JMS Github repo]*

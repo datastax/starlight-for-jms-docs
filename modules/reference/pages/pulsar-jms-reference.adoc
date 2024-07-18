@@ -225,9 +225,9 @@ Must be customized as required for Pulsar standalone instances that are not runn
 
 |===
 
-All other options are passed as configurations to the Pulsar Client and the Pulsar Admin client, allowing you to configure additional Pulsar features, including https://pulsar.apache.org/docs/en/security-tls-keystore/#configuring-clients[security,window=_blank].
+All other options are passed as configurations to the Pulsar Client and the Pulsar Admin client, allowing you to configure additional Pulsar features, including https://pulsar.apache.org/docs/en/security-tls-keystore/#configuring-clients[security].
 
-TIP: Please check https://pulsar.apache.org/docs/en/standalone/[Apache Pulsar documentation,window=_blank] for a complete list of configuration options.
+TIP: Please check https://pulsar.apache.org/docs/en/standalone/[Apache Pulsar documentation] for a complete list of configuration options.
 
 == Implementation details
 
@@ -241,4 +241,4 @@ Please refer to xref:examples:pulsar-jms-implementation.adoc[Implementation deta
 * *xref:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
 * *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
 * *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
-* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*
+* *{jms_repo}[Starlight for JMS Github repo]*

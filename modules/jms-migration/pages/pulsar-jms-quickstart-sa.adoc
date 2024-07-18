@@ -11,9 +11,9 @@ This quick start will get you up and running with a simple command-line Java JMS
 
 == Prerequisites
 
-* https://maven.apache.org/install.html[Apache Maven,window=_blank]
-* https://openjdk.java.net/install/[Java OpenJDK 8 or 11,window=_blank]
-* A local installation of Apache Pulsar™, either the https://pulsar.apache.org/ja/download/[download binary,window=_blank] or a docker instance.
+* https://maven.apache.org/install.html[Apache Maven]
+* https://openjdk.java.net/install/[Java OpenJDK 8 or 11]
+* A local installation of Apache Pulsar™, either the https://pulsar.apache.org/ja/download/[download binary] or a docker instance.
 +
 IMPORTANT: If you choose an existing local Pulsar installation, make sure the Pulsar endpoints are \http://localhost:8080 and \http://localhost:6650, otherwise you'll need to modify the initialization properties in the example.
 
@@ -21,7 +21,7 @@ IMPORTANT: If you choose an existing local Pulsar installation, make sure the Pu
 
 To install a Docker Pulsar instance:
 
-. Make sure you have https://docs.docker.com/get-docker/[Docker,window=_blank] installed on your platform.
+. Make sure you have https://docs.docker.com/get-docker/[Docker] installed on your platform.
 . Open a terminal and create a Pulsar Docker instance:
 +
 [source,language-bash]
@@ -315,4 +315,4 @@ docker rm 5116f0d16eb3
 * *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
 * *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
 * *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*
+* *{jms_repo}[Starlight for JMS Github repo]*

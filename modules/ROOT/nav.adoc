@@ -1,2 +1,2 @@
-** {jms_repo}[Github repo,window=_blank]
+** {jms_repo}[Github repo]
 ** xref:pulsar-jms-faq.adoc[]

@@ -34,7 +34,7 @@ When you set a `clientId`, the actual subscription name in Pulsar is constructed
 
 *Dead letter policy* controls Pulsar's handling of messages that can't be processed successfully. Under normal processing conditions, these messages cannot be processed successfully and the consumer cannot move to the next message. +
 
-One solution for this situation is the *dead letter topic* policy. The *dead-letter topic* policy routes the unsuccessful messages to the *dead-letter topic* for storage, so consumers can keep consuming while the unsuccessful messages are stored in the dead-letter topic for processing or evaluation. 
+One solution for this situation is the *dead letter topic* policy. The *dead-letter topic* policy routes the unsuccessful messages to the *dead-letter topic* for storage, so consumers can keep consuming while the unsuccessful messages are stored in the dead-letter topic for processing or evaluation.
 
 Starlight for JMS allows further configuration of `deadLetterPolicy`. For more on `deadLetterTopic` configuration properties, see xref:reference:pulsar-jms-reference.adoc[].
 [source,language-java]
@@ -57,7 +57,7 @@ A message being written to the dead-letter topic is triggered in one of two ways
 === Acknowledgement timeout
 
 In an *acknowledgement timeout*, the broker fails to receive an acknowledgement from a consumer in the amount of time specified in `ackTimeout`. +
-The `ackTimeoutRedeliveryBackoff` values control the time between the expiration of `ackTimeout` and the client sending a `redeliver unacknowledged messages` request to the broker. 
+The `ackTimeoutRedeliveryBackoff` values control the time between the expiration of `ackTimeout` and the client sending a `redeliver unacknowledged messages` request to the broker.
 [source,java]
 ----
  Map<String, Object> ackTimeoutRedeliveryBackoff = new HashMap<>();
@@ -84,12 +84,12 @@ Map<String, Object> negativeAckRedeliveryBackoff = new HashMap<>();
 
 A few usage notes on negative acknowledgement in Starlight for JMS:
 
-* Calling `Session.recover()` stops delivery in the session, restarts message delivery with the oldest unacked message, and sends *negative acknowledgements* to the broker for the unacked messages. 
+* Calling `Session.recover()` stops delivery in the session, restarts message delivery with the oldest unacked message, and sends *negative acknowledgements* to the broker for the unacked messages.
 
 * When using xref:reference:pulsar-jms-reference.adoc[client side emulation] with *JMS Queues* and *Shared Subscriptions*, if a message does not match the xref:pulsar-jms-implementation.adoc#message-selectors[Selector], the JMS Client *negatively acknowledges* the message to let another consume pick up the message. +
 
 * When using xref:pulsar-jms-server-side-filters.adoc[server side filtering] and xref:pulsar-jms-implementation.adoc#message-selectors[Selectors], there is still a chance that a *negative acknowledgement* will be sent when one message in a batch does not match the filter. +
-Using *negative acknowledgement* increases the count of deliveries of the message, which can trigger routing to the dead-letter topic if the number exceeds `maxRedeliverCount`. So if you're seeing messages in the dead-letter topic that shouldn't be there, they might be hitting a consumer with a local selector that doesn't match too many times. 
+Using *negative acknowledgement* increases the count of deliveries of the message, which can trigger routing to the dead-letter topic if the number exceeds `maxRedeliverCount`. So if you're seeing messages in the dead-letter topic that shouldn't be there, they might be hitting a consumer with a local selector that doesn't match too many times.
 
 [#delayed-messages]
 == Delayed messages
@@ -98,7 +98,7 @@ In Pulsar, delayed messages are delivered immediately, without respecting the de
 
 If you set `jms.useExclusiveSubscriptionsForSimpleConsumers=false` the client will use a Shared subscription, and the delay is respected.
 
-See https://github.com/apache/pulsar/wiki/PIP-26:-Delayed-Message-Delivery[PIP-26,window=_blank] for details.
+See https://github.com/apache/pulsar/wiki/PIP-26:-Delayed-Message-Delivery[PIP-26] for details.
 
 [#global-registry]
 == Global registry of subscription names and of `clientIds`
@@ -193,14 +193,14 @@ Ignored fields:
 * `JMSXRcvTimestamp`
 * `JMSXState`
 
-For more details on JMS properties, refer to section "3.5.9. JMS defined properties" in the https://docs.oracle.com/cd/E19957-01/816-5904-10/816-5904-10.pdf[JMS 2.0 specifications,window=_blank].
+For more details on JMS properties, refer to section "3.5.9. JMS defined properties" in the https://docs.oracle.com/cd/E19957-01/816-5904-10/816-5904-10.pdf[JMS 2.0 specifications].
 
 [#transaction-emulation]
 == Transaction Emulation
 
 Starlight for JMS and Pulsar fully support JMS transactions, and also support emulating `SESSION_TRANSACTED` behavior without actually performing the transaction's operations.
 
-For example, when porting a JMS application that is using `SESSION_TRANSACTED`, you can emulate `SESSION_TRANSACTED` behavior with the `jms.emulateTransactions` feature. 
+For example, when porting a JMS application that is using `SESSION_TRANSACTED`, you can emulate `SESSION_TRANSACTED` behavior with the `jms.emulateTransactions` feature.
 
 In `jms.emulateTransactions` mode, when a `SESSION_TRANSACTED` mode is created, the Session behaves like a transacted Session but is not transactional: a produced message is sent immediately, and acknowledgements are sent during `session.commit()`.
 
@@ -300,7 +300,7 @@ Starlight for JMS emulates the behavior by trying to delete the destination on `
 NOTE: Creating a temporary destination requires the client to be allowed to create the destination and also to configure the broker to allow automatic topic creation using `allowAutoTopicCreation=true`.
 
 [#auth-on-creation]
-== Username and password authentication 
+== Username and password authentication
 
 Starlight for JMS currently supports only JWT (JSON Web Token) authentication, but offers an alternate method of registering `authParams` when connections are created. +
 
@@ -321,10 +321,10 @@ This will pass the `username` and `password` pair into the `PulsarConnectionFact
 
 A few notes on usage: +
 
-* The values of `username` and `password` depend on the authentication type configured in PulsarClient. Using JWT authentication, the values are: 
+* The values of `username` and `password` depend on the authentication type configured in PulsarClient. Using JWT authentication, the values are:
 ** `username`: not used
 ** `password`: `token:XXXX`, where `XXXX` is the JWT token
-* Once a username/password pair is used to start a connection, you must use it for *all subsequent calls*. 
+* Once a username/password pair is used to start a connection, you must use it for *all subsequent calls*.
 * Only *one* PulsarClient can be held by a PulsarConnectionFactory.
 
 [#schema-registry]
@@ -338,7 +338,7 @@ Set the `useSchema` flag to `true` with `consumerConfig` to apply schema when co
 ----
 Map<String, Object> consumerConfig = new HashMap<>();
 properties.put("consumerConfig", consumerConfig);
-    
+
 Map<String, Object> properties = new HashMap<>();
 properties.put("webServiceUrl", cluster.getAddress());
 consumerConfig.put("useSchema", true);
@@ -371,7 +371,7 @@ For all other schema types, the consumer will return a `StringObject`.
 
 *Virtual destinations* add support for Consumers to receive messages from multiple destinations, known as *multi-topic subscriptions* in Pulsar.
 
-Multiple topics can be subscribed to using *regular expressions* or static *multi-topic lists*. 
+Multiple topics can be subscribed to using *regular expressions* or static *multi-topic lists*.
 
 [cols="1,2,2"]
 |===
@@ -413,7 +413,7 @@ Even if a consumer is not looking for a message's priority mapping metadata, it 
 [#jms-priority-mapping]
 === Mapping JMS priority to partitions
 
-The parameter `jms.priorityMapping` controls how priorities are mapped to partitions. 
+The parameter `jms.priorityMapping` controls how priorities are mapped to partitions.
 
 The `jms.priorityMapping` parameter can be set to `linear` or `non-linear`. The default is `linear`. +
 
@@ -424,8 +424,8 @@ If you have 20 partitions, priority 0 goes to partitions 0 and 1, priority 1 goe
 The benefit of this approach is that you are guaranteed that each priority level is sent to different partitions. +
 The drawback is that if you don't use all the priority levels, then some partitions will be left underutilized.
 
-In `jms.priorityMapping = "non-linear"`, the mapping between JMSPriority and the partition id is not linear. 
-The assumption is that there will be more regular messages than high/low priority messages. 
+In `jms.priorityMapping = "non-linear"`, the mapping between JMSPriority and the partition id is not linear.
+The assumption is that there will be more regular messages than high/low priority messages.
 
 Priorities are divided into 3 classes: low, default, and high priority.
 
@@ -447,4 +447,4 @@ With non-linear partition mapping, the JMS Client will tend to:
 * *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
 * *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
 * *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo,window=_blank]*
+* *{jms_repo}[Starlight for JMS Github repo]*
