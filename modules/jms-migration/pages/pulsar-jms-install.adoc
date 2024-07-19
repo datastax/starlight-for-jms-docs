@@ -14,7 +14,7 @@ To avoid issues, DataStax recommends using: +
 
 Install Starlight for JMS by adding the following dependency to your Java Maven project `pom.xml`. Remember to choose the most recent version.
 
-[source,language-xml]
+[source,xml]
 ----
 <dependency>
    <artifactId>pulsar-jms</artifactId>
@@ -27,7 +27,7 @@ That file contains only Starlight for JMS code and transitively imports the Apac
 
 You can also use a "fat" JAR that includes all dependencies:
 
-[source,language-xml]
+[source,xml]
 ----
 <dependency>
    <artifactId>pulsar-jms-all</artifactId>

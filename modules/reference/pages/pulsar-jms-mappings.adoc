@@ -77,7 +77,7 @@ NOTE: In certain cases, the `peekMessages` API can return the last consumed mess
 By default, the subscription created by a JMS queue is named `jms-queue`, which can be overriden with `jms.queueSubscriptionName` in the `PulsarConnectionFactory` constructor.
 
 You can instead set the subscription name at queue creation:
-[source,language-java]
+[source,java]
 ----
 try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); ){
     Queue queue = session.createQueue("pulsarQueue:subscriptionName");
@@ -87,7 +87,7 @@ try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); 
 In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `public/default/pulsarQueue` Pulsar topic. +
 
 You can override the default `public/default` namespace with `jms.systemNamespace` in the `PulsarConnectionFactory` constructor:
-[source,language-java]
+[source,java]
 ----
 Map<String, Object> configuration = new HashMap<>();
 configuration.put("jms.systemNamespace", "<my-tenant>/<my-namespace>");
@@ -97,7 +97,7 @@ factory.close();
 ----
 
 A fully-qualified namespace works similarly, but the topic destination points to a persistent topic URL:
-[source,language-java]
+[source,java]
 ----
 Queue queue = session.createQueue("persistent://tenant/namespace/pulsarQueue:subscriptionName")
 ----
@@ -109,14 +109,14 @@ In the above example, the subscription will be `subscriptionName`, and the queue
 By default, the `jms.precreateQueueSubscription` configuration flag is set to `true`, and the JMS client will pre-create the `jms-queue` subscription (see xref:pulsar-jms-mappings.adoc#jms-queue[Overriding jms-queue] above). +
 
 To disable automatic subscription creation in the JMS client, set the `jms.precreateQueueSubscription` parameter to `false`, as below:
-[source,language-java]
+[source,java]
 ----
 Map<String, Object> properties = new HashMap<>();
     properties.put("jms.precreateQueueSubscription", "false");
 ----
 
 To disable automatic subscription creation on the Pulsar broker, set the `allowAutoSubscriptionCreation` parameter to `false`, as below:
-[source,language-java]
+[source,java]
 ----
 public static void before() throws Exception {
     cluster =

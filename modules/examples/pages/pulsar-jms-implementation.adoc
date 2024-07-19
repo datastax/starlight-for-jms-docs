@@ -35,7 +35,7 @@ When you set a `clientId`, the actual subscription name in Pulsar is constructed
 One solution for this situation is the *dead letter topic* policy. The *dead-letter topic* policy routes the unsuccessful messages to the *dead-letter topic* for storage, so consumers can keep consuming while the unsuccessful messages are stored in the dead-letter topic for processing or evaluation.
 
 Starlight for JMS allows further configuration of `deadLetterPolicy`. For more on `deadLetterTopic` configuration properties, see xref:reference:pulsar-jms-reference.adoc[].
-[source,language-java]
+[source,java]
 ----
 Map<String, Object> deadLetterPolicy = new HashMap<>();
     consumerConfig.put("deadLetterPolicy", deadLetterPolicy);

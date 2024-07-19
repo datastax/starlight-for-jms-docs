@@ -5,7 +5,7 @@ A complete configuration reference for Starlight for JMS.
 
 Configuration information is passed to the `PulsarConnectionFactory` constructor:
 
-[source,language-java]
+[source,java]
 ----
 Map<String, Object> configuration = new HashMap<>();
 configuration.put("...","...");
@@ -16,7 +16,7 @@ factory.close();
 
 Configuration information can also be passed as a JSON encoded string:
 
-[source,language-java]
+[source,java]
 ----
 String configuration = "{.....}";
 ConnectionFactory factory = new PulsarConnectionFactory();
@@ -29,7 +29,7 @@ Configuration information can be passed when a `JMSContext` or `Session` is crea
 
 Create a `PulsarConnectionFactory` with `initialContext` for configuration.
 
-[source,language-java]
+[source,java]
 ----
 Map<String, Object> configuration = new HashMap<>();
 Map<String, Object> consumerConfig = new HashMap<>();
@@ -40,7 +40,7 @@ PulsarJMSContext initialContext = (PulsarJMSContext) factory.createContext();
 
 The initial configuration in `initialContext` will be overridden by the subsequent `JMSContext` configuration `withCustomConfiguration`.
 
-[source,language-java]
+[source,java]
 ----
 Map<String, Object> perContextConfiguration new HashMap<>();
 Map<String, Object> perContextConsumerConfig = new HashMap<>();
@@ -50,7 +50,7 @@ JMSContext withCustomConfiguration = initialContext.createContext(mode, perConte
 
 Or override the initial configuration in `initialContext` with the `JMSContext` configuration `withCustomConfiguration` in a Session object.
 
-[source,language-java]
+[source,java]
 ----
 Session.createSession(int mode, Map<String, Object> withCustomConfiguration)
 ----

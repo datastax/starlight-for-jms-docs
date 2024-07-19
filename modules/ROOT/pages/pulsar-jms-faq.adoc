@@ -29,14 +29,14 @@ In the tck-executor module you'll find:
 
 To build the package, run unit tests, and run the TCK:
 
-[source,language-bash]
+[source,bash]
 ----
 mvn clean install -Prun-tck
 ----
 
 To run only the TCK:
 
-[source,language-bash]
+[source,bash]
 ----
 mvn clean install -Prun-tck -am -DskipTests -pl tck-executor
 ----
@@ -57,14 +57,14 @@ If you'd like to fork or contribute to Starlight for JMS:
 
 . Clone the git repo:
 +
-[source,language-bash]
+[source,bash]
 ----
 git clone git@github.com:datastax/pulsar-jms.git
 ----
 
 . Build using Maven:
 +
-[source,language-bash]
+[source,bash]
 ----
 mvn clean install
 ----
