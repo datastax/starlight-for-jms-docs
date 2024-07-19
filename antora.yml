@@ -4,10 +4,10 @@ version: '3.2'
 start_page: 'index.adoc'
 
 nav:
-  - modules/ROOT/nav.adoc
-  - modules/examples/nav.adoc
-  - modules/jms-migration/nav.adoc
-  - modules/reference/nav.adoc
+- modules/ROOT/nav.adoc
+- modules/jms-migration/nav.adoc
+- modules/examples/nav.adoc
+- modules/reference/nav.adoc
 
 asciidoc:
   attributes:

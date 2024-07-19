@@ -1,4 +1,5 @@
 = Starlight for JMS FAQs
+:navtitle: FAQs
 :page-tag: starlight-jms,planner,dev,admin,pulsar,jms
 
 Answers to the (arguably) most common Starlight for JMS questions.

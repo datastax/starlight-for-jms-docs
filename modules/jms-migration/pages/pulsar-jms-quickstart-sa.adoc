@@ -1,4 +1,4 @@
-= Starlight for JMS standalone quick start
+= Starlight for JMS standalone quickstart
 :page-tag: starlight-jms,dev,quickstart,pulsar,java,jms
 
 This quick start will get you up and running with a simple command-line Java JMS client that can talk to a local Apache Pulsar™ installation. The client:
