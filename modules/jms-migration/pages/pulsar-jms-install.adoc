@@ -23,7 +23,7 @@ Install Starlight for JMS by adding the following dependency to your Java Maven 
 </dependency>
 ----
 
-That file contains only Starlight for JMS code and transitively imports the Apache Pulsar™ client and the Jakarta JMS 2.0 specifications JAR.
+That file contains only Starlight for JMS code and transitively imports the Apache Pulsar(TM) client and the Jakarta JMS 2.0 specifications JAR.
 
 You can also use a "fat" JAR that includes all dependencies:
 

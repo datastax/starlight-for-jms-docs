@@ -6,13 +6,13 @@ Answers to the (arguably) most common Starlight for JMS questions.
 
 == What is the pricing for Starlight for JMS?
 
-Starlight for JMS is free open-source software. Enterprise support is available through https://www.datastax.com/products/luna-streaming[Luna Streaming], the DataStax commercial support offering for Apache Pulsar™.
+Starlight for JMS is free open-source software. Enterprise support is available through https://www.datastax.com/products/luna-streaming[Luna Streaming], the DataStax commercial support offering for Apache Pulsar(TM).
 
 == How is Starlight for JMS licensed?
 
 Starlight for JMS is licensed under https://www.apache.org/licenses/LICENSE-2.0.txt[Apache version 2.0].
 
-== How can I use Starlight for JMS in a JakartaEE® or JavaEE® application?
+== How can I use Starlight for JMS in a JakartaEE(R) or JavaEE(R) application?
 
 You can use the `resourceAdapter` {jms_repo}blob/master/resource-adapter[here].
 
@@ -47,9 +47,9 @@ IMPORTANT: Globally unique subscription names are not supported so the correspon
 
 We've provided the following integration examples:
 
-* {jms_repo}blob/master/examples/spring[Spring Boot®]
-* {jms_repo}blob/master/examples/payara-micro[Payara Micro®]
-* {jms_repo}blob/master/resource-adapter-tests[Apache TomEE®]
+* {jms_repo}blob/master/examples/spring[Spring Boot(R)]
+* {jms_repo}blob/master/examples/payara-micro[Payara Micro(R)]
+* {jms_repo}blob/master/resource-adapter-tests[Apache TomEE(R)]
 
 == How can I build Starlight for JMS from source?
 

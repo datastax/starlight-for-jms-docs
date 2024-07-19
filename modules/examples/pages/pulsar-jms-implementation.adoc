@@ -124,7 +124,7 @@ There are also specific behaviors mandates regarding these APIs:
 
 Starlight for JMS implements its own concurrent processing model in order to obey the specs, but it cannot use the built-in facilities provider by the Pulsar client.
 
-For `CompletionListeners`, which are useful for asynchronous sending of messages, Starlight for JMS relies on the Apache Pulsar™ asynchronous API, but there are some behaviors that are yet to be enforced with respect to `Session/JMSContext.close()`.
+For `CompletionListeners`, which are useful for asynchronous sending of messages, Starlight for JMS relies on the Apache Pulsar(TM) asynchronous API, but there are some behaviors that are yet to be enforced with respect to `Session/JMSContext.close()`.
 
 [#message-properties]
 == Message properties
@@ -146,7 +146,7 @@ Both of those features can be emulated on the client side with the following lim
 * For shared subscriptions, especially on queues, the message is discarded on the client and is "negative acknowledged" in order to let other consumers receive the message.
 * For `QueueBrowsers`, the message is discarded on the client side.
 
-Currently, the implementation of message selectors is based on Apache ActiveMQ® Java client classes, which are imported as a dependency in Starlight for JMS.
+Currently, the implementation of message selectors is based on Apache ActiveMQ(R) Java client classes, which are imported as a dependency in Starlight for JMS.
 
 NOTE: Apache ActiveMQ is licensed under Apache 2.0.
 
@@ -215,7 +215,7 @@ Map<String, Object> properties = new HashMap<>();
 [#unsupported-features]
 == Unsupported and emulated features
 
-The JMS 2.0 specifications describes broadly a generic messaging service and defines many interfaces and services. Apache Pulsar® does not support all of the required features, and Starlight for JMS is a wrapper over the Apache Pulsar Client.
+The JMS 2.0 specifications describes broadly a generic messaging service and defines many interfaces and services. Apache Pulsar(R) does not support all of the required features, and Starlight for JMS is a wrapper over the Apache Pulsar Client.
 
 Most of the features that are not natively supported by Pulsar are emulated by Starlight for JMS, which helps in porting existing JMS based applications.
 

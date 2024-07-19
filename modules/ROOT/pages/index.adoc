@@ -2,7 +2,7 @@
 :navtitle: Starlight for JMS
 :page-tag: starlight-jms,planner,dev,admin,pulsar,jms
 
-Starlight for JMS is the first highly compliant JMS implementation designed to run on a modern streaming platform. It allows enterprises to take advantage of the scalability and resiliency of a modern streaming platform to run their existing JMS applications. Because Apache Pulsar™ is open-source and cloud-native, Starlight for JMS enables enterprises to move their JMS applications to run on-premises and in any cloud environment.
+Starlight for JMS is the first highly compliant JMS implementation designed to run on a modern streaming platform. It allows enterprises to take advantage of the scalability and resiliency of a modern streaming platform to run their existing JMS applications. Because Apache Pulsar(TM) is open-source and cloud-native, Starlight for JMS enables enterprises to move their JMS applications to run on-premises and in any cloud environment.
 
 == Key Features
 

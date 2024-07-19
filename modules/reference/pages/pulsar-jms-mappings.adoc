@@ -1,7 +1,7 @@
 = Mapping Pulsar concepts to JMS specifications
 :page-tag: starlight-jms,planner,dev,admin,pulsar,jms
 
-JMS specifications are built upon the concepts of *Topics* and *Queues*, but Apache Pulsar™ has only a general concept of *Topics* that can model both of those two domains.
+JMS specifications are built upon the concepts of *Topics* and *Queues*, but Apache Pulsar(TM) has only a general concept of *Topics* that can model both of those two domains.
 
 In Pulsar there is no concept of a queue: Starlight for JMS *treats Pulsar topics as queues when queue-related JMS API are in use*. There is no strict, cluster wide, verification that you are accessing a JMS Queue using the Topic API or vice versa.
 

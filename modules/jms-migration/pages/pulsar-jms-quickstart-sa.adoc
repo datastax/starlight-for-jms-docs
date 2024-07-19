@@ -1,7 +1,7 @@
 = Starlight for JMS standalone quickstart
 :page-tag: starlight-jms,dev,quickstart,pulsar,java,jms
 
-This quick start will get you up and running with a simple command-line Java JMS client that can talk to a local Apache Pulsar™ installation. The client:
+This quick start will get you up and running with a simple command-line Java JMS client that can talk to a local Apache Pulsar(TM) installation. The client:
 
 . Initializes a Starlight for JMS queue.
 . Attaches a message listener to that queue.
@@ -11,7 +11,7 @@ This quick start will get you up and running with a simple command-line Java JMS
 
 * https://maven.apache.org/install.html[Apache Maven]
 * https://openjdk.java.net/install/[Java OpenJDK 8 or 11]
-* A local installation of Apache Pulsar™, either the https://pulsar.apache.org/ja/download/[download binary] or a docker instance.
+* A local installation of Apache Pulsar(TM), either the https://pulsar.apache.org/ja/download/[download binary] or a docker instance.
 +
 IMPORTANT: If you choose an existing local Pulsar installation, make sure the Pulsar endpoints are \http://localhost:8080 and \http://localhost:6650, otherwise you'll need to modify the initialization properties in the example.
 
@@ -60,7 +60,7 @@ We'll use Apache Maven to handle dependency management so you don't have to manu
   <artifactId>pulsar-fast-jms-example</artifactId> <1>
   <packaging>jar</packaging>
   <version>1.0</version>
-  <name>DataStax Fast JMS for Apache Pulsar (R) example</name>
+  <name>DataStax Fast JMS for Apache Pulsar(R) example</name>
   <description>A simple JMS client designed to test the DataStax Fast JMS for Apache Pulsar library.</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
