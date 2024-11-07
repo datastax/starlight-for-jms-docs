@@ -108,6 +108,13 @@ a| Enable transactions +
 a| Force acknowledgment of filtered messages on shared subscriptions +
 By default, filtered messages are negatively acknowledged on shared subscriptions. If this flag is `true`, they are acknowledged in order to skip them definitively.
 
+| `jms.allowTemporaryTopicWithoutAdmin`
+| no
+| boolean
+| false
+a| Allows temporary topic/queue creation and deletion to pass without errors when `jms.usePulsarAdmin` is set to `false` +
+Use the default values of `allowAutoTopicCreation=true` and `allowAutoTopicCreationType=non-partitioned` in `broker.conf` for auto-creation of temporary topics/queues.
+
 | `jms.clientId`
 | no
 | String
