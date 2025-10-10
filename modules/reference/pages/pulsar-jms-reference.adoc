@@ -1,5 +1,4 @@
 = Starlight for JMS configuration reference
-:page-tag: starlight-jms,dev,admin,manage,pulsar,jms
 
 A complete configuration reference for Starlight for JMS.
 

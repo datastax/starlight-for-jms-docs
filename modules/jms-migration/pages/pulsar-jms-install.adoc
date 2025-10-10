@@ -1,5 +1,4 @@
 = Installing Starlight for JMS
-:page-tag: starlight-jms,install,dev,admin,pulsar,jms,java,maven
 
 == Compatibility
 
