@@ -1,12 +1,11 @@
 = Starlight for JMS FAQs
 :navtitle: FAQs
-:page-tag: starlight-jms,planner,dev,admin,pulsar,jms
 
 Answers to the (arguably) most common Starlight for JMS questions.
 
 == What is the pricing for Starlight for JMS?
 
-Starlight for JMS is free open-source software. Enterprise support is available through https://www.datastax.com/products/luna-streaming[Luna Streaming], the DataStax commercial support offering for Apache Pulsar(TM).
+Starlight for JMS is open source and is included in https://www.ibm.com/docs/en/supportforpulsar[IBM Elite Support for Apache Pulsar].
 
 == How is Starlight for JMS licensed?
 
