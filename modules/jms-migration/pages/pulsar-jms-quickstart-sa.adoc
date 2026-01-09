@@ -6,14 +6,16 @@ The {jms_repo}[{product}] extension is a highly compliant JMS implementation des
 
 This guide explains how to prepare an {pulsar-reg} streaming instance, and then use {product} to produce and consume messages with a Java JMS client.
 
-[#prerequisites]
-== Prerequisites
+[#prepare-your-pulsar-cluster]
+== Prepare your {pulsar-short} cluster
 
 [tabs]
 ======
 {astra-streaming}::
 +
 --
+To use {product} with an {astra-streaming} {pulsar-short} cluster, you need the following:
+
 * An active {astra-streaming} {pulsar-short} cluster with a tenant, namespace, and topic that you want to use with {product}.
 If you don't have these structures configured in {astra-streaming}, see the xref:astra-streaming:getting-started:index.adoc[].
 
@@ -21,16 +23,18 @@ If you don't have these structures configured in {astra-streaming}, see the xref
 +
 ** **Name**: The tenant name
 ** **Broker Service URL**: The cluster's broker service URL in the format `pulsar+ssl://**CLUSTER**.streaming.datastax.com:6651`
-** **Web Service URL**: The cluster's web service URL in the format `\https://**CLUSTER**.streaming.datastax.com`
+** **Web Service URL**: The cluster's web service URL in the format `https://**CLUSTER**.streaming.datastax.com`
 ** **Token**: A {pulsar-short} token that provides access to the tenant
 --
 
 {luna-streaming}::
 +
 --
+To use {product} with a {luna-streaming} {pulsar-short} cluster, you need the following:
+
 * A {luna-streaming} {pulsar-short} cluster.
 +
-If you don't have a {luna-streaming} cluster, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[].
+If you don't have a {luna-streaming} cluster, see the xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[{luna-streaming} installation guide].
 
 * Access to the cluster's admin port 8080 and the binary port 6650.
 +
@@ -45,21 +49,21 @@ For more information, see xref:luna-streaming:install-upgrade:quickstart-helm-in
 Self-managed::
 +
 --
-* A {pulsar-short} cluster with access to the {pulsar-short} admin port 8080 and binary port 6650.
-+
+To use {product} with a self-managed {pulsar-short} cluster, you need a {pulsar-short} cluster with access to the {pulsar-short} admin port 8080 and binary port 6650.
+
 This quickstart uses a local {pulsar-short} Docker instance.
 You can also use a local https://pulsar.apache.org/ja/download/[{pulsar} binary] installation or a remote {pulsar-short} cluster.
-+
+
 [IMPORTANT]
 ====
 You must modify the initialization properties in the quickstart code if your cluster's {pulsar-short} endpoints aren't accessible on `\http://localhost:8080` and `\http://localhost:6650`.
 Alternatively, enable port forwarding with `kubectl` to make the endpoints accessible on these URLs.
 ====
-+
+
 To follow along with this quickstart as written, install a {pulsar-short} instance using Docker:
-+
+
 . Install https://docs.docker.com/get-docker/[Docker] on your local machine.
-+
+
 . Open a terminal, and then create a {pulsar-short} Docker instance with ports 8080 and 6650 exposed:
 +
 [source,bash]
@@ -80,9 +84,8 @@ Starting the Docker container produces many status messages and output similar t
 14:59:50.857 [pulsar-web-68-3] INFO  org.eclipse.jetty.server.RequestLog - 127.0.0.1 - - [07/May/2021:14:59:50 +0000] "GET /admin/v2/persistent/public/functions/coordinate/stats?getPreciseBacklog=false&subscriptionBacklogSize=false HTTP/1.1" 200 1677 "-" "Pulsar-Java-v2.7.1" 3
 ----
 ====
-+
-. Leave this terminal running in the background while you complete the rest of this quickstart.
 
+. Leave this terminal running in the background while you complete the rest of this quickstart.
 --
 ======
 
@@ -92,50 +95,22 @@ This example shows how to produce and consume messages with Starlight for JMS us
 You can also use Gradle with some modifications.
 
 For the complete source code for this example, see the https://github.com/datastax/astra-streaming-examples/tree/master/java/starlight-for-jms[{company} streaming examples repository].
-This example was written for {astra-streaming} but it can be adapted for {luna-streaming} or self-managed {pulsar-short} clusters by replacing the connection details with those for your cluster.
+This example was written for {astra-streaming} but it can be used with {luna-streaming} or self-managed {pulsar-short} clusters by setting the connection properties appropriately.
 
 [tabs]
 ======
 {astra-streaming}::
 +
 --
-. Create a new Maven project:
-+
-[source,shell]
-----
-mvn archetype:generate \
-    -DgroupId=org.example \
-    -DartifactId=StarlightForJMSClient \
-    -DarchetypeArtifactId=maven-archetype-quickstart \
-    -DinteractiveMode=false
-----
+include::ROOT:partial$jms-quickstart-create-project.adoc[]
 
-. Change to the new project directory:
-+
-[source,shell]
-----
-cd StarlightForJMSClient
-----
-
-. Open the project in your IDE, and then add the {product} dependency to the `pom.xml`:
-+
-.pom.xml
-[source,xml]
-----
-<dependency>
-  <groupId>com.datastax.oss</groupId>
-  <artifactId>pulsar-jms-all</artifactId>
-  <version>1.0.0</version>
-</dependency>
-----
-
-. Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preeixsting code in this file.
+. In the `example` directory, create an `App.java` file.
 In the next steps, you will add code to this file to create a complete program that produces and consumes messages.
-+
-. Paste the following code in the file, and then replace the placeholders with the <<prerequisites,tenant connection details, namespace, and topic from {astra-streaming}>>.
+
+. Paste the following code in the file, and then replace the placeholders with the <<prepare-your-pulsar-cluster,tenant connection details, namespace, and topic from {astra-streaming}>>.
 Your editor will report errors because this isn't a complete program yet.
 +
-.App.java
+./src/main/java/org/example/App.java
 [source,java,subs="+quotes"]
 ----
 package org.example;
@@ -164,7 +139,7 @@ public class App
 
 . Add the following code to build the configuration for the producer and consumer:
 +
-.App.java
+./src/main/java/org/example/App.java
 [source,java]
 ----
     Map<String, Object> properties = new HashMap<>();
@@ -174,9 +149,9 @@ public class App
     properties.put("authParams",pulsarToken);
 ----
 
-. Add the following code to define a simple 'PulsarConnectionFactory' that creates a JMS queue using the full {pulsar-short} topic address, creates a message listener callback function that watches the queue, and then produces a single message on the queue:
+. Add the following code to define a simple `PulsarConnectionFactory` that creates a JMS queue using the full {pulsar-short} topic address, creates a message listener callback function that watches the queue, and then produces a single message on the queue:
 +
-.App.java
+./src/main/java/org/example/App.java
 [source,java]
 ----
     try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); ){
@@ -206,7 +181,7 @@ public class App
 
 . Save `App.java`, and then build and run the JAR file for the complete program:
 +
-[source,shell]
+[source,bash]
 ----
 mvn clean package assembly:single
 java -jar target/StarlightForJMSClient-1.0-SNAPSHOT-jar-with-dependencies.jar
@@ -228,92 +203,7 @@ If you everything was configured correctly, then the namespace's metrics should 
 {luna-streaming}::
 +
 --
-. Create a new Maven project:
-+
-[source,bash]
-----
-mvn archetype:generate \
-    -DgroupId=org.example \
-    -DartifactId=StarlightForJMSClient \
-    -DarchetypeArtifactId=maven-archetype-quickstart \
-    -DinteractiveMode=false
-----
-
-. Change to the new project directory:
-+
-[source,bash]
-----
-cd StarlightForJMSClient
-----
-
-. Open the project in your IDE, and then add the {product} dependency to the `pom.xml` file.
-+
-This quickstart uses the `pulsar-jms-all` package, which is a fat JAR file that includes all dependencies.
-{company} recommends using the {jms_repo}releases[latest stable release].
-+
-.pom.xml
-[source,xml]
-----
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.datastax.oss</groupId>
-      <artifactId>pulsar-jms-all</artifactId>
-      <version>3.2.0</version>
-    </dependency>
-  </dependencies>
-----
-
-. Set the compiler source and target according to your Java version:
-+
-.pom.xml
-[source,xml]
-----
-  <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-  </properties>
-----
-
-. For this quickstart, include the following plugin configuration in the `build` section:
-+
-* **`<artifactId>maven-assembly-plugin</artifactId>`**: The Maven Assembly Plugin that is used to compile a JAR file with all dependencies included.
-* **`<descriptorRef>jar-with-dependencies</descriptorRef>`**: An additional descriptor appended to the compiled JAR file name.
-* **`<mainClass>org.example.App</mainClass>`**: The default package and class so you can run the compiled JAR file without any additional specifications.
-+
-.pom.xml
-[source,xml]
-----
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <archive>
-            <manifest>
-              <mainClass>org.example.App</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-----
-
-. In your Maven project, create an `example` subdirectory at `/src/main/java/org`:
-+
-[source,bash]
-----
-mkdir -p /src/main/java/org/example
-----
+include::ROOT:partial$jms-quickstart-create-project.adoc[]
 
 . In the `example` directory, create an `App.java` file, and then paste the following code into the file:
 +
@@ -372,11 +262,8 @@ This quickstart uses the default tenant and namespace with a topic named `exampl
 The tenant and namespace must already exist.
 If the specified topic doesn't exist in the namespace, {product} creates the topic automatically.
 * **`Map<String, Object> properties = new HashMap<>();`**: Creates an empty xref:reference:pulsar-jms-reference.adoc[{product} configuration properties] hashmap.
-+
-[IMPORTANT]
-====
 You must override `webServiceUrl` if your {pulsar-short} cluster's admin endpoint isn't accessible on `\http://localhost:8080`.
-====
+For remote clusters, additional properties are required, such as the Broker Service URL and authentication credentials.
 * **`Queue queue = context.createQueue(topic);`**: Creates a {product} queue.
 For more information about queues and topics, see xref:reference:pulsar-jms-mappings.adoc[].
 * **`context.createConsumer(queue).setMessageListener(new MessageListener() {...})`**: Creates a {product} consumer context using the `createConsumer` method.
@@ -445,60 +332,161 @@ Received: Hello world! 9
 Self-managed::
 +
 --
-//already in JMS quickstart topic
+include::ROOT:partial$jms-quickstart-create-project.adoc[]
+
+. In the `example` directory, create an `App.java` file, and then paste the following code into the file:
++
+./src/main/java/org/example/App.java
+[source,java]
+----
+package example;
+
+import com.datastax.oss.pulsar.jms.PulsarConnectionFactory;
+import javax.jms.JMSContext;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.Queue;
+import java.util.HashMap;
+import java.util.Map;
+
+public class App {
+  public static void main(String ... args) throws Exception {
+
+    String topic = "persistent://public/default/example-topic";
+
+    Map<String, Object> properties = new HashMap<>();
+
+    try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); ){
+      JMSContext context = factory.createContext();
+      Queue queue = context.createQueue(topic);
+
+      // Listen for messages...
+      context.createConsumer(queue).setMessageListener(new MessageListener() {
+        @Override
+        public void onMessage(Message message) {
+          try {
+              System.out.println("Received: " + message.getBody(String.class));
+            } catch (Exception err) {
+              err.printStackTrace();
+            }
+          }
+      });
+
+      for (int i = 0; i < 10; i++) {
+        String message = "Hello world! " + i;
+        System.out.println("Sending: "+message);
+        context.createProducer().send(queue, message);
+      }
+
+      Thread.sleep(10000);
+    }
+  }
+}
+----
++
+Note the following elements of the `App.java` program:
++
+* **`persistent://public/default/example-topic`**: The topic URI that the client uses to publish and consume messages.
+This quickstart uses the default tenant and namespace with a topic named `example-topic`.
+The tenant and namespace must already exist.
+If the specified topic doesn't exist in the namespace, {product} creates the topic automatically.
+* **`Map<String, Object> properties = new HashMap<>();`**: Creates an empty xref:reference:pulsar-jms-reference.adoc[{product} configuration properties] hashmap.
+You must override `webServiceUrl` if your {pulsar-short} cluster's admin endpoint isn't accessible on `\http://localhost:8080`.
+For remote clusters, additional properties are required, such as the Broker Service URL and authentication credentials.
+* **`Queue queue = context.createQueue(topic);`**: Creates a {product} queue.
+For more information about queues and topics, see xref:reference:pulsar-jms-mappings.adoc[].
+* **`context.createConsumer(queue).setMessageListener(new MessageListener() {...})`**: Creates a {product} consumer context using the `createConsumer` method.
+Then, `public void onMessage(Message message) {...}` initializes an `onMessage` callback to consume the messages as they arrive.
+For more information about consumers, see xref:reference:pulsar-jms-mappings.adoc[].
+* **`for (int i = 0; i < 10; i++) {...}`**: Sends 10 messages to the queue using the `createProducer` method.
+* **`Thread.sleep(10000);`**: Sleeps for 10 seconds to allow time for all messages to be consumed before closing the connection.
+
+. Compile the sample application:
++
+[source,bash]
+----
+mvn clean install
+----
++
+The first time you compile the JAR file, Maven downloads all required dependencies.
+Subsequent runs are faster.
+
+. Run the sample application:
++
+[source,bash]
+----
+java -jar target/StarlightForJMSClient-1.0-SNAPSHOT-jar-with-dependencies.jar
+----
+
+. Make sure the result shows that messages were sent and received.
++
+It can be easy to miss message `0` in the output because it is the first line of output, and it is followed by many status lines before the rest of the messages.
++
+Additionally, messages are consumed asynchronously, so the messages might not be sent and received sequentially.
++
+[source,bash]
+----
+Sending: Hello world! 0
+
+... TRUNCATED ...
+
+Sending: Hello world! 1
+Sending: Hello world! 2
+Received: Hello world! 0
+Received: Hello world! 1
+Sending: Hello world! 3
+Received: Hello world! 2
+Sending: Hello world! 4
+Received: Hello world! 3
+Sending: Hello world! 5
+Sending: Hello world! 6
+Received: Hello world! 4
+Received: Hello world! 5
+Sending: Hello world! 7
+Received: Hello world! 6
+Sending: Hello world! 8
+Received: Hello world! 7
+Sending: Hello world! 9
+Received: Hello world! 8
+Received: Hello world! 9
+[pulsar-client-io-5-1] INFO org.apache.pulsar.client.impl.ConsumerImpl - [persistent://public/default/example-topic] [jms-queue] Closed consumer
+[pulsar-client-io-5-1] INFO org.apache.pulsar.client.impl.ProducerImpl - [persistent://public/default/example-topic] [standalone-0-0] Closed Producer
+[main] INFO org.apache.pulsar.client.impl.PulsarClientImpl - Client closing. URL: http://localhost:8080
+[pulsar-client-io-5-1] INFO org.apache.pulsar.client.impl.ClientCnx - [id: 0xe43071e3, L:/127.0.0.1:65236 ! R:localhost/127.0.0.1:6650] Disconnected
+----
 
 . Use the {pulsar-short} Admin CLI to inspect your tenant's activity, and verify that messages were published and consumed on the specified topic.
---
-======
 
-
-
-
-
-
-
-
-
-
-
-
-
-//Self-managed only:
-== Terminate the {pulsar-short} Docker instance
-
-Once you're done, you can use `Ctrl-C` to terminate the {pulsar-short} Docker instance running in your terminal.
-
-To delete the {pulsar-short} Docker container:
-
-. Get a list of all Docker containers and note the container ID (`5116f0d16eb3` in the example):
+. If you used a {pulsar-short} Docker instance for this quickstart, stop and remove the Docker container when you are done testing the quickstart program:
++
+.. In the terminal where you started the {pulsar-short} Docker instance, press kbd:[Ctrl]+kbd:[C] to stop the container.
+.. Get a list of all Docker containers, and then note the container ID for the `apachepulsar` container:
 +
 [source,bash]
 ----
 docker ps --all
 ----
 +
-*Results*:
-+
+.Result
+[%collapsible]
+====
+In the following example result, the container ID is `5116f0d16eb3`:
+
 [source,bash]
 ----
 CONTAINER ID   IMAGE                        COMMAND                  CREATED       STATUS                       PORTS                  NAMES
 5116f0d16eb3   apachepulsar/pulsar:latest   "/pulsar/bin/pulsar …"   2 hours ago   Exited (130) 2 minutes ago                          pulsar-jms-runner
 7ed5fc6c9776   cassandra:latest             "docker-entrypoint.s…"   7 days ago    Exited (143) 7 days ago                             my_cass
 ----
+====
+.. Delete the container by its container ID:
 +
-. Delete the container using the container ID:
-+
-[source,bash]
+[source,bash,subs="+quotes"]
 ----
-docker rm 5116f0d16eb3
+docker rm **CONTAINER_ID**
 ----
-+
-*Results*:
-+
-[source,bash]
-----
-5116f0d16eb3
-----
+--
+======
 
 == Next steps
 

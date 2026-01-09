@@ -1,0 +1,80 @@
+. Create a new Maven project:
++
+[source,bash]
+----
+mvn archetype:generate \
+    -DgroupId=org.example \
+    -DartifactId=StarlightForJMSClient \
+    -DarchetypeArtifactId=maven-archetype-quickstart \
+    -DinteractiveMode=false
+----
+
+. Change to the new project directory:
++
+[source,bash]
+----
+cd StarlightForJMSClient
+----
+
+. Open the project in your IDE, and then add the {product} dependency to the `pom.xml` file.
++
+This quickstart uses the `pulsar-jms-all` package, which is a fat JAR file that includes all dependencies.
+{company} recommends using the {jms_repo}releases[latest stable release].
++
+.pom.xml
+[source,xml]
+----
+  <dependencies>
+    <dependency>
+      <groupId>com.datastax.oss</groupId>
+      <artifactId>pulsar-jms-all</artifactId>
+      <version>3.2.0</version>
+    </dependency>
+  </dependencies>
+----
+
+. Set the compiler source and target according to your Java version:
++
+.pom.xml
+[source,xml]
+----
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+----
+
+. For this quickstart, include the following plugin configuration in the `build` section:
++
+* **`<artifactId>maven-assembly-plugin</artifactId>`**: The Maven Assembly Plugin that is used to compile a JAR file with all dependencies included.
+* **`<descriptorRef>jar-with-dependencies</descriptorRef>`**: An additional descriptor appended to the compiled JAR file name.
+* **`<mainClass>org.example.App</mainClass>`**: The default package and class so you can run the compiled JAR file without any additional specifications.
++
+.pom.xml
+[source,xml]
+----
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>org.example.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+----
+
+. In your Maven project, create an `example` subdirectory at `/src/main/java/org`:
++
+[source,bash]
+----
+mkdir -p /src/main/java/org/example
+----
