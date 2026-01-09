@@ -1,7 +1,7 @@
-= Install Starlight for JMS
+= Install {product}
 :navtitle: Installation
 
-Install {jms_repo}[Starlight for JMS] by adding the dependency to your Java project.
+Install {jms_repo}[{product}] by adding the dependency to your Java project.
 For example:
 
 .pom.xml
@@ -14,37 +14,37 @@ For example:
 </dependency>
 ----
 
-There are two Starlight for JMS packages available:
+There are two {product} packages available:
 
-* **`pulsar-jms`**: This package contains only Starlight for JMS code.
-It transitively imports the Pulsar client and the Jakarta JMS 2.0 specifications JAR.
-* **`pulsar-jms-all`**: This is the fat JAR that includes Starlight for JMS and all required dependencies, including the Pulsar client and the Jakarta JMS 2.0 specifications.
+* **`pulsar-jms`**: This package contains only {product} code.
+It transitively imports the {pulsar-short} client and the Jakarta JMS 2.0 specifications JAR.
+* **`pulsar-jms-all`**: This is the fat JAR that includes {product} and all required dependencies, including the {pulsar-short} client and the Jakarta JMS 2.0 specifications.
 
 {company} recommends the latest version whenever possible.
 However, certain features and compatibility issues that require a specific version.
 
 [tabs]
 ======
-Astra Streaming::
+{astra-streaming}::
 +
 --
-The Pulsar version is managed by Astra.
-Typically, the latest Starlight for JMS version is compatible with the Pulsar version used by Astra Streaming.
+The {pulsar-short} version is managed by Astra.
+Typically, the latest {product} version is compatible with the {pulsar-short} version used by {astra-streaming}.
 --
 
-Luna Streaming::
+{luna-streaming}::
 +
 --
-* To use Transactions with Luna Streaming 2.8.x, you must use Starlight for JMS version 1.x.
-* To use Transactions with Luna Streaming 2.10.x or later, you must use Starlight for JMS version 2.x or later.
-* To use server-side filtering with Luna Streaming, you must use Luna Streaming 2.10.1 or later and Starlight for JMS 2.x or later.
+* To use Transactions with {luna-streaming} 2.8.x, you must use {product} version 1.x.
+* To use Transactions with {luna-streaming} 2.10.x or later, you must use {product} version 2.x or later.
+* To use server-side filtering with {luna-streaming}, you must use {luna-streaming} 2.10.0 or later and {product} 2.x or later.
 --
 
 Self-managed::
 +
 --
-* To use Transactions with self-managed Pulsar 2.8.x, you must use Starlight for JMS version 1.x.
-* To use Transactions with self-managed Pulsar 2.9.x, 2.10.x, or later, you must use Starlight for JMS version 2.x or later.
-* To use server-side filtering with self-managed Pulsar, you must use Pulsar 2.10.1 or later and Starlight for JMS 2.x or later.
+* To use Transactions with self-managed {pulsar-short} 2.8.x, you must use {product} version 1.x.
+* To use Transactions with self-managed {pulsar-short} 2.9.x, 2.10.x, or later, you must use {product} version 2.x or later.
+* To use server-side filtering with self-managed {pulsar-short}, you must use {pulsar-short} 2.10.1 or later and {product} 2.x or later.
 --
 ======

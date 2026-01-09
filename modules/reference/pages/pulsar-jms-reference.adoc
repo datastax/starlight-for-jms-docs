@@ -1,7 +1,7 @@
-= Starlight for JMS configuration reference
+= {product} configuration reference
 :navtitle: Configuration reference
 
-A complete configuration reference for Starlight for JMS.
+A complete configuration reference for {product}.
 
 == Set configuration options
 
@@ -84,23 +84,23 @@ Other entries are ignored.
 | `brokerServiceUrl`
 | no
 | String
-| If not specified, for Pulsar standalone instances running on localhost, defaults to the same value as `webServiceUrl`, \`http://localhost:8080`. Can also be specified as \`pulsar://localhost:6650` for Pulsar standalone instances on localhost.
-a| The URL to connect to the Pulsar broker or proxy +
-The `brokerServiceUrl` must be specified for Astra Streaming. Must be customized as required for Pulsar standalone instances that are not running on localhost.
+| If not specified, for {pulsar-short} standalone instances running on localhost, defaults to the same value as `webServiceUrl`, \`http://localhost:8080`. Can also be specified as \`pulsar://localhost:6650` for {pulsar-short} standalone instances on localhost.
+a| The URL to connect to the {pulsar-short} broker or proxy +
+The `brokerServiceUrl` must be specified for {astra-streaming}. Must be customized as required for {pulsar-short} standalone instances that are not running on localhost.
 
 | `consumerConfig`
 | no
 | Map<String,Object>
 | Empty Map
-a| Additional configuration for each Pulsar Consumer. +
-For all valid consumer objects, see the https://pulsar.apache.org/docs/client-libraries-java/#configure-consumer[Apache Pulsar documentation].
+a| Additional configuration for each {pulsar-short} Consumer. +
+For all valid consumer objects, see the https://pulsar.apache.org/docs/client-libraries-java/#configure-consumer[{pulsar} documentation].
 
 | `enableTransaction`
 | no
 | boolean
 | false
 a| Enable transactions +
-`enableTransaction` defaults to false because transaction support is not enabled by default in Pulsar 2.7 and the client cannot connect to a cluster that does not enable transactions.
+`enableTransaction` defaults to false because transaction support is not enabled by default in {pulsar-short} 2.7 and the client cannot connect to a cluster that does not enable transactions.
 
 | `jms.acknowledgeRejectedMessages`
 | no
@@ -135,14 +135,14 @@ See xref:examples:pulsar-jms-implementation.adoc[Transaction Emulation].
 | boolean
 | false
 a| Enable emulated features +
-Enable features that are not supported directly by the Pulsar Broker but are emulated on the client side.
+Enable features that are not supported directly by the {pulsar-short} Broker but are emulated on the client side.
 
 | `jms.forceDeleteTemporaryDestinations`
 | no
 | boolean
 | false
 a| Force the deletion of temporary destinations +
-Use the Pulsar API to force the deletion even if the temporary destination has active subscriptions.
+Use the {pulsar-short} API to force the deletion even if the temporary destination has active subscriptions.
 
 | `jms.precreateQueueSubscription`
 | no
@@ -161,7 +161,7 @@ a| Name of the system subscription used to emulate JMS Queues
 | no
 | String
 | public/default
-a| Default Pulsar namespace in which temporary destinations and destinations without an explicit namespace are created
+a| Default {pulsar-short} namespace in which temporary destinations and destinations without an explicit namespace are created
 
 | `jms.topicSharedSubscriptionType`
 | no
@@ -194,7 +194,7 @@ Set this to `false` to enable Delayed Messages.
 | no
 | boolean
 | true
-a| Allow the client to use the Pulsar Admin API +
+a| Allow the client to use the {pulsar-short} Admin API +
 Set this to `false` if your client cannot access the Admin HTTP API.
 
 | `jms.useServerSideFiltering`
@@ -207,7 +207,7 @@ a| Offloads message filtering to the Broker nodes. See xref:examples:pulsar-jms-
 | no
 | number
 | 60000
-a| Grace period in ms to wait for the Pulsar broker to be available +
+a| Grace period in ms to wait for the {pulsar-short} broker to be available +
 Used to wait for Queue subscriptions to be ready.
 
 | `negativeAckRedeliveryBackoff`
@@ -220,20 +220,20 @@ a| Interface for custom message is `ackTimeout` policy. You can specify `Redeliv
 | no
 | Map<String,Object>
 | Empty Map
-a| Additional configuration for each Pulsar Producer
+a| Additional configuration for each {pulsar-short} Producer
 
 | `webServiceUrl`
 | yes
 | String
 | \`http://localhost:8080` (default)
-a| Main Pulsar HTTP endpoint +
-Must be customized as required for Pulsar standalone instances that are not running on localhost.
+a| Main {pulsar-short} HTTP endpoint +
+Must be customized as required for {pulsar-short} standalone instances that are not running on localhost.
 
 |===
 
-All other options are passed as configurations to the Pulsar Client and the Pulsar Admin client, allowing you to configure additional Pulsar features, including https://pulsar.apache.org/docs/en/security-tls-keystore/#configuring-clients[security].
+All other options are passed as configurations to the {pulsar-short} Client and the {pulsar-short} Admin client, allowing you to configure additional {pulsar-short} features, including https://pulsar.apache.org/docs/en/security-tls-keystore/#configuring-clients[security].
 
-TIP: Please check https://pulsar.apache.org/docs/en/standalone/[Apache Pulsar documentation] for a complete list of configuration options.
+TIP: Please check https://pulsar.apache.org/docs/en/standalone/[{pulsar} documentation] for a complete list of configuration options.
 
 == See also
 

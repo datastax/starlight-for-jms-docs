@@ -1,21 +1,21 @@
-= Getting started with Starlight for JMS
-:navtitle: Starlight for JMS
-:description: Use the Starlight for JMS API to produce and consume messages on {pulsar-short} topics.
+= Get started with {product}
+:navtitle: {product}
+:description: Use the {product} API to produce and consume messages on {pulsar-short} topics.
 
-The {jms_repo}[Starlight for JMS] extension is a highly compliant JMS implementation designed to run on a modern streaming platform.
+The {jms_repo}[{product}] extension is a highly compliant JMS implementation designed to run on a modern streaming platform.
 
-This guide explains how to prepare an {pulsar-reg} streaming instance, and then use Starlight for JMS to produce and consume messages with a Java JMS client.
+This guide explains how to prepare an {pulsar-reg} streaming instance, and then use {product} to produce and consume messages with a Java JMS client.
 
 [#prerequisites]
 == Prerequisites
 
 [tabs]
 ======
-Astra Streaming::
+{astra-streaming}::
 +
 --
-* An active Astra Streaming {pulsar-short} cluster with a tenant, namespace, and topic that you want to use with Starlight for JMS.
-If you don't have these structures configured in Astra Streaming, see the xref:astra-streaming:getting-started:index.adoc[].
+* An active {astra-streaming} {pulsar-short} cluster with a tenant, namespace, and topic that you want to use with {product}.
+If you don't have these structures configured in {astra-streaming}, see the xref:astra-streaming:getting-started:index.adoc[].
 
 * The connection details for your tenant, which are found on the tenant's **Connect** tab under **Tenant Details**:
 +
@@ -25,15 +25,15 @@ If you don't have these structures configured in Astra Streaming, see the xref:a
 ** **Token**: A {pulsar-short} token that provides access to the tenant
 --
 
-Luna Streaming::
+{luna-streaming}::
 +
 --
-* An active Luna Streaming {pulsar-short} cluster.
-If you don't have a Luna Streaming cluster, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[].
+* An active {luna-streaming} {pulsar-short} cluster.
+If you don't have a {luna-streaming} cluster, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[].
 
 * Access to the cluster's admin port 8080 and the binary port 6650.
 If necessary, enable port forwarding with `kubectl`.
-For more information, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc#install-luna-streaming-locally[Install Luna Streaming locally].
+For more information, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc#install-luna-streaming-locally[Install {luna-streaming} locally].
 --
 
 Self-managed::
@@ -47,14 +47,14 @@ Self-managed::
 --
 ======
 
-== Produce and consume a message with Starlight for JMS
+== Produce and consume a message with {product}
 
 For complete source code examples and examples for other languages, see the https://github.com/datastax/astra-streaming-examples[{company} streaming examples repository].
-These examples are written for Astra Streaming but they can be adapted for Luna Streaming or self-managed {pulsar-short} clusters by replacing the connection details with those for your cluster.
+These examples are written for {astra-streaming} but they can be adapted for {luna-streaming} or self-managed {pulsar-short} clusters by replacing the connection details with those for your cluster.
 
 [tabs]
 ======
-Astra Streaming::
+{astra-streaming}::
 +
 --
 This example shows how to produce and consume messages with Starlight JMS using Java and Maven.
@@ -78,7 +78,7 @@ mvn archetype:generate \
 cd StarlightForJMSClient
 ----
 
-. Open the project in your IDE, and then add the Starlight for JMS dependency to the `pom.xml`:
+. Open the project in your IDE, and then add the {product} dependency to the `pom.xml`:
 +
 .pom.xml
 [source,xml]
@@ -93,7 +93,7 @@ cd StarlightForJMSClient
 . Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preeixsting code in this file.
 In the next steps, you will add code to this file to create a complete program that produces and consumes messages.
 +
-. Paste the following code in the file, and then replace the placeholders with the <<prerequisites,tenant connection details, namespace, and topic from Astra Streaming>>.
+. Paste the following code in the file, and then replace the placeholders with the <<prerequisites,tenant connection details, namespace, and topic from {astra-streaming}>>.
 Your editor will report errors because this isn't a complete program yet.
 +
 .App.java
@@ -181,17 +181,17 @@ Sending: Hello there!
 Received: Hello there!
 ----
 
-. In Astra Streaming, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the namespace that you used in the Java program.
+. In {astra-streaming}, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the namespace that you used in the Java program.
 +
-If you everything was configured correctly, then the namespace's metrics should reflect that at least one message was published and consumed by your Astra Streaming {pulsar-short} topic.
+If you everything was configured correctly, then the namespace's metrics should reflect that at least one message was published and consumed by your {astra-streaming} {pulsar-short} topic.
 --
 
-Luna Streaming::
+{luna-streaming}::
 +
 --
 //JMS quickstart topic with slight modifications?
 
-. Use the {pulsar-short} Admin CLI or the Luna Streaming {pulsar-short} Admin Console to inspect your tenant's activity, and verify that messages were published and consumed on the specified topic.
+. Use the {pulsar-short} Admin CLI or the {luna-streaming} {pulsar-short} Admin Console to inspect your tenant's activity, and verify that messages were published and consumed on the specified topic.
 --
 
 Self-managed::

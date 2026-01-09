@@ -5,10 +5,13 @@ start_page: 'index.adoc'
 
 nav:
 - modules/ROOT/nav.adoc
-- modules/jms-migration/nav.adoc
-- modules/examples/nav.adoc
-- modules/reference/nav.adoc
 
 asciidoc:
   attributes:
     jms_repo: 'https://github.com/datastax/pulsar-jms/'
+    pulsar-reg: 'Apache Pulsar(TM)'
+    pulsar: 'Apache Pulsar'
+    pulsar-short: 'Pulsar'
+    product: 'Starlight for JMS'
+    luna-streaming: 'Luna Streaming'
+    astra-streaming: 'Astra Streaming'

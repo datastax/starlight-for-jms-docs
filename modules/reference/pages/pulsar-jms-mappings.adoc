@@ -1,8 +1,8 @@
-= Map Pulsar concepts to JMS specifications
+= Map {pulsar-short} concepts to JMS specifications
 
-JMS specifications are built upon the concepts of *Topics* and *Queues*, but Apache Pulsar(TM) has only a general concept of *Topics* that can model both of those two domains.
+JMS specifications are built upon the concepts of *Topics* and *Queues*, but {pulsar-reg} has only a general concept of *Topics* that can model both of those two domains.
 
-In Pulsar there is no concept of a queue: Starlight for JMS *treats Pulsar topics as queues when queue-related JMS API are in use*. There is no strict, cluster wide, verification that you are accessing a JMS Queue using the Topic API or vice versa.
+In {pulsar-short} there is no concept of a queue: {product} *treats {pulsar-short} topics as queues when queue-related JMS API are in use*. There is no strict, cluster wide, verification that you are accessing a JMS Queue using the Topic API or vice versa.
 
 In JMS a *Topic* is written by many *Producers* and read by many *Consumers* that share one or many *Subscriptions*. Subscriptions may be *Durable* or *Non-Durable* (meaning the client position not retained on restart), and *Shared* or *Non-Shared* determining whether the same message may be received and processed by more than one consumer.
 
@@ -11,7 +11,7 @@ In JMS a *Topic* is written by many *Producers* and read by many *Consumers* tha
 
 [cols="a,a"]
 |===
-| JMS Concept | Pulsar Concept
+| JMS Concept | {pulsar-short} Concept
 
 | Topic
 | Persistent topic
@@ -32,13 +32,13 @@ In JMS a *Topic* is written by many *Producers* and read by many *Consumers* tha
 | Exclusive durable subscription with the given name + `clientId`
 |===
 
-TIP: As of Pulsar version 2.7.x, delayed messages don't work with exclusive subscriptions. You can, however, force the usage of shared non-durable subscriptions for simple consumers by setting `jms.useExclusiveSubscriptionsForSimpleConsumers=false`.
+TIP: As of {pulsar-short} version 2.7.x, delayed messages don't work with exclusive subscriptions. You can, however, force the usage of shared non-durable subscriptions for simple consumers by setting `jms.useExclusiveSubscriptionsForSimpleConsumers=false`.
 
 For `SharedConsumer` and `SharedDurableConsumer`, set `jms.topicSharedSubscriptionType` to `Key_Shared` to use the `Key_Shared` subscription type.
 
 In JMS a *Queue* is written by many *Producers* but only one *Consumer* eventually processes each message.
 
-In order to emulate that behavior, the first time you create a consumer over a queue, Starlight for JMS creates a durable subscription named `jms-queue` at the beginning (initial position = Earliest) of the Pulsar topic.
+In order to emulate that behavior, the first time you create a consumer over a queue, {product} creates a durable subscription named `jms-queue` at the beginning (initial position = Earliest) of the {pulsar-short} topic.
 
 Every access to the queue passes through the shared subscription and guarantees that only one consumer receives and processes each message.
 
@@ -47,7 +47,7 @@ Every access to the queue passes through the shared subscription and guarantees 
 
 [cols="a,a"]
 |===
-| JMS Concept | Pulsar Concept
+| JMS Concept | {pulsar-short} Concept
 
 | Queue
 | Persistent topic
@@ -56,12 +56,12 @@ Every access to the queue passes through the shared subscription and guarantees 
 | Shared durable subscription with name `jms-queue`
 
 | QueueBrowser
-| Pulsar Reader for the topic, beginning from the next message on `jms-queue` subscription
+| {pulsar-short} Reader for the topic, beginning from the next message on `jms-queue` subscription
 |===
 
 TIP: You can change the name of the shared subscription using the `jms.queueSubscriptionName` configuration parameter, but you must ensure that you change it on every client.
 
-In order to implement `QueueBrowser`, Starlight for JMS uses the Pulsar Reader API, starting from the next message available on the `jms-queue` subscription. In order to peek at the next message Starlight for JMS uses the Pulsar Admin API `peekMessages`.
+In order to implement `QueueBrowser`, {product} uses the {pulsar-short} Reader API, starting from the next message available on the `jms-queue` subscription. In order to peek at the next message {product} uses the {pulsar-short} Admin API `peekMessages`.
 
 NOTE: In certain cases, the `peekMessages` API can return the last consumed message of the subscription, so the `QueueBrowser` may return inaccurate results.
 
@@ -78,7 +78,7 @@ try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); 
 }
 ----
 
-In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `public/default/pulsarQueue` Pulsar topic. +
+In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `public/default/pulsarQueue` {pulsar-short} topic. +
 
 You can override the default `public/default` namespace with `jms.systemNamespace` in the `PulsarConnectionFactory` constructor:
 [source,java]
@@ -96,7 +96,7 @@ A fully-qualified namespace works similarly, but the topic destination points to
 Queue queue = session.createQueue("persistent://tenant/namespace/pulsarQueue:subscriptionName")
 ----
 
-In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `persistent://tenant/namespace/pulsarQueue` Pulsar topic. +
+In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `persistent://tenant/namespace/pulsarQueue` {pulsar-short} topic. +
 
 === Disable automatic subscription creation
 
@@ -109,7 +109,7 @@ Map<String, Object> properties = new HashMap<>();
     properties.put("jms.precreateQueueSubscription", "false");
 ----
 
-To disable automatic subscription creation on the Pulsar broker, set the `allowAutoSubscriptionCreation` parameter to `false`, as below:
+To disable automatic subscription creation on the {pulsar-short} broker, set the `allowAutoSubscriptionCreation` parameter to `false`, as below:
 [source,java]
 ----
 public static void before() throws Exception {
@@ -123,7 +123,7 @@ public static void before() throws Exception {
 }
 ----
 
-Or modify the Pulsar broker's `broker.conf` file:
+Or modify the {pulsar-short} broker's `broker.conf` file:
 [source,bash]
 ----
 allowAutoSubscriptionCreation=false
@@ -132,16 +132,16 @@ allowAutoSubscriptionCreation=false
 If both `allowAutoSubscriptionCreation` and `jms.precreateQueueSubscription` are set to `false`, automatic subscription creation is completely disabled.
 
 [#consumer-mappings]
-== Mapping of JMS consumer modes to Pulsar concepts
+== Mapping of JMS consumer modes to {pulsar-short} concepts
 
-There are five consumer mode session objects in JMS. This section describes how they map to Pulsar concepts.
+There are five consumer mode session objects in JMS. This section describes how they map to {pulsar-short} concepts.
 
 [#auto-ack]
 === Session.AUTO_ACKNOWLEDGE
 
-This mode maps to the Pulsar `acknowledgeMessage` API.
+This mode maps to the {pulsar-short} `acknowledgeMessage` API.
 
-By default, acknowledgements in Pulsar are asynchronous and best effort, enabling duplicates to always be displayed on the Consumer.
+By default, acknowledgements in {pulsar-short} are asynchronous and best effort, enabling duplicates to always be displayed on the Consumer.
 
 In the example below, we create a consumer on `mytopic` with `Session.AUTO_ACKNOWLEDGE`, send 100 `foo` messages, and auto-acknowledge them.
 
@@ -211,7 +211,7 @@ public class JMSExample {
 
 This mode maps to `Consumer.acknowledgeAsync()` without waiting for the `CompleteableFuture` returned by the method to complete.
 
-Starlight for JMS logs an error in case there is something wrong, but the application will continue running and is not aware of the failure.
+{product} logs an error in case there is something wrong, but the application will continue running and is not aware of the failure.
 
 In the example below, we create a consumer on `mytopic` with `Session.DUPS_OK_ACKNOWLEDGE`, send 100 `foo` messages, and acknowledge them without waiting for the `CompleteableFuture` method to complete.
 
@@ -429,9 +429,9 @@ If you're porting a JMS application that is using `SESSION_TRANSACTED` but don't
 ====
 
 [#interoperability]
-== Interoperability between Starlight for JMS and other Pulsar clients
+== Interoperability between {product} and other {pulsar-short} clients
 
-Starlight for JMS doesn't deal with schema, and it treats every message as a raw array of bytes, interpreting the content of the message according to the JMS API that is used, and to a special `JMSPulsarMessageType` property.
+{product} doesn't deal with schema, and it treats every message as a raw array of bytes, interpreting the content of the message according to the JMS API that is used, and to a special `JMSPulsarMessageType` property.
 
 JMS specs require that, on the consumer side, you receive a message of the *same type* sent by the producer:
 
@@ -441,13 +441,13 @@ JMS specs require that, on the consumer side, you receive a message of the *same
 * `MapMessage`
 * `ObjectMessage`
 
-When the JMS consumer receives a message that has not been produced by Starlight for JMS itself and lacks the `JMSPulsarMessageType` property, it converts the message to a `BytesMessage`.
+When the JMS consumer receives a message that has not been produced by {product} itself and lacks the `JMSPulsarMessageType` property, it converts the message to a `BytesMessage`.
 
-=== Pulsar message keys and JMSXGroupID
+=== {pulsar-short} message keys and JMSXGroupID
 
 The special `JMSXGroupID` property is defined in the JMS specs as a way to group messages and enable routing to the same destination.
 
-Starlight for JMS maps that property to the message key in Pulsar, ensuring that `JMSXGroupID` is used as the routing key.
+{product} maps that property to the message key in {pulsar-short}, ensuring that `JMSXGroupID` is used as the routing key.
 
 NOTE: This is the same behavior implemented in https://activemq.apache.org/message-groups[Apache ActiveMQ].
 
