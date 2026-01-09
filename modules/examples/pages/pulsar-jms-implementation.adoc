@@ -1,6 +1,7 @@
-= {product} implementation details
+= {product} implementation of JMS features unsupported by {pulsar}
+:navtitle: Emulation of JMS features
 
-This page explains how {product} emulates some features that aren't directly supported by {pulsar-short}.
+This page explains how {product} emulates some features that aren't directly supported by {pulsar-reg}.
 
 [#client-id]
 == Client identifiers

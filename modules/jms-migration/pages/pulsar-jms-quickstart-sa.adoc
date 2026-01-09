@@ -1,6 +1,8 @@
 = {product} quickstart
 :navtitle: Quickstart
 
+
+
 //Luna/self-managed only:
 This quick start will get you up and running with a simple command-line Java JMS client that can talk to a local {pulsar-reg} installation. The client:
 
@@ -64,8 +66,8 @@ We'll use Apache Maven to handle dependency management so you don't have to manu
   <artifactId>pulsar-fast-jms-example</artifactId> <1>
   <packaging>jar</packaging>
   <version>1.0</version>
-  <name>DataStax Fast JMS for {pulsar-reg} example</name>
-  <description>A simple JMS client designed to test the DataStax Fast JMS for {pulsar} library.</description>
+  <name>{company} Fast JMS for {pulsar-reg} example</name>
+  <description>A simple JMS client designed to test the {company} Fast JMS for {pulsar} library.</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -315,9 +317,7 @@ docker rm 5116f0d16eb3
 
 == Next steps
 
-* *xref:pulsar-jms-install.adoc[]*: Install {product} in your own JMS project.
-* *xref:reference:pulsar-jms-mappings.adoc[]*: Understand {pulsar-short} concepts in the context of JMS.
-* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for {product}.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about {product}.
-* *xref:reference:pulsar-jms-reference.adoc[]*: {product} configuration reference.
-* *{jms_repo}[{product} Github repo]*
+* xref:starlight-for-jms:examples:pulsar-jms-implementation.adoc[]
+* xref:starlight-for-jms:reference:pulsar-jms-mappings.adoc[]
+* xref:starlight-for-jms:reference:pulsar-jms-reference.adoc[]
+* xref:ROOT:pulsar-jms-faq.adoc[]

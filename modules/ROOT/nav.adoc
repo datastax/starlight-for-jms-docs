@@ -1,15 +1,12 @@
-* {jms_repo}[Github repo]
+.Get started
+* {jms_repo}[Github repository]
+* xref:jms-migration:pulsar-jms-install.adoc[]
+* xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]
 * xref:ROOT:pulsar-jms-faq.adoc[]
 
-.JMS migration
-* xref:pulsar-jms-install.adoc[]
-* xref:pulsar-jms-quickstart-sa.adoc[]
-
-.Examples
-* xref:pulsar-jms-batch-ack.adoc[]
-* xref:pulsar-jms-implementation.adoc[]
-* xref:pulsar-jms-server-side-filters.adoc[]
-
-.Reference
-* xref:pulsar-jms-mappings.adoc[]
-* xref:pulsar-jms-reference.adoc[]
+.Configure
+* xref:reference:pulsar-jms-mappings.adoc[]
+* xref:examples:pulsar-jms-implementation.adoc[]
+* xref:examples:pulsar-jms-batch-ack.adoc[]
+* xref:examples:pulsar-jms-server-side-filters.adoc[]
+* xref:reference:pulsar-jms-reference.adoc[]

@@ -1,6 +1,11 @@
 = Install {product}
 :navtitle: Installation
 
+[TIP]
+====
+For a guided tutorial on installing and using {product}, see the xref:jms-migration:pulsar-jms-quickstart-sa.adoc[quickstart].
+====
+
 Install {jms_repo}[{product}] by adding the dependency to your Java project.
 For example:
 

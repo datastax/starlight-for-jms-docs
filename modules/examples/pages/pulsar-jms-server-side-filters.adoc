@@ -1,6 +1,7 @@
-= Use server-side filters
+= Use server-side filters with {product}
+:navtitle: Use server-side filters
 
-{product} offers *server-side filtering*, which executes JMS filtering features on the {pulsar-short} Broker instead of the Client.
+{product} offers server-side filtering, which executes JMS filtering features on the {pulsar-short} Broker instead of the Client.
 
 Previously, filtering was implemented with `jms.enableClientSideEmulation=true` on the Client side, which meant the Client application received all messages, even if they didn't match the filter. This caused inefficient network, CPU, and memory usage.
 
@@ -80,7 +81,7 @@ For more, see xref:pulsar-jms-batch-ack.adoc[Batch index acknowledgement].
 
 * *Increased Broker resources usage* - The {pulsar-short} Broker does not perform processing on messages by default. When server-side filtering is enabled, the Broker will require additional CPU and heap memory to process filters.
 +
-DataStax recommends disabling compression and batching for messages that will be filtered on the Broker.
+{company} recommends disabling compression and batching for messages that will be filtered on the Broker.
 Batch messages with compression will consume a non-negligible amount of CPU, heap, and direct memory, because filtering requires decompressing the batch to access Message Properties. This *does not* apply to compressed single messages.
 
 * *Unsupported message types* - {product} does not support encrypted batch messages because the filter can't decode the payload of the entry.

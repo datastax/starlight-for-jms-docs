@@ -2,10 +2,13 @@
 :navtitle: {product}
 :description: Use the {product} API to produce and consume messages on {pulsar-short} topics.
 
+////
 The {jms_repo}[{product}] extension is a highly compliant JMS implementation designed to run on a modern streaming platform.
 
 This guide explains how to prepare an {pulsar-reg} streaming instance, and then use {product} to produce and consume messages with a Java JMS client.
+////
 
+////
 [#prerequisites]
 == Prerequisites
 
@@ -46,7 +49,9 @@ Self-managed::
 // And prereqs in xref:starlight-for-jms:jms-migration:pulsar-jms-quickstart-sa.adoc[]
 --
 ======
+////
 
+////
 == Produce and consume a message with {product}
 
 For complete source code examples and examples for other languages, see the https://github.com/datastax/astra-streaming-examples[{company} streaming examples repository].
@@ -202,9 +207,4 @@ Self-managed::
 . Use the {pulsar-short} Admin CLI to inspect your tenant's activity, and verify that messages were published and consumed on the specified topic.
 --
 ======
-
-== Next steps
-
-* xref:starlight-for-jms:examples:pulsar-jms-implementation.adoc[]
-* xref:starlight-for-jms:reference:pulsar-jms-mappings.adoc[]
-* xref:starlight-for-jms:reference:pulsar-jms-reference.adoc[]
+////
