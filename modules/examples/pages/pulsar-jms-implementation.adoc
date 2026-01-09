@@ -1,23 +1,6 @@
 = Starlight for JMS implementation details
 
-A discussion of design and implementation decisions made to support JMS requirements.
-
-* xref:pulsar-jms-implementation.adoc#client-id[Client identifiers]
-* xref:pulsar-jms-implementation.adoc#dead-letter-policy[Dead letter topic configuration]
-* xref:pulsar-jms-implementation.adoc#delayed-messages[Delayed messages]
-* xref:pulsar-jms-implementation.adoc#global-registry[Global registry of subscription names and of `clientIds`]
-* xref:pulsar-jms-implementation.adoc#message-listeners[Message listeners and concurrency]
-* xref:pulsar-jms-implementation.adoc#message-properties[Message properties]
-* xref:pulsar-jms-implementation.adoc#message-selectors[Message selectors and `noLocal` subscriptions]
-* xref:pulsar-jms-implementation.adoc#schema-registry[]
-* xref:pulsar-jms-implementation.adoc#subscription-creation[Subscription creation]
-* xref:pulsar-jms-implementation.adoc#system-properties[System properties and fields]
-* xref:pulsar-jms-implementation.adoc#temporary-destinations[]
-* xref:pulsar-jms-implementation.adoc#transaction-emulation[]
-* xref:pulsar-jms-implementation.adoc#unsupported-features[Unsupported and emulated features]
-* xref:pulsar-jms-implementation.adoc#auth-on-creation[Username and password authentication]
-* xref:pulsar-jms-implementation.adoc#jms-priority[]
-* xref:pulsar-jms-implementation.adoc#virtual-destinations[]
+This page explains how Starlight for JMS emulates some features that aren't directly supported by Pulsar.
 
 [#client-id]
 == Client identifiers
@@ -325,7 +308,7 @@ A few notes on usage: +
 * Only *one* PulsarClient can be held by a PulsarConnectionFactory.
 
 [#schema-registry]
-== Using the Pulsar Schema Registry
+== Use the Pulsar Schema Registry
 
 The JMS API does not have a standard way to consume schema-driven data like https://avro.apache.org/docs/current/spec.html[AVRO], but the Pulsar client can automatically apply schema and decode messages to a specific Java Object model. +
 
@@ -408,7 +391,7 @@ Both producers and consumers advertise their priority routing behavior in metada
 Even if a consumer is not looking for a message's priority mapping metadata, it will still consume the message.
 
 [#jms-priority-mapping]
-=== Mapping JMS priority to partitions
+=== Map JMS priority to partitions
 
 The parameter `jms.priorityMapping` controls how priorities are mapped to partitions.
 
@@ -436,12 +419,7 @@ With non-linear partition mapping, the JMS Client will tend to:
 * map higher level priorities to higher partition ids.
 * map lower level priorities to lower partition ids.
 
-== What's next?
+== See also
 
-* *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
-* *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
-* *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo]*
+* xref:reference:pulsar-jms-mappings.adoc[]
+* xref:reference:pulsar-jms-reference.adoc[]

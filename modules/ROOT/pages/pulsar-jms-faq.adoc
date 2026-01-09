@@ -1,7 +1,7 @@
 = Starlight for JMS FAQs
 :navtitle: FAQs
 
-Answers to the (arguably) most common Starlight for JMS questions.
+Answers to common Starlight for JMS questions.
 
 == What is the pricing for Starlight for JMS?
 
@@ -72,13 +72,3 @@ mvn clean install
 
 Refer to the https://jakarta.ee/specifications/messaging/2.0/[official JMS documentation] in order to learn about JMS.
 This https://javaee.github.io/jms-spec/[website] is useful as well as it contains the former JMS 2.0 specifications before the Jakarta transition.
-
-== What's next?
-
-* *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
-* *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
-* *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo]*

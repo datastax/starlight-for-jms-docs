@@ -1,5 +1,7 @@
-= Starlight for JMS standalone quickstart
+= Starlight for JMS quickstart
+:navtitle: Quickstart
 
+//Luna/self-managed only:
 This quick start will get you up and running with a simple command-line Java JMS client that can talk to a local Apache Pulsar(TM) installation. The client:
 
 . Initializes a Starlight for JMS queue.
@@ -10,10 +12,12 @@ This quick start will get you up and running with a simple command-line Java JMS
 
 * https://maven.apache.org/install.html[Apache Maven]
 * https://openjdk.java.net/install/[Java OpenJDK 8 or 11]
+//self-managed only:
 * A local installation of Apache Pulsar(TM), either the https://pulsar.apache.org/ja/download/[download binary] or a docker instance.
 +
 IMPORTANT: If you choose an existing local Pulsar installation, make sure the Pulsar endpoints are \http://localhost:8080 and \http://localhost:6650, otherwise you'll need to modify the initialization properties in the example.
 
+//Self-managed only
 == Install a Pulsar instance using Docker
 
 To install a Docker Pulsar instance:
@@ -43,6 +47,7 @@ You've now got a Pulsar instance up and running.
 
 NOTE: Leave the terminal running in the background.
 
+//Self managed and Luna:
 == Create your Maven configuration file
 
 We'll use Apache Maven to handle dependency management so you don't have to manually download and install required libraries.
@@ -120,6 +125,7 @@ Note the following elements:
 . An additional descriptor appended to the JAR file name.
 . The default package and class, `example.StandaloneTest`, so you can just run the JAR file without any additional specifications.
 
+//Self managed and Luna:
 == Create the standalone example app
 
 To create the standalone example app:
@@ -193,6 +199,7 @@ TIP: You'll need to override `webServiceUrl` if you're not using the default Pul
 . Sends 10 "Hello World!" messages to the queue using the `createProducer` method.
 . Sleeps for 10 seconds to make sure all of the messages are consumed.
 
+//Self managed and Luna:
 == Compile the application
 
 To compile the sample application:
@@ -224,9 +231,10 @@ Many status messages...
 
 TIP: The first time you compile the JAR file, Maven downloads all required dependencies. Subsequent runs will be much faster.
 
+//Self managed and Luna:
 == Run the example
 
-To run the sample app, from the `<product_directory`:
+To run the sample app:
 
 [source,bash]
 ----
@@ -268,6 +276,7 @@ Received: Hello world! 9
 
 TIP: You'll find message `0` is produced at the very top of the output. It can get lost in the subsequent messages. Also, note that the messages are consumed asynchronously.
 
+//Self-managed only:
 == Terminate the Pulsar Docker instance
 
 Once you're done, you can use `Ctrl-C` to terminate the Pulsar Docker instance running in your terminal.
@@ -304,9 +313,8 @@ docker rm 5116f0d16eb3
 5116f0d16eb3
 ----
 
-== What's next?
+== Next steps
 
-* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
 * *xref:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
 * *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
 * *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.

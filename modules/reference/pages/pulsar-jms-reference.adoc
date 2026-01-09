@@ -1,6 +1,9 @@
 = Starlight for JMS configuration reference
+:navtitle: Configuration reference
 
 A complete configuration reference for Starlight for JMS.
+
+== Set configuration options
 
 Configuration information is passed to the `PulsarConnectionFactory` constructor:
 
@@ -26,7 +29,7 @@ factory.close();
 
 Configuration information can be passed when a `JMSContext` or `Session` is created with `JMSContext.createContext` or `Session.createSession`.
 
-Create a `PulsarConnectionFactory` with `initialContext` for configuration.
+Create a `PulsarConnectionFactory` with `initialContext` for configuration:
 
 [source,java]
 ----
@@ -37,7 +40,7 @@ PulsarConnectionFactory factory = new PulsarConnectionFactory(configuration);
 PulsarJMSContext initialContext = (PulsarJMSContext) factory.createContext();
 ----
 
-The initial configuration in `initialContext` will be overridden by the subsequent `JMSContext` configuration `withCustomConfiguration`.
+The initial configuration in `initialContext` will be overridden by the subsequent `JMSContext` configuration `withCustomConfiguration`:
 
 [source,java]
 ----
@@ -47,14 +50,14 @@ perContextConsumerConfig.put("consumerConfig", perContextConsumerConfig);
 JMSContext withCustomConfiguration = initialContext.createContext(mode, perContextConfiguration);
 ----
 
-Or override the initial configuration in `initialContext` with the `JMSContext` configuration `withCustomConfiguration` in a Session object.
+Or override the initial configuration in `initialContext` with the `JMSContext` configuration `withCustomConfiguration` in a Session object:
 
 [source,java]
 ----
 Session.createSession(int mode, Map<String, Object> withCustomConfiguration)
 ----
 
-[NOTE]
+[IMPORTANT]
 ====
 The configuration related to `consumerConfig` is the only configuration that can be overridden with `createContext`.
 Other entries are ignored.
@@ -62,8 +65,7 @@ Other entries are ignored.
 
 == Configuration options
 
-[width="100%",cols="3,1,1,2,4"]
-
+[cols="3,1,1,2,4"]
 |===
 | Configuration Entry | Required | Type | Default value | Notes
 
@@ -233,16 +235,7 @@ All other options are passed as configurations to the Pulsar Client and the Puls
 
 TIP: Please check https://pulsar.apache.org/docs/en/standalone/[Apache Pulsar documentation] for a complete list of configuration options.
 
-== Implementation details
+== See also
 
-Please refer to xref:examples:pulsar-jms-implementation.adoc[Implementation details] in order to read about how Starlight for JMS emulates some features that are not directly supported by Pulsar.
-
-== Next
-
-* *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
-* *xref:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
-* *{jms_repo}[Starlight for JMS Github repo]*
+* xref:pulsar-jms-mappings.adoc[]
+* xref:examples:pulsar-jms-implementation.adoc[]

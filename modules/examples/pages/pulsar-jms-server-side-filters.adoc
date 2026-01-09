@@ -1,15 +1,16 @@
-= Enabling server-side filters
+= Use server-side filters
 
-Starlight for JMS offers *server-side filtering*, which executes JMS filtering features on the Pulsar Broker instead of the Client. +
+Starlight for JMS offers *server-side filtering*, which executes JMS filtering features on the Pulsar Broker instead of the Client.
+
 Previously, filtering was implemented with `jms.enableClientSideEmulation=true` on the Client side, which meant the Client application received all messages, even if they didn't match the filter. This caused inefficient network, CPU, and memory usage.
 
 Server-side filtering offloads the filtering to the Broker nodes and includes the following JMS filtering features:
 
-* *Broker-side message selectors* - The Broker filters messages instead of the Client
-* *Per-message* `timeToLive` - each message can have a time to live value
-* `noLocal` *filter* - Filter out messages sent from the same connection
+* *Broker-side message selectors*: The Broker filters messages instead of the client.
+* *Per-message `timeToLive`*: Each message can have a time to live value.
+* *`noLocal` filter*: Filter out messages sent from the same connection.
 
-Server-side filtering requires Pulsar *2.10.1+* or Luna Streaming *2.10+*.
+Server-side filtering requires Pulsar version 2.10.1 or later, or Luna Streaming version 2.10 or later.
 
 == Enable server-side filtering
 
@@ -85,12 +86,8 @@ Batch messages with compression will consume a non-negligible amount of CPU, hea
 * *Unsupported message types* - Starlight for JMS does not support encrypted batch messages because the filter can't decode the payload of the entry.
 For the same reason, Starlight for JMS does not support custom formats like native Kafka messages.
 
-== What's next?
+== See also
 
-* *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
-* *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
-* *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo]*
+* xref:reference:pulsar-jms-mappings.adoc[]
+* xref:pulsar-jms-implementation.adoc[]
+* xref:reference:pulsar-jms-reference.adoc[]

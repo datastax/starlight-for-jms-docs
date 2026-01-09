@@ -1,4 +1,4 @@
-= Mapping Pulsar concepts to JMS specifications
+= Map Pulsar concepts to JMS specifications
 
 JMS specifications are built upon the concepts of *Topics* and *Queues*, but Apache Pulsar(TM) has only a general concept of *Topics* that can model both of those two domains.
 
@@ -6,13 +6,8 @@ In Pulsar there is no concept of a queue: Starlight for JMS *treats Pulsar topic
 
 In JMS a *Topic* is written by many *Producers* and read by many *Consumers* that share one or many *Subscriptions*. Subscriptions may be *Durable* or *Non-Durable* (meaning the client position not retained on restart), and *Shared* or *Non-Shared* determining whether the same message may be received and processed by more than one consumer.
 
-* xref:pulsar-jms-mappings.adoc#jms-pulsar-consumers[]
-* xref:pulsar-jms-mappings.adoc#subscriptions[]
-* xref:pulsar-jms-mappings.adoc#consumer-mappings[]
-* xref:pulsar-jms-mappings.adoc#interoperability[]
-
 [#jms-pulsar-consumers]
-== Mappings between JMS consumer/subscriptions and Apache consumers for topics
+== Mapping of JMS consumers/subscriptions to Apache consumers for topics
 
 [cols="a,a"]
 |===
@@ -48,7 +43,7 @@ In order to emulate that behavior, the first time you create a consumer over a q
 Every access to the queue passes through the shared subscription and guarantees that only one consumer receives and processes each message.
 
 [#subscriptions]
-== Mappings between JMS consumer/subscriptions and Apache consumers for queues
+== Mapping of JMS consumer/subscriptions to Apache consumers for queues
 
 [cols="a,a"]
 |===
@@ -71,7 +66,7 @@ In order to implement `QueueBrowser`, Starlight for JMS uses the Pulsar Reader A
 NOTE: In certain cases, the `peekMessages` API can return the last consumed message of the subscription, so the `QueueBrowser` may return inaccurate results.
 
 [#jms-queue]
-=== Overriding `jms-queue`
+=== Override `jms-queue`
 
 By default, the subscription created by a JMS queue is named `jms-queue`, which can be overriden with `jms.queueSubscriptionName` in the `PulsarConnectionFactory` constructor.
 
@@ -103,7 +98,7 @@ Queue queue = session.createQueue("persistent://tenant/namespace/pulsarQueue:sub
 
 In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `persistent://tenant/namespace/pulsarQueue` Pulsar topic. +
 
-=== Disabling automatic subscription creation
+=== Disable automatic subscription creation
 
 By default, the `jms.precreateQueueSubscription` configuration flag is set to `true`, and the JMS client will pre-create the `jms-queue` subscription (see xref:pulsar-jms-mappings.adoc#jms-queue[Overriding jms-queue] above). +
 
@@ -137,15 +132,9 @@ allowAutoSubscriptionCreation=false
 If both `allowAutoSubscriptionCreation` and `jms.precreateQueueSubscription` are set to `false`, automatic subscription creation is completely disabled.
 
 [#consumer-mappings]
-== Mappings between JMS consumer modes and Pulsar
+== Mapping of JMS consumer modes to Pulsar concepts
 
-There are five consumer mode session objects in JMS. This section describes how they map to Pulsar concepts. +
-
-* xref:pulsar-jms-mappings.adoc#auto-ack[Session.AUTO_ACKNOWLEDGE]
-* xref:pulsar-jms-mappings.adoc#dups-ok[Session.DUPS_OK_ACKNOWLEDGE]
-* xref:pulsar-jms-mappings.adoc#client-ack[Session.CLIENT_ACKNOWLEDGE]
-* xref:pulsar-jms-mappings.adoc#individual[PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE]
-* xref:pulsar-jms-mappings.adoc#transacted[Session.SESSION_TRANSACTED]
+There are five consumer mode session objects in JMS. This section describes how they map to Pulsar concepts.
 
 [#auto-ack]
 === Session.AUTO_ACKNOWLEDGE
@@ -286,6 +275,7 @@ public class JMSExample {
     }
 }
 ----
+
 [#client-ack]
 === Session.CLIENT_ACKNOWLEDGE
 
@@ -461,12 +451,7 @@ Starlight for JMS maps that property to the message key in Pulsar, ensuring that
 
 NOTE: This is the same behavior implemented in https://activemq.apache.org/message-groups[Apache ActiveMQ].
 
-== What's next?
+== See also
 
-* *xref:jms-migration:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:jms-migration:pulsar-jms-install.adoc[]*: Install Starlight for JMS in your own JMS project.
-* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
-* *xref:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo]*
+* xref:examples:pulsar-jms-implementation.adoc[]
+* xref:pulsar-jms-reference.adoc[]

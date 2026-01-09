@@ -1,0 +1,210 @@
+= Getting started with Starlight for JMS
+:navtitle: Starlight for JMS
+:description: Use the Starlight for JMS API to produce and consume messages on {pulsar-short} topics.
+
+The {jms_repo}[Starlight for JMS] extension is a highly compliant JMS implementation designed to run on a modern streaming platform.
+
+This guide explains how to prepare an {pulsar-reg} streaming instance, and then use Starlight for JMS to produce and consume messages with a Java JMS client.
+
+[#prerequisites]
+== Prerequisites
+
+[tabs]
+======
+Astra Streaming::
++
+--
+* An active Astra Streaming {pulsar-short} cluster with a tenant, namespace, and topic that you want to use with Starlight for JMS.
+If you don't have these structures configured in Astra Streaming, see the xref:astra-streaming:getting-started:index.adoc[].
+
+* The connection details for your tenant, which are found on the tenant's **Connect** tab under **Tenant Details**:
++
+** **Name**: The tenant name
+** **Broker Service URL**: The cluster's broker service URL in the format `pulsar+ssl://**CLUSTER**.streaming.datastax.com:6651`
+** **Web Service URL**: The cluster's web service URL in the format `\https://**CLUSTER**.streaming.datastax.com`
+** **Token**: A {pulsar-short} token that provides access to the tenant
+--
+
+Luna Streaming::
++
+--
+* An active Luna Streaming {pulsar-short} cluster.
+If you don't have a Luna Streaming cluster, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[].
+
+* Access to the cluster's admin port 8080 and the binary port 6650.
+If necessary, enable port forwarding with `kubectl`.
+For more information, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc#install-luna-streaming-locally[Install Luna Streaming locally].
+--
+
+Self-managed::
++
+--
+* An active {pulsar-short} cluster.
+
+* Access to the cluster's admin port 8080 and the binary port 6650.
+
+// And prereqs in xref:starlight-for-jms:jms-migration:pulsar-jms-quickstart-sa.adoc[]
+--
+======
+
+== Produce and consume a message with Starlight for JMS
+
+For complete source code examples and examples for other languages, see the https://github.com/datastax/astra-streaming-examples[{company} streaming examples repository].
+These examples are written for Astra Streaming but they can be adapted for Luna Streaming or self-managed {pulsar-short} clusters by replacing the connection details with those for your cluster.
+
+[tabs]
+======
+Astra Streaming::
++
+--
+This example shows how to produce and consume messages with Starlight JMS using Java and Maven.
+You can also use Gradle with some modifications.
+
+. Create a new Maven project:
++
+[source,shell]
+----
+mvn archetype:generate \
+    -DgroupId=org.example \
+    -DartifactId=StarlightForJMSClient \
+    -DarchetypeArtifactId=maven-archetype-quickstart \
+    -DinteractiveMode=false
+----
+
+. Change to the new project directory:
++
+[source,shell]
+----
+cd StarlightForJMSClient
+----
+
+. Open the project in your IDE, and then add the Starlight for JMS dependency to the `pom.xml`:
++
+.pom.xml
+[source,xml]
+----
+<dependency>
+  <groupId>com.datastax.oss</groupId>
+  <artifactId>pulsar-jms-all</artifactId>
+  <version>1.0.0</version>
+</dependency>
+----
+
+. Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preeixsting code in this file.
+In the next steps, you will add code to this file to create a complete program that produces and consumes messages.
++
+. Paste the following code in the file, and then replace the placeholders with the <<prerequisites,tenant connection details, namespace, and topic from Astra Streaming>>.
+Your editor will report errors because this isn't a complete program yet.
++
+.App.java
+[source,java,subs="+quotes"]
+----
+package org.example;
+
+import com.datastax.oss.pulsar.jms.PulsarConnectionFactory;
+
+import javax.jms.JMSContext;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.Queue;
+import java.util.HashMap;
+import java.util.Map;
+
+public class App
+{
+  private static String webServiceUrl = "**WEB_SERVICE_URL**";
+  private static String brokerServiceUrl = "**BROKER_SERVICE_URL**";
+  private static String pulsarToken = "**TOKEN**";
+  private static String tenantName = "**TENANT_NAME**";
+  private static final String namespace = "**NAMESPACE_NAME**";
+  private static final String topicName = "**TOPIC_NAME**";
+  private static final String topic = String.format("persistent://%s/%s/%s", tenantName,namespace,topicName);
+  public static void main( String[] args ) throws Exception
+  {
+----
+
+. Add the following code to build the configuration for the producer and consumer:
++
+.App.java
+[source,java]
+----
+    Map<String, Object> properties = new HashMap<>();
+    properties.put("webServiceUrl",webServiceUrl);
+    properties.put("brokerServiceUrl",brokerServiceUrl);
+    properties.put("authPlugin","org.apache.pulsar.client.impl.auth.AuthenticationToken");
+    properties.put("authParams",pulsarToken);
+----
+
+. Add the following code to define a simple 'PulsarConnectionFactory' that creates a JMS queue using the full {pulsar-short} topic address, creates a message listener callback function that watches the queue, and then produces a single message on the queue:
++
+.App.java
+[source,java]
+----
+    try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); ){
+      JMSContext context = factory.createContext();
+      Queue queue = context.createQueue(topic);
+
+      context.createConsumer(queue).setMessageListener(new MessageListener() {
+        @Override
+        public void onMessage(Message message) {
+          try {
+            System.out.println("Received: " + message.getBody(String.class));
+          } catch (Exception err) {
+            err.printStackTrace();
+          }
+        }
+      });
+
+      String message = "Hello there!";
+      System.out.println("Sending: "+message);
+      context.createProducer().send(queue, message);
+
+      Thread.sleep(4000); //wait for the message to be consumed
+    }
+  }
+}
+----
+
+. Save `App.java`, and then build and run the JAR file for the complete program:
++
+[source,shell]
+----
+mvn clean package assembly:single
+java -jar target/StarlightForJMSClient-1.0-SNAPSHOT-jar-with-dependencies.jar
+----
+
+. Make sure the result shows that a message was sent and received:
++
+[source,console]
+----
+Sending: Hello there!
+Received: Hello there!
+----
+
+. In Astra Streaming, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the namespace that you used in the Java program.
++
+If you everything was configured correctly, then the namespace's metrics should reflect that at least one message was published and consumed by your Astra Streaming {pulsar-short} topic.
+--
+
+Luna Streaming::
++
+--
+//JMS quickstart topic with slight modifications?
+
+. Use the {pulsar-short} Admin CLI or the Luna Streaming {pulsar-short} Admin Console to inspect your tenant's activity, and verify that messages were published and consumed on the specified topic.
+--
+
+Self-managed::
++
+--
+//already in JMS quickstart topic
+
+. Use the {pulsar-short} Admin CLI to inspect your tenant's activity, and verify that messages were published and consumed on the specified topic.
+--
+======
+
+== Next steps
+
+* xref:starlight-for-jms:examples:pulsar-jms-implementation.adoc[]
+* xref:starlight-for-jms:reference:pulsar-jms-mappings.adoc[]
+* xref:starlight-for-jms:reference:pulsar-jms-reference.adoc[]

@@ -33,10 +33,7 @@ acknowledgmentAtBatchIndexLevelEnabled=true
     try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties));
 ----
 
-== What's next?
+== See also
 
-For more on *server-side filtering*, see xref:pulsar-jms-server-side-filters.adoc[Server side filters]. +
-For more on acknowledgements in Starlight for JMS, see xref:reference:pulsar-jms-mappings.adoc#consumer-mappings[Consumer Mappings].
-
-
-
+* xref:pulsar-jms-server-side-filters.adoc[]
+* xref:reference:pulsar-jms-mappings.adoc#consumer-mappings[Consumer mappings]
