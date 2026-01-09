@@ -228,92 +228,96 @@ If you everything was configured correctly, then the namespace's metrics should 
 {luna-streaming}::
 +
 --
-. Create a new Maven project, and then change to that directory.
+. Create a new Maven project:
++
+[source,bash]
+----
+mvn archetype:generate \
+    -DgroupId=org.example \
+    -DartifactId=StarlightForJMSClient \
+    -DarchetypeArtifactId=maven-archetype-quickstart \
+    -DinteractiveMode=false
+----
 
-. Open the project in your IDE, and then add the following code to the `pom.xml`:
+. Change to the new project directory:
++
+[source,bash]
+----
+cd StarlightForJMSClient
+----
+
+. Open the project in your IDE, and then add the {product} dependency to the `pom.xml` file.
++
+This quickstart uses the `pulsar-jms-all` package, which is a fat JAR file that includes all dependencies.
+{company} recommends using the {jms_repo}releases[latest stable release].
 +
 .pom.xml
 [source,xml]
 ----
-<?xml version="1.0" encoding="UTF-8"?>
-<project>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.datastax.oss</groupId>
-  <artifactId>pulsar-fast-jms-example</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0</version>
-  <name>DataStax Fast JMS for Apache Pulsar(TM) example</name>
-  <description>A simple JMS client designed to test the DataStax Fast JMS for Apache Pulsar library.</description>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.datastax.oss</groupId>
+      <artifactId>pulsar-jms-all</artifactId>
+      <version>3.2.0</version>
+    </dependency>
+  </dependencies>
+----
+
+. Set the compiler source and target according to your Java version:
++
+.pom.xml
+[source,xml]
+----
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.8</java.version>
-    <java.release.version>8</java.release.version>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
-    <dependencies>
-      <dependency>
-        <groupId>com.datastax.oss</groupId>
-        <artifactId>pulsar-jms-all</artifactId>
-        <version>1.0.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-simple</artifactId>
-        <version>1.7.30</version>
-      </dependency>
-    </dependencies>
+----
+
+. For this quickstart, include the following plugin configuration in the `build` section:
++
+* **`<artifactId>maven-assembly-plugin</artifactId>`**: The Maven Assembly Plugin that is used to compile a JAR file with all dependencies included.
+* **`<descriptorRef>jar-with-dependencies</descriptorRef>`**: An additional descriptor appended to the compiled JAR file name.
+* **`<mainClass>org.example.App</mainClass>`**: The default package and class so you can run the compiled JAR file without any additional specifications.
++
+.pom.xml
+[source,xml]
+----
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.3.0</version>
         <configuration>
-            <descriptorRefs>
-                <descriptorRef>jar-with-dependencies</descriptorRef>
-            </descriptorRefs>
-            <archive>
-              <manifest>
-                <mainClass>example.StandaloneTest</mainClass>
-              </manifest>
-            </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>org.example.App</mainClass>
+            </manifest>
+          </archive>
         </configuration>
-        <executions>
-            <execution>
-                <id>assemble-all</id>
-                <phase>package</phase>
-                <goals>
-                    <goal>single</goal>
-                </goals>
-            </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
-</project>
 ----
-+
-Note the following elements of the `pom.xml`:
-+
-* **`pulsar-fast-jms-example`**: The main name for the compiled JAR file.
-* **`pulsar-jms-all`**: The {product} dependency.
-This quickstart uses the fat JAR file that includes all dependencies.
-* **`org.slf4j`**: The Log4J dependency.
-* **`jar-with-dependencies`**: An additional descriptor appended to the compiled JAR file name.
-* **`example.StandaloneTest`**: The default package and class so you can run the compiled JAR file without any additional specifications.
 
-. In your Maven project, create an `example` subdirectory at `/src/main/java`:
+. In your Maven project, create an `example` subdirectory at `/src/main/java/org`:
 +
 [source,bash]
 ----
-mkdir -p /src/main/java/example
+mkdir -p /src/main/java/org/example
 ----
 
-. In the `example` directory, create a `StandaloneTest.java` file, and then paste the following code into the file:
+. In the `example` directory, create an `App.java` file, and then paste the following code into the file:
 +
-./src/main/java/example/StandaloneTest.java
+./src/main/java/org/example/App.java
 [source,java]
 ----
 package example;
@@ -326,7 +330,7 @@ import javax.jms.Queue;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StandaloneTest {
+public class App {
   public static void main(String ... args) throws Exception {
 
     String topic = "persistent://public/default/example-topic";
@@ -361,7 +365,7 @@ public class StandaloneTest {
 }
 ----
 +
-Note the following elements of the `StandaloneTest.java` program:
+Note the following elements of the `App.java` program:
 +
 * **`persistent://public/default/example-topic`**: The topic URI that the client uses to publish and consume messages.
 This quickstart uses the default tenant and namespace with a topic named `example-topic`.
