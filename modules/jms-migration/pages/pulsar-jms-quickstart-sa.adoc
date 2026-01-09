@@ -392,33 +392,14 @@ For more information about consumers, see xref:reference:pulsar-jms-mappings.ado
 mvn clean install
 ----
 +
-.Result
-[%collapsible]
-====
 The first time you compile the JAR file, Maven downloads all required dependencies.
 Subsequent runs are faster.
-
-[source,bash]
-----
-...TRUNCATED...
-
-[INFO] Installing /Users/john.francis/fast-jms/target/pulsar-fast-jms-example-1.0.jar to /Users/john.francis/.m2/repository/com/datastax/oss/pulsar-fast-jms-example/1.0/pulsar-fast-jms-example-1.0.jar
-[INFO] Installing /Users/john.francis/fast-jms/pom.xml to /Users/john.francis/.m2/repository/com/datastax/oss/pulsar-fast-jms-example/1.0/pulsar-fast-jms-example-1.0.pom
-[INFO] Installing /Users/john.francis/fast-jms/target/pulsar-fast-jms-example-1.0-jar-with-dependencies.jar to /Users/john.francis/.m2/repository/com/datastax/oss/pulsar-fast-jms-example/1.0/pulsar-fast-jms-example-1.0-jar-with-dependencies.jar
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  31.351 s
-[INFO] Finished at: 2021-05-07T11:11:02-05:00
-[INFO] ------------------------------------------------------------------------
-----
-====
 
 . Run the sample application:
 +
 [source,bash]
 ----
-java -jar target/pulsar-fast-jms-example-1.0-jar-with-dependencies.jar
+java -jar target/StarlightForJMSClient-1.0-SNAPSHOT-jar-with-dependencies.jar
 ----
 
 . Make sure the result shows that messages were sent and received.
