@@ -1,10 +1,14 @@
 = Map {pulsar-short} concepts to JMS specifications
 
-JMS specifications are built upon the concepts of *Topics* and *Queues*, but {pulsar-reg} has only a general concept of *Topics* that can model both of those two domains.
+JMS specifications are built upon the concepts of _topics_ and _queues_, but {pulsar-reg} has only a general concept of topics that can model both of those domains.
 
-In {pulsar-short} there is no concept of a queue: {product} *treats {pulsar-short} topics as queues when queue-related JMS API are in use*. There is no strict, cluster wide, verification that you are accessing a JMS Queue using the Topic API or vice versa.
+In {pulsar-short} there is no concept of a queue.
+Therefore, {product} treats {pulsar-short} topics as queues when queue-related JMS API are in use.
+There is no strict cluster-wide verification that you are accessing a JMS Queue using the Topic API or vice versa.
 
-In JMS a *Topic* is written by many *Producers* and read by many *Consumers* that share one or many *Subscriptions*. Subscriptions may be *Durable* or *Non-Durable* (meaning the client position not retained on restart), and *Shared* or *Non-Shared* determining whether the same message may be received and processed by more than one consumer.
+In JMS, a topic is written by many _producers_ and read by many _consumers_ that share one or many _subscriptions_.
+Subscriptions can be _durable_ or _non-durable_, which determines whether the client position is retained on restart.
+Subscriptions can also be _shared_ or _non-shared_, which determines whether the same message can be received and processed by multiple consumers.
 
 [#jms-pulsar-consumers]
 == Mapping of JMS consumers/subscriptions to Apache consumers for topics
