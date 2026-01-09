@@ -40,7 +40,7 @@ To run only the TCK:
 mvn clean install -Prun-tck -am -DskipTests -pl tck-executor
 ----
 
-IMPORTANT: Globally unique subscription names are not supported so the corresponding tests are skipped.
+IMPORTANT: Globally unique subscription names aren't supported so the corresponding tests are skipped.
 
 == Where can I find additional integration examples?
 

@@ -11,19 +11,44 @@ Server-side filtering offloads the filtering to the Broker nodes and includes th
 * *Per-message `timeToLive`*: Each message can have a time to live value.
 * *`noLocal` filter*: Filter out messages sent from the same connection.
 
-Server-side filtering requires {pulsar-short} version 2.10.1 or later, or {luna-streaming} version 2.10 or later.
+== Limitations
+
+* **Required version**: Server-side filtering requires {pulsar-short} version 2.10.1 or later, or {luna-streaming} version 2.10 or later.
+
+* *Batch messages*: Server-side filtering works on the entry level in {pulsar-short}.
+An _entry_ is a single message, or a single batch of messages.
+The Broker cannot selectively filter messages in a batch; it either passes completely or fails completely.
++
+For example, if a batch message is partially accepted by the Broker filter, the Broker still sends the entire batch to the client, and the client executes the filter locally.
+If you don't want the client to receive unwanted messages, disable batching on your producers.
+For more information, see xref:pulsar-jms-batch-ack.adoc[Batch index acknowledgement].
++
+[TIP]
+====
+{pulsar-short} IO Sources enable batching and compression by default.
+====
+
+* *Increased Broker resources usage*: The {pulsar-short} Broker doesn't perform processing on messages by default.
+When server-side filtering is enabled, the Broker requires additional CPU and heap memory to process filters.
++
+{company} recommends disabling compression and batching for messages that will be filtered on the Broker.
+Batch messages with compression consume a non-negligible amount of CPU, heap, and direct memory, because filtering requires decompressing the batch to access Message Properties
++
+This doesn't apply to compressed single messages.
+
+* *Unsupported message types*: {product} doesn't support encrypted batch messages because the filter can't decode the payload of the entry.
+For the same reason, {product} doesn't support custom formats like native Kafka messages.
 
 == Enable server-side filtering
 
 The `.nar` file filter is packaged with {luna-streaming} *2.10.03+* and also available in the GitHub repo https://github.com/datastax/pulsar-jms/releases[here].
 
-. Install {product} with the fat JAR that includes all dependencies. Put the `.nar` file in `/pulsar/filters`.
+. Install {product} with the fat JAR that includes all dependencies.
+Put the `.nar` file in `/pulsar/filters`.
 +
-[NOTE]
-====
 The path for the .nar is relative to your {pulsar-short} directory.
-====
-For more, see xref:jms-migration:pulsar-jms-quickstart-sa.adoc[Standalone quick start].
++
+For more information, see xref:jms-migration:pulsar-jms-quickstart-sa.adoc[quickstart].
 
 . Modify `PulsarConnectionFactory` in {product} to disable client-side emulation and use server-side filtering:
 +
@@ -46,7 +71,8 @@ You're ready to use server-side filtering.
 [#selectors]
 == Configure per-subscription message selectors on the Broker
 
-{product} allows you to pre-configure the `selector` property when creating your {pulsar-short} subscription. Modify `PulsarConnectionFactory` in {product} to include:
+{product} allows you to pre-configure the `selector` property when creating your {pulsar-short} subscription.
+Modify `PulsarConnectionFactory` in {product} to include the following:
 
 [source,java]
 ----
@@ -54,38 +80,15 @@ jms.filtering=true
 jms.selector=YOUR MESSAGE SELECTOR
 ----
 
-If you have deployed the `.nar` file and configured the `entryFilterNames` and `entryFiltersDirectory` properties in `broker.conf`, the Broker will begin filtering messages automatically.
+If you have deployed the `.nar` file and configured the `entryFilterNames` and `entryFiltersDirectory` properties in `broker.conf`, then the Broker begins filtering messages automatically.
 
-This only partially works for a non-JMS client, because batch messages cannot be completely filtered out by the Broker. If you use this feature, you should use the {product} 2.x client and the `jms.useServerSideFiltering` feature.
+This only partially works for a non-JMS client because batch messages cannot be completely filtered out by the Broker.
+If you use this feature, use a {product} 2.x client and the `jms.useServerSideFiltering` feature.
 
-In this case, the server-side filter applies both to JMS queues and JMS topics. The JMS client automatically downloads the `jms.selector` from the subscription and applies it locally, where batch message filtering may have partially accepted the message on the Broker.
+In this case, the server-side filter applies both to JMS queues and JMS topics.
+The JMS client automatically downloads the `jms.selector` from the subscription and applies it locally, where batch message filtering may have partially accepted the message on the Broker.
 
-[NOTE]
-====
-If you set `jms.selector` on the subscription **and** set a message selector on the JMS client, the conditions on the subscription **and** the JMS client will both be fulfilled.
-====
-
-== Limitations
-
-* *Batch messages* - Server-side filtering works on the Entry level in {pulsar-short}. An *Entry* is a *single message* or a *single batch of messages*. The Broker can't filter out a few messages in a batch; it either passes completely or fails completely.
-+
-For example, if a batch message is partially accepted by the Broker filter, the Broker will still send the entire batch to the Client, and the Client will execute the filter locally.
-If you don't want the Client to receive unwanted messages, disable batching on your producers.
-+
-[NOTE]
-====
-{pulsar-short} IO Sources enable batching and compression by default.
-====
-
-For more, see xref:pulsar-jms-batch-ack.adoc[Batch index acknowledgement].
-
-* *Increased Broker resources usage* - The {pulsar-short} Broker does not perform processing on messages by default. When server-side filtering is enabled, the Broker will require additional CPU and heap memory to process filters.
-+
-{company} recommends disabling compression and batching for messages that will be filtered on the Broker.
-Batch messages with compression will consume a non-negligible amount of CPU, heap, and direct memory, because filtering requires decompressing the batch to access Message Properties. This *does not* apply to compressed single messages.
-
-* *Unsupported message types* - {product} does not support encrypted batch messages because the filter can't decode the payload of the entry.
-For the same reason, {product} does not support custom formats like native Kafka messages.
+If you set `jms.selector` on the subscription _and_ set a message selector on the JMS client, then the conditions on the subscription and the JMS client are both fulfilled.
 
 == See also
 

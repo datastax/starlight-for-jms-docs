@@ -24,16 +24,16 @@ Subscriptions can also be _shared_ or _non-shared_, which determines whether the
 | Exclusive non-durable subscription with random name (`UUID`)
 
 | DurableConsumer
-| Exclusive durable subscription with the given name + `clientId`
+| Exclusive durable subscription with the given name and `clientId`
 
 | SharedConsumer
-| Shared non-durable subscription with the given name + `clientId`
+| Shared non-durable subscription with the given name and `clientId`
 
 | SharedDurableConsumer
-| Shared durable subscription with the given name + `clientId`
+| Shared durable subscription with the given name and `clientId`
 
 | DurableSubscriber
-| Exclusive durable subscription with the given name + `clientId`
+| Exclusive durable subscription with the given name and `clientId`
 |===
 
 TIP: As of {pulsar-short} version 2.7.x, delayed messages don't work with exclusive subscriptions. You can, however, force the usage of shared non-durable subscriptions for simple consumers by setting `jms.useExclusiveSubscriptionsForSimpleConsumers=false`.
@@ -63,11 +63,11 @@ Every access to the queue passes through the shared subscription and guarantees 
 | {pulsar-short} Reader for the topic, beginning from the next message on `jms-queue` subscription
 |===
 
-TIP: You can change the name of the shared subscription using the `jms.queueSubscriptionName` configuration parameter, but you must ensure that you change it on every client.
+You can change the name of the shared subscription using the `jms.queueSubscriptionName` configuration parameter, but you must ensure that you change it on every client.
 
 In order to implement `QueueBrowser`, {product} uses the {pulsar-short} Reader API, starting from the next message available on the `jms-queue` subscription. In order to peek at the next message {product} uses the {pulsar-short} Admin API `peekMessages`.
 
-NOTE: In certain cases, the `peekMessages` API can return the last consumed message of the subscription, so the `QueueBrowser` may return inaccurate results.
+In certain cases, the `peekMessages` API can return the last consumed message of the subscription, so the `QueueBrowser` can return inaccurate results.
 
 [#jms-queue]
 === Override `jms-queue`
@@ -82,9 +82,10 @@ try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); 
 }
 ----
 
-In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `public/default/pulsarQueue` {pulsar-short} topic. +
+In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `public/default/pulsarQueue` {pulsar-short} topic.
 
 You can override the default `public/default` namespace with `jms.systemNamespace` in the `PulsarConnectionFactory` constructor:
+
 [source,java]
 ----
 Map<String, Object> configuration = new HashMap<>();
@@ -95,18 +96,20 @@ factory.close();
 ----
 
 A fully-qualified namespace works similarly, but the topic destination points to a persistent topic URL:
+
 [source,java]
 ----
 Queue queue = session.createQueue("persistent://tenant/namespace/pulsarQueue:subscriptionName")
 ----
 
-In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `persistent://tenant/namespace/pulsarQueue` {pulsar-short} topic. +
+In the above example, the subscription will be `subscriptionName`, and the queue will be backed by the `persistent://tenant/namespace/pulsarQueue` {pulsar-short} topic.
 
 === Disable automatic subscription creation
 
-By default, the `jms.precreateQueueSubscription` configuration flag is set to `true`, and the JMS client will pre-create the `jms-queue` subscription (see xref:pulsar-jms-mappings.adoc#jms-queue[Overriding jms-queue] above). +
+By default, the `jms.precreateQueueSubscription` configuration flag is set to `true`, and the JMS client pre-creates the `jms-queue` subscription (see xref:pulsar-jms-mappings.adoc#jms-queue[Overriding jms-queue] above).
 
 To disable automatic subscription creation in the JMS client, set the `jms.precreateQueueSubscription` parameter to `false`, as below:
+
 [source,java]
 ----
 Map<String, Object> properties = new HashMap<>();
@@ -114,6 +117,7 @@ Map<String, Object> properties = new HashMap<>();
 ----
 
 To disable automatic subscription creation on the {pulsar-short} broker, set the `allowAutoSubscriptionCreation` parameter to `false`, as below:
+
 [source,java]
 ----
 public static void before() throws Exception {
@@ -128,6 +132,7 @@ public static void before() throws Exception {
 ----
 
 Or modify the {pulsar-short} broker's `broker.conf` file:
+
 [source,bash]
 ----
 allowAutoSubscriptionCreation=false
@@ -215,7 +220,7 @@ public class JMSExample {
 
 This mode maps to `Consumer.acknowledgeAsync()` without waiting for the `CompleteableFuture` returned by the method to complete.
 
-{product} logs an error in case there is something wrong, but the application will continue running and is not aware of the failure.
+{product} logs an error in case there is a problem, but the application continues running and isn't aware of the failure.
 
 In the example below, we create a consumer on `mytopic` with `Session.DUPS_OK_ACKNOWLEDGE`, send 100 `foo` messages, and acknowledge them without waiting for the `CompleteableFuture` method to complete.
 
@@ -285,7 +290,8 @@ public class JMSExample {
 
 In this mode the JMS client works like `AUTO_ACKNOWLEDGE`, automatically acknowledging all messages received before the message inside the same session. To acknowledge only the individual message, use xref:pulsar-jms-mappings.adoc#individual[PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE].
 
-In the example below, we create a consumer on `mytopic` with `Session.CLIENT_ACKNOWLEDGE`, send 100 `foo` messages, and acknowledge them by calling `Message.acknowledge()`in the `onMessage` method. +
+In the example below, we create a consumer on `mytopic` with `Session.CLIENT_ACKNOWLEDGE`, send 100 `foo` messages, and acknowledge them by calling `Message.acknowledge()`in the `onMessage` method.
+
 This message and all previous messages in the session are acknowledged.
 
 [source,java]
@@ -352,14 +358,15 @@ public class JMSExample {
 [#individual]
 === PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE
 
-In this mode the JMS client works like `CLIENT_ACKNOWLEDGE`, but when you call `Message.acknowledge()`, only the single message you called for will be acknowledged. +
+In this mode the JMS client works like `CLIENT_ACKNOWLEDGE`, but when you call `Message.acknowledge()`, only the single message you called for is acknowledged.
 
-[NOTE]
+[IMPORTANT]
 ====
-This is a proprietary extension that is not present in the standard JMS 2.0 specifications.
+This is a proprietary extension that isn't present in the standard JMS 2.0 specifications.
 ====
 
-In the example below, we create a consumer on `mytopic` with `PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE`, send 100 `foo` messages, and acknowledge them by calling `Message.acknowledge()`in the `onMessage` method. +
+In the example below, we create a consumer on `mytopic` with `PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE`, send 100 `foo` messages, and acknowledge them by calling `Message.acknowledge()`in the `onMessage` method.
+
 Only the individual message is acknowledged.
 
 [source,java]
@@ -427,10 +434,9 @@ public class JMSExample {
 === Session.SESSION_TRANSACTED
 
 The acknowledgement is bound to the Transaction, and the acknowledgement is sent to the broker only during `Transaction.commit()`.
-[NOTE]
-====
-If you're porting a JMS application that is using `SESSION_TRANSACTED` but don't need to perform the transaction's operations, enable `jms.emulateTransactions`. See xref:examples:pulsar-jms-implementation.adoc[Transaction Emulation].
-====
+
+If you're porting a JMS application that is using `SESSION_TRANSACTED` but don't need to perform the transaction's operations, enable `jms.emulateTransactions`.
+See xref:examples:pulsar-jms-implementation.adoc[Transaction Emulation].
 
 [#interoperability]
 == Interoperability between {product} and other {pulsar-short} clients
@@ -445,7 +451,7 @@ JMS specs require that, on the consumer side, you receive a message of the *same
 * `MapMessage`
 * `ObjectMessage`
 
-When the JMS consumer receives a message that has not been produced by {product} itself and lacks the `JMSPulsarMessageType` property, it converts the message to a `BytesMessage`.
+When the JMS consumer receives a message that hasn't been produced by {product} itself and lacks the `JMSPulsarMessageType` property, it converts the message to a `BytesMessage`.
 
 === {pulsar-short} message keys and JMSXGroupID
 
@@ -453,7 +459,7 @@ The special `JMSXGroupID` property is defined in the JMS specs as a way to group
 
 {product} maps that property to the message key in {pulsar-short}, ensuring that `JMSXGroupID` is used as the routing key.
 
-NOTE: This is the same behavior implemented in https://activemq.apache.org/message-groups[Apache ActiveMQ].
+This is the same behavior implemented in https://activemq.apache.org/message-groups[Apache ActiveMQ].
 
 == See also
 

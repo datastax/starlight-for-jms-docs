@@ -4,7 +4,7 @@
 
 The {jms_repo}[{product}] extension is a highly compliant JMS implementation designed to run on a modern streaming platform.
 
-This guide explains how to prepare an {pulsar-reg} streaming instance, and then use {product} to produce and consume messages with a Java JMS client.
+This quickstart explains how to prepare an {pulsar-reg} streaming instance, and then use {product} to produce and consume messages with a Java JMS client.
 
 [#prepare-your-pulsar-cluster]
 == Prepare your {pulsar-short} cluster

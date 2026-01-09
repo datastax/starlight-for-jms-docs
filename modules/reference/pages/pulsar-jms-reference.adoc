@@ -40,7 +40,7 @@ PulsarConnectionFactory factory = new PulsarConnectionFactory(configuration);
 PulsarJMSContext initialContext = (PulsarJMSContext) factory.createContext();
 ----
 
-The initial configuration in `initialContext` will be overridden by the subsequent `JMSContext` configuration `withCustomConfiguration`:
+The initial configuration in `initialContext` is overridden by the subsequent `JMSContext` configuration `withCustomConfiguration`:
 
 [source,java]
 ----
@@ -85,70 +85,71 @@ Other entries are ignored.
 | no
 | String
 | If not specified, for {pulsar-short} standalone instances running on localhost, defaults to the same value as `webServiceUrl`, \`http://localhost:8080`. Can also be specified as \`pulsar://localhost:6650` for {pulsar-short} standalone instances on localhost.
-a| The URL to connect to the {pulsar-short} broker or proxy +
-The `brokerServiceUrl` must be specified for {astra-streaming}. Must be customized as required for {pulsar-short} standalone instances that are not running on localhost.
+a| The URL to connect to the {pulsar-short} broker or proxy
+The `brokerServiceUrl` must be specified for {astra-streaming}. Must be customized as required for {pulsar-short} standalone instances that aren't running on localhost.
 
 | `consumerConfig`
 | no
 | Map<String,Object>
 | Empty Map
-a| Additional configuration for each {pulsar-short} Consumer. +
+a| Additional configuration for each {pulsar-short} Consumer.
 For all valid consumer objects, see the https://pulsar.apache.org/docs/client-libraries-java/#configure-consumer[{pulsar} documentation].
 
 | `enableTransaction`
 | no
 | boolean
 | false
-a| Enable transactions +
-`enableTransaction` defaults to false because transaction support is not enabled by default in {pulsar-short} 2.7 and the client cannot connect to a cluster that does not enable transactions.
+a| Enable transactions
+`enableTransaction` defaults to `false` because transaction support isn't enabled by default in {pulsar-short} 2.7, and the client cannot connect to a cluster that doesn't enable transactions.
 
 | `jms.acknowledgeRejectedMessages`
 | no
 | boolean
 | false
-a| Force acknowledgment of filtered messages on shared subscriptions +
+a| Force acknowledgment of filtered messages on shared subscriptions
 By default, filtered messages are negatively acknowledged on shared subscriptions. If this flag is `true`, they are acknowledged in order to skip them definitively.
 
 | `jms.allowTemporaryTopicWithoutAdmin`
 | no
 | boolean
 | false
-a| Allows temporary topic/queue creation and deletion to pass without errors when `jms.usePulsarAdmin` is set to `false` +
+a| Allows temporary topic/queue creation and deletion to pass without errors when `jms.usePulsarAdmin` is set to `false`.
 Use the default values of `allowAutoTopicCreation=true` and `allowAutoTopicCreationType=non-partitioned` in `broker.conf` for auto-creation of temporary topics/queues.
 
 | `jms.clientId`
 | no
 | String
 | empty string
-a| Administratively assigned `clientId` (see the JMS specs) +
+a| Administratively assigned `clientId` (see the JMS specs).
 The default value assigned to every Connection.
 
 | `jms.emulateTransactions`
 | no
 | boolean
 | false
-a| When a `SESSION_TRANSACTED` session is created in this mode, the Session behaves like a transacted Session but is not transactional: a produced message is sent immediately, and acknowledgements are sent during `session.commit()`. +
+| When a `SESSION_TRANSACTED` session is created in this mode, the Session behaves like a transacted Session but it isn't transactional.
+A produced message is sent immediately, and acknowledgements are sent during `session.commit()`.
 See xref:examples:pulsar-jms-implementation.adoc[Transaction Emulation].
 
 | `jms.enableClientSideEmulation`
 | no
 | boolean
 | false
-a| Enable emulated features +
-Enable features that are not supported directly by the {pulsar-short} Broker but are emulated on the client side.
+a| Enable emulated features.
+Enable features that aren't supported directly by the {pulsar-short} Broker but are emulated on the client side.
 
 | `jms.forceDeleteTemporaryDestinations`
 | no
 | boolean
 | false
-a| Force the deletion of temporary destinations +
+a| Force the deletion of temporary destinations.
 Use the {pulsar-short} API to force the deletion even if the temporary destination has active subscriptions.
 
 | `jms.precreateQueueSubscription`
 | no
 | boolean
 | true
-a| When set to `false`, the JMS client will not pre-create the subscription `jms-queue` +
+a| When set to `false`, the JMS client doesn't pre-create the subscription `jms-queue`.
 Set `allowAutoSubscriptionCreation=false` in `broker.conf` to disable subscription auto-creation on the broker.
 
 | `jms.queueSubscriptionName`
@@ -167,7 +168,7 @@ a| Default {pulsar-short} namespace in which temporary destinations and destinat
 | no
 | String
 | Shared
-a| Type of subscription for Shared consumers - Shared\|Key_shared\|Failover +
+| Type of subscription for Shared consumers: `Shared`, `Key_shared`, or `Failover`.
 Type of subscription is defined when a consumer connects to the subscription.
 
 | `jms.transactionsStickyPartitions`
@@ -187,14 +188,14 @@ a| Makes `authParams` the username/password pair passed to `ConnectionFactory.cr
 | no
 | boolean
 | true
-a| Use an Exclusive subscription for Topic consumers +
+a| Use an Exclusive subscription for Topic consumers.
 Set this to `false` to enable Delayed Messages.
 
 | `jms.usePulsarAdmin`
 | no
 | boolean
 | true
-a| Allow the client to use the {pulsar-short} Admin API +
+a| Allow the client to use the {pulsar-short} Admin API.
 Set this to `false` if your client cannot access the Admin HTTP API.
 
 | `jms.useServerSideFiltering`
@@ -207,7 +208,7 @@ a| Offloads message filtering to the Broker nodes. See xref:examples:pulsar-jms-
 | no
 | number
 | 60000
-a| Grace period in ms to wait for the {pulsar-short} broker to be available +
+a| Grace period in ms to wait for the {pulsar-short} broker to be available.
 Used to wait for Queue subscriptions to be ready.
 
 | `negativeAckRedeliveryBackoff`
@@ -226,8 +227,8 @@ a| Additional configuration for each {pulsar-short} Producer
 | yes
 | String
 | \`http://localhost:8080` (default)
-a| Main {pulsar-short} HTTP endpoint +
-Must be customized as required for {pulsar-short} standalone instances that are not running on localhost.
+a| Main {pulsar-short} HTTP endpoint.
+Must be customized as required for {pulsar-short} standalone instances that aren't running on localhost.
 
 |===
 
