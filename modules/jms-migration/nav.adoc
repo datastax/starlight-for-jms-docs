@@ -1,3 +1,0 @@
-.JMS migration
-* xref:pulsar-jms-install.adoc[]
-* xref:pulsar-jms-quickstart-sa.adoc[]

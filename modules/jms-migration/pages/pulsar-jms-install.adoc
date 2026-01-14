@@ -1,46 +1,55 @@
-= Installing Starlight for JMS
+= Install {product}
+:navtitle: Installation
 
-== Compatibility
+[TIP]
+====
+For a guided tutorial on installing and using {product}, see the xref:jms-migration:pulsar-jms-quickstart-sa.adoc[quickstart].
+====
 
-Wire protocol changes introduced in *Pulsar 2.9* can cause compatibility issues when using *Transactions*. +
-To avoid issues, DataStax recommends using: +
+Install {jms_repo}[{product}] by adding the dependency to your Java project.
+For example:
 
-* *Pulsar JMS 1.x* if your server is *Pulsar 2.8.x* or *Luna Streaming 2.8.x* +
-
-* *Pulsar JMS 2.x* if your server is *Pulsar 2.9.x*, *2.10.x* or *Luna Streaming 2.10.x* (or above)
-
-== Installation
-
-Install Starlight for JMS by adding the following dependency to your Java Maven project `pom.xml`. Remember to choose the most recent version.
-
-[source,xml]
+.pom.xml
+[source,xml,subs="+quotes"]
 ----
 <dependency>
-   <artifactId>pulsar-jms</artifactId>
    <groupId>com.datastax.oss</groupId>
-   <version>XXXX</version>
-</dependency>
-----
-
-That file contains only Starlight for JMS code and transitively imports the Apache Pulsar(TM) client and the Jakarta JMS 2.0 specifications JAR.
-
-You can also use a "fat" JAR that includes all dependencies:
-
-[source,xml]
-----
-<dependency>
    <artifactId>pulsar-jms-all</artifactId>
-   <groupId>com.datastax.oss</groupId>
-   <version>XXXX</version>
+   <version>**VERSION**</version>
 </dependency>
 ----
 
-== Next
+There are two {product} packages available:
 
-* *xref:pulsar-jms-quickstart-sa.adoc[]*: Create a simple command line Java JMS client that connects to a local Pulsar installation.
-* *xref:streaming-learning:use-cases-architectures:starlight/jms/index.adoc[]*: Create a simple command line Java JMS client that connects to an Astra Streaming instance.
-* *xref:reference:pulsar-jms-mappings.adoc[]*: Understand Pulsar concepts in the context of JMS.
-* *xref:examples:pulsar-jms-implementation.adoc[]*: Understand key implementation details for Starlight for JMS.
-* *xref:ROOT:pulsar-jms-faq.adoc[]*: Frequently asked questions about Starlight for JMS.
-* *xref:reference:pulsar-jms-reference.adoc[]*: Starlight for JMS configuration reference.
-* *{jms_repo}[Starlight for JMS Github repo]*
+* **`pulsar-jms`**: This package contains only {product} code.
+It transitively imports the {pulsar-short} client and the Jakarta JMS 2.0 specifications JAR.
+* **`pulsar-jms-all`**: This is the fat JAR that includes {product} and all required dependencies, including the {pulsar-short} client and the Jakarta JMS 2.0 specifications.
+
+{company} recommends the latest version whenever possible.
+However, certain features and compatibility issues that require a specific version.
+
+[tabs]
+======
+{astra-streaming}::
++
+--
+The {pulsar-short} version is managed by Astra.
+Typically, the latest {product} version is compatible with the {pulsar-short} version used by {astra-streaming}.
+--
+
+{luna-streaming}::
++
+--
+* To use Transactions with {luna-streaming} 2.8.x, you must use {product} version 1.x.
+* To use Transactions with {luna-streaming} 2.10.x or later, you must use {product} version 2.x or later.
+* To use server-side filtering with {luna-streaming}, you must use {luna-streaming} 2.10.0 or later and {product} 2.x or later.
+--
+
+Self-managed::
++
+--
+* To use Transactions with self-managed {pulsar-short} 2.8.x, you must use {product} version 1.x.
+* To use Transactions with self-managed {pulsar-short} 2.9.x, 2.10.x, or later, you must use {product} version 2.x or later.
+* To use server-side filtering with self-managed {pulsar-short}, you must use {pulsar-short} 2.10.1 or later and {product} 2.x or later.
+--
+======

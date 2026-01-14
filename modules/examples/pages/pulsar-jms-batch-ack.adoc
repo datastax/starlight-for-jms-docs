@@ -1,27 +1,34 @@
-= Batch index acknowledgement
+= Use batch index acknowledgement with {product}
+:navtitle: Use batch index acknowledgement
 
-Starlight for JMS improves acknowledgement of batched messages by supporting the tracking of 'ack' status by *batch index*. +
+{product} improves acknowledgement of batched messages by supporting the tracking of 'ack' status by batch index.
 
-By default, filtering works on the *entry* level in Pulsar. An *entry* is a *single message* or a *single batch of messages*. The client will not filter out a few messages in a batch; it either passes completely or fails completely. +
+By default, filtering works on the entry level in {pulsar-short}.
+An _entry_ is a single message, or a single batch of messages.
+The client cannot selectively filter messages in a batch; it either passes completely or fails completely.
 
-With *batch index acknowledgement*, when the broker dispatches messages, it will carry the batch index that has been acknowledged. The client will filter out batch indexes that have been acked. +
+With batch index acknowledgement, when the broker dispatches messages, it carries the batch index that has been acknowledged.
+Then, the client filters out batch indexes that have been acknowledged.
+Finally, the client sends the batch index acknowledgement information to the broker so the broker can maintain the batch index acknowledgement status.
 
-The client sends the batch index ack information to the broker, so the broker can maintain the batch index ack status. +
-
-This approach requires cooperation between the client and broker, so we must modify both `broker.conf` and the `consumerConfig` JMS client property to enable batch acknowledgement. +
-
-DataStax *strongly recommends* these configurations for increased efficiency, whether using *broker-side* or *client-side* selectors.
+[TIP]
+====
+{company} strongly recommends using batch index acknowledgement for increased efficiency, whether using broker-side or client-side selectors.
+====
 
 == Enable batch index acknowledgement
 
-. Add the configuration property `acknowledgmentAtBatchIndexLevelEnabled=true` to `broker.conf`:
+Batch index acknowledgement requires cooperation between the client and broker.
+You must modify both `broker.conf` and the `consumerConfig` JMS client property to enable batch acknowledgement:
+
+. In your `broker.conf` file, add the configuration property `acknowledgmentAtBatchIndexLevelEnabled` and set it to `true`:
 +
-[source,java]
+[source,conf]
 ----
 acknowledgmentAtBatchIndexLevelEnabled=true
 ----
 
-. Set the `consumerConfig` property on the JMS client by adding `consumerConfig.put("batchIndexAckEnabled", true);` to `consumerConfig` in the ConnectionFactory configuration:
+. In your Java project, set the `consumerConfig` property on the JMS client by adding `consumerConfig.put("batchIndexAckEnabled", true);` to `consumerConfig` in the `ConnectionFactory` configuration:
 +
 [source,java]
 ----
@@ -33,10 +40,7 @@ acknowledgmentAtBatchIndexLevelEnabled=true
     try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties));
 ----
 
-== What's next?
+== See also
 
-For more on *server-side filtering*, see xref:pulsar-jms-server-side-filters.adoc[Server side filters]. +
-For more on acknowledgements in Starlight for JMS, see xref:reference:pulsar-jms-mappings.adoc#consumer-mappings[Consumer Mappings].
-
-
-
+* xref:pulsar-jms-server-side-filters.adoc[]
+* xref:reference:pulsar-jms-mappings.adoc#consumer-mappings[Consumer mappings]

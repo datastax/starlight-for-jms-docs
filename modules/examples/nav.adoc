@@ -1,4 +1,0 @@
-.Examples
-* xref:pulsar-jms-batch-ack.adoc[]
-* xref:pulsar-jms-implementation.adoc[]
-* xref:pulsar-jms-server-side-filters.adoc[]
