@@ -46,9 +46,9 @@ IMPORTANT: Globally unique subscription names aren't supported so the correspond
 
 We've provided the following integration examples:
 
-* {jms_repo}blob/master/examples/spring[Spring Boot(R)]
-* {jms_repo}blob/master/examples/payara-micro[Payara Micro(R)]
-* {jms_repo}blob/master/resource-adapter-tests[Apache TomEE(R)]
+* {jms_repo}/blob/master/examples/spring[Spring Boot(R)]
+* {jms_repo}/blob/master/examples/payara-micro[Payara Micro(R)]
+* {jms_repo}/blob/master/resource-adapter-tests[{tomee-reg}]
 
 == How can I build {product} from source?
 
@@ -61,7 +61,7 @@ If you'd like to fork or contribute to {product}:
 git clone git@github.com:datastax/pulsar-jms.git
 ----
 
-. Build using Maven:
+. Build using {maven-short}:
 +
 [source,bash]
 ----

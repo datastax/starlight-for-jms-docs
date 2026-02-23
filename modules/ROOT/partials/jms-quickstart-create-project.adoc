@@ -1,4 +1,4 @@
-. Create a new Maven project:
+. Create a new {maven-short} project:
 +
 [source,bash]
 ----
@@ -19,7 +19,7 @@ cd StarlightForJMSClient
 . Open the project in your IDE, and then add the {product} dependency to the `pom.xml` file.
 +
 This quickstart uses the `pulsar-jms-all` package, which is a fat JAR file that includes all dependencies.
-{company} recommends using the {jms_repo}releases[latest stable release].
+{company} recommends using the {jms_repo}/releases[latest stable release].
 +
 .pom.xml
 [source,xml]
@@ -46,7 +46,7 @@ This quickstart uses the `pulsar-jms-all` package, which is a fat JAR file that 
 
 . For this quickstart, include the following plugin configuration in the `build` section:
 +
-* **`<artifactId>maven-assembly-plugin</artifactId>`**: The Maven Assembly Plugin that is used to compile a JAR file with all dependencies included.
+* **`<artifactId>maven-assembly-plugin</artifactId>`**: The {maven-short} Assembly Plugin that is used to compile a JAR file with all dependencies included.
 * **`<descriptorRef>jar-with-dependencies</descriptorRef>`**: An additional descriptor appended to the compiled JAR file name.
 * **`<mainClass>org.example.App</mainClass>`**: The default package and class so you can run the compiled JAR file without any additional specifications.
 +
@@ -72,7 +72,7 @@ This quickstart uses the `pulsar-jms-all` package, which is a fat JAR file that 
   </build>
 ----
 
-. In your Maven project, create an `example` subdirectory at `/src/main/java/org`:
+. In your {maven-short} project, create an `example` subdirectory at `/src/main/java/org`:
 +
 [source,bash]
 ----

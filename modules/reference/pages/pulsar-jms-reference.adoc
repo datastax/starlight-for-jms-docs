@@ -86,7 +86,7 @@ Other entries are ignored.
 | String
 | If not specified, for {pulsar-short} standalone instances running on localhost, defaults to the same value as `webServiceUrl`, \`http://localhost:8080`. Can also be specified as \`pulsar://localhost:6650` for {pulsar-short} standalone instances on localhost.
 a| The URL to connect to the {pulsar-short} broker or proxy
-The `brokerServiceUrl` must be specified for {astra-streaming}. Must be customized as required for {pulsar-short} standalone instances that aren't running on localhost.
+The `brokerServiceUrl` must be specified for {astra-stream}. Must be customized as required for {pulsar-short} standalone instances that aren't running on localhost.
 
 | `consumerConfig`
 | no

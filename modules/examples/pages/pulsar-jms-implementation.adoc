@@ -133,8 +133,8 @@ Both of those features can be emulated on the client side with the following lim
 * For shared subscriptions, especially on queues, the message is discarded on the client and is "negative acknowledged" in order to let other consumers receive the message.
 * For `QueueBrowsers`, the message is discarded on the client side.
 
-Currently, the implementation of message selectors is based on Apache ActiveMQ(R) Java client classes, which are imported as a dependency in {product}.
-Apache ActiveMQ is licensed under Apache 2.0.
+Currently, the implementation of message selectors is based on {activemq-reg} Java client classes, which are imported as a dependency in {product}.
+{activemq-short} is licensed under Apache 2.0.
 
 [#subscription-creation]
 == Subscription creation

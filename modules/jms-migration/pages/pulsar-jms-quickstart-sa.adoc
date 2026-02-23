@@ -11,13 +11,13 @@ This quickstart explains how to prepare an {pulsar-reg} streaming instance, and 
 
 [tabs]
 ======
-{astra-streaming}::
+{astra-stream}::
 +
 --
-To use {product} with an {astra-streaming} {pulsar-short} cluster, you need the following:
+To use {product} with an {astra-stream} {pulsar-short} cluster, you need the following:
 
-* An active {astra-streaming} {pulsar-short} cluster with a tenant, namespace, and topic that you want to use with {product}.
-If you don't have these structures configured in {astra-streaming}, see the xref:astra-streaming:getting-started:index.adoc[].
+* An active {astra-stream} {pulsar-short} cluster with a tenant, namespace, and topic that you want to use with {product}.
+If you don't have these structures configured in {astra-stream}, see the xref:astra-stream:getting-started:index.adoc[].
 
 * The connection details for your tenant, which are found on the tenant's **Connect** tab under **Tenant Details**:
 +
@@ -91,15 +91,15 @@ Starting the Docker container produces many status messages and output similar t
 
 == Produce and consume messages with {product}
 
-This example shows how to produce and consume messages with Starlight for JMS using a JMS client, https://openjdk.java.net/install/[Java OpenJDK] 8 or 11, and https://maven.apache.org/install.html[Apache Maven].
+This example shows how to produce and consume messages with Starlight for JMS using a JMS client, https://openjdk.java.net/install/[Java OpenJDK] 8 or 11, and https://maven.apache.org/install.html[{maven-reg}].
 You can also use Gradle with some modifications.
 
-For the complete source code for this example, see the https://github.com/datastax/astra-streaming-examples/tree/master/java/starlight-for-jms[{company} streaming examples repository].
-This example was written for {astra-streaming} but it can be used with {luna-streaming} or self-managed {pulsar-short} clusters by setting the connection properties appropriately.
+For the complete source code for this example, see the {astra-streaming-examples-repo}/tree/master/java/starlight-for-jms[{company} streaming examples repository].
+This example was written for {astra-stream} but it can be used with {luna-streaming} or self-managed {pulsar-short} clusters by setting the connection properties appropriately.
 
 [tabs]
 ======
-{astra-streaming}::
+{astra-stream}::
 +
 --
 include::ROOT:partial$jms-quickstart-create-project.adoc[]
@@ -107,7 +107,7 @@ include::ROOT:partial$jms-quickstart-create-project.adoc[]
 . In the `example` directory, create an `App.java` file.
 In the next steps, you will add code to this file to create a complete program that produces and consumes messages.
 
-. Paste the following code in the file, and then replace the placeholders with the <<prepare-your-pulsar-cluster,tenant connection details, namespace, and topic from {astra-streaming}>>.
+. Paste the following code in the file, and then replace the placeholders with the <<prepare-your-pulsar-cluster,tenant connection details, namespace, and topic from {astra-stream}>>.
 Your editor will report errors because this isn't a complete program yet.
 +
 ./src/main/java/org/example/App.java
@@ -195,9 +195,9 @@ Sending: Hello there!
 Received: Hello there!
 ----
 
-. In {astra-streaming}, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the namespace that you used in the Java program.
+. In {astra-stream}, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the namespace that you used in the Java program.
 +
-If you everything was configured correctly, then the namespace's metrics should reflect that at least one message was published and consumed by your {astra-streaming} {pulsar-short} topic.
+If you everything was configured correctly, then the namespace's metrics should reflect that at least one message was published and consumed by your {astra-stream} {pulsar-short} topic.
 --
 
 {luna-streaming}::
@@ -279,7 +279,7 @@ For more information about consumers, see xref:reference:pulsar-jms-mappings.ado
 mvn clean install
 ----
 +
-The first time you compile the JAR file, Maven downloads all required dependencies.
+The first time you compile the JAR file, {maven-short} downloads all required dependencies.
 Subsequent runs are faster.
 
 . Run the sample application:
@@ -408,7 +408,7 @@ For more information about consumers, see xref:reference:pulsar-jms-mappings.ado
 mvn clean install
 ----
 +
-The first time you compile the JAR file, Maven downloads all required dependencies.
+The first time you compile the JAR file, {maven-short} downloads all required dependencies.
 Subsequent runs are faster.
 
 . Run the sample application:
