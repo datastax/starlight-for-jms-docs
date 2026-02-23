@@ -17,7 +17,7 @@ This quickstart explains how to prepare an {pulsar-reg} streaming instance, and 
 To use {product} with an {astra-stream} {pulsar-short} cluster, you need the following:
 
 * An active {astra-stream} {pulsar-short} cluster with a tenant, namespace, and topic that you want to use with {product}.
-If you don't have these structures configured in {astra-stream}, see the xref:astra-stream:getting-started:index.adoc[].
+If you don't have these structures configured in {astra-stream}, see the xref:astra-streaming:getting-started:index.adoc[].
 
 * The connection details for your tenant, which are found on the tenant's **Connect** tab under **Tenant Details**:
 +
