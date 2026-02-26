@@ -459,7 +459,7 @@ The special `JMSXGroupID` property is defined in the JMS specs as a way to group
 
 {product} maps that property to the message key in {pulsar-short}, ensuring that `JMSXGroupID` is used as the routing key.
 
-This is the same behavior implemented in https://activemq.apache.org/message-groups[Apache ActiveMQ].
+This is the same behavior implemented in https://activemq.apache.org/message-groups[{activemq-reg}].
 
 == See also
 

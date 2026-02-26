@@ -37,11 +37,11 @@ Batch messages with compression consume a non-negligible amount of CPU, heap, an
 This doesn't apply to compressed single messages.
 
 * *Unsupported message types*: {product} doesn't support encrypted batch messages because the filter can't decode the payload of the entry.
-For the same reason, {product} doesn't support custom formats like native Kafka messages.
+For the same reason, {product} doesn't support custom formats like native {kafka-reg} messages.
 
 == Enable server-side filtering
 
-The `.nar` file filter is packaged with {luna-streaming} *2.10.03+* and also available in the GitHub repo https://github.com/datastax/pulsar-jms/releases[here].
+The `.nar` file filter is packaged with {luna-streaming} *2.10.03+* and also available in the GitHub repo {jms_repo}/releases[here].
 
 . Install {product} with the fat JAR that includes all dependencies.
 Put the `.nar` file in `/pulsar/filters`.

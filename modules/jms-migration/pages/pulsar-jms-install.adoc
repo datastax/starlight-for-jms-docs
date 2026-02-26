@@ -30,11 +30,11 @@ However, certain features and compatibility issues that require a specific versi
 
 [tabs]
 ======
-{astra-streaming}::
+{astra-stream}::
 +
 --
-The {pulsar-short} version is managed by Astra.
-Typically, the latest {product} version is compatible with the {pulsar-short} version used by {astra-streaming}.
+The {pulsar-short} version is managed by {astra}.
+Typically, the latest {product} version is compatible with the {pulsar-short} version used by {astra-stream}.
 --
 
 {luna-streaming}::

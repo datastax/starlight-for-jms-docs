@@ -8,10 +8,18 @@ nav:
 
 asciidoc:
   attributes:
-    jms_repo: 'https://github.com/datastax/pulsar-jms/'
+    jms_repo: 'https://github.com/datastax/pulsar-jms'
+    astra-streaming-examples-repo: 'https://github.com/datastax/astra-streaming-examples'
+    astra: 'Astra'
     pulsar-reg: 'Apache Pulsar(TM)'
     pulsar: 'Apache Pulsar'
     pulsar-short: 'Pulsar'
     product: 'Starlight for JMS'
     luna-streaming: 'Luna Streaming'
-    astra-streaming: 'Astra Streaming'
+    astra-stream: 'Astra Streaming'
+    activemq-reg: 'Apache ActiveMQ(R)'
+    activemq-short: 'ActiveMQ'
+    tomee-reg: 'Apache TomEE(TM)'
+    maven-reg: 'Apache Maven(TM)'
+    maven-short: 'Maven'
+    kafka-reg: 'Apache Kafka(R)'
