@@ -30,7 +30,7 @@ If you don't have these structures configured in {astra-stream}, see the xref:as
 {luna-streaming}::
 +
 --
-To use {product} with {luna-streaming} (formerly known as DataStax Luna Streaming), you need the following:
+To use {product} with {luna-streaming} (formerly DataStax Luna Streaming), you need the following:
 
 * An {luna-streaming} cluster.
 +

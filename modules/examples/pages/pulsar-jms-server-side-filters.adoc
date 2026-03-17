@@ -13,7 +13,7 @@ Server-side filtering offloads the filtering to the Broker nodes and includes th
 
 == Limitations
 
-* **Required version**: Server-side filtering requires {pulsar-short} version 2.10.1 or later, or {luna-streaming} (formerly known as DataStax Luna Streaming) version 2.10 or later.
+* **Required version**: Server-side filtering requires {pulsar-short} version 2.10.1 or later, or {luna-streaming} (formerly DataStax Luna Streaming) version 2.10 or later.
 
 * *Batch messages*: Server-side filtering works on the entry level in {pulsar-short}.
 An _entry_ is a single message, or a single batch of messages.

@@ -42,7 +42,7 @@ Typically, the latest {product} version is compatible with the {pulsar-short} ve
 --
 [TIP]
 ====
-{luna-streaming} was formerly known as DataStax Luna Streaming.
+{luna-streaming} was formerly DataStax Luna Streaming.
 ====
 
 * To use Transactions with {luna-streaming} 2.8.x, you must use {product} version 1.x.
