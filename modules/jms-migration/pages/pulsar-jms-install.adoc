@@ -40,9 +40,14 @@ Typically, the latest {product} version is compatible with the {pulsar-short} ve
 {luna-streaming}::
 +
 --
+[TIP]
+====
+{luna-streaming} was formerly DataStax Luna Streaming.
+====
+
 * To use Transactions with {luna-streaming} 2.8.x, you must use {product} version 1.x.
 * To use Transactions with {luna-streaming} 2.10.x or later, you must use {product} version 2.x or later.
-* To use server-side filtering with {luna-streaming}, you must use {luna-streaming} 2.10.0 or later and {product} 2.x or later.
+* To use server-side filtering, you must use {luna-streaming} 2.10.0 or later _and_ {product} 2.x or later.
 --
 
 Self-managed::

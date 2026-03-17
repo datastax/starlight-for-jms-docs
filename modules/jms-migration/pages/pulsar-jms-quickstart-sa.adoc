@@ -30,11 +30,11 @@ If you don't have these structures configured in {astra-stream}, see the xref:as
 {luna-streaming}::
 +
 --
-To use {product} with a {luna-streaming} {pulsar-short} cluster, you need the following:
+To use {product} with {luna-streaming} (formerly DataStax Luna Streaming), you need the following:
 
-* A {luna-streaming} {pulsar-short} cluster.
+* An {luna-streaming} cluster.
 +
-If you don't have a {luna-streaming} cluster, see the xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[{luna-streaming} installation guide].
+To create a cluster, see the xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[{luna-streaming} installation guide].
 
 * Access to the cluster's admin port 8080 and the binary port 6650.
 +
@@ -326,7 +326,7 @@ Received: Hello world! 9
 [pulsar-client-io-5-1] INFO org.apache.pulsar.client.impl.ClientCnx - [id: 0xe43071e3, L:/127.0.0.1:65236 ! R:localhost/127.0.0.1:6650] Disconnected
 ----
 
-. Use the {pulsar-short} Admin CLI or the {luna-streaming} {pulsar-short} Admin Console to inspect your tenant's activity, and verify that messages were published and consumed on the specified topic.
+. Use the {pulsar-short} Admin CLI or the {luna-streaming} Admin Console to inspect your tenant's activity, and verify that messages were published and consumed on the specified topic.
 --
 
 Self-managed::
