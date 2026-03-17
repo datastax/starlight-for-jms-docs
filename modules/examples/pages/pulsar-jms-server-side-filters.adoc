@@ -13,7 +13,7 @@ Server-side filtering offloads the filtering to the Broker nodes and includes th
 
 == Limitations
 
-* **Required version**: Server-side filtering requires {pulsar-short} version 2.10.1 or later, or {luna-streaming} version 2.10 or later.
+* **Required version**: Server-side filtering requires {pulsar-short} version 2.10.1 or later, or {luna-streaming} (formerly known as DataStax Luna Streaming) version 2.10 or later.
 
 * *Batch messages*: Server-side filtering works on the entry level in {pulsar-short}.
 An _entry_ is a single message, or a single batch of messages.
@@ -41,7 +41,8 @@ For the same reason, {product} doesn't support custom formats like native {kafka
 
 == Enable server-side filtering
 
-The `.nar` file filter is packaged with {luna-streaming} *2.10.03+* and also available in the GitHub repo {jms_repo}/releases[here].
+The `.nar` file filter is packaged with {luna-streaming} version 2.10.03 and later.
+It is also available in the {jms_repo}/releases[{product} GitHub repository].
 
 . Install {product} with the fat JAR that includes all dependencies.
 Put the `.nar` file in `/pulsar/filters`.

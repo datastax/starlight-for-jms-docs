@@ -15,7 +15,7 @@ asciidoc:
     pulsar: 'Apache Pulsar'
     pulsar-short: 'Pulsar'
     product: 'Starlight for JMS'
-    luna-streaming: 'Luna Streaming'
+    luna-streaming: 'IBM Elite Support for Apache Pulsar'
     astra-stream: 'Astra Streaming'
     activemq-reg: 'Apache ActiveMQ(R)'
     activemq-short: 'ActiveMQ'
