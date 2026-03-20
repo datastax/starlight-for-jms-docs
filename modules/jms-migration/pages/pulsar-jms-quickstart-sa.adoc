@@ -94,8 +94,10 @@ Starting the Docker container produces many status messages and output similar t
 This example shows how to produce and consume messages with Starlight for JMS using a JMS client, https://openjdk.java.net/install/[Java OpenJDK] 8 or 11, and https://maven.apache.org/install.html[{maven-reg}].
 You can also use Gradle with some modifications.
 
-For the complete source code for this example, see the {astra-streaming-examples-repo}/tree/master/java/starlight-for-jms[{company} streaming examples repository].
-This example was written for {astra-stream} but it can be used with {luna-streaming} or self-managed {pulsar-short} clusters by setting the connection properties appropriately.
+[TIP]
+====
+For additional examples, see the {jms_repo}/tree/master/examples[{product} repository].
+====
 
 [tabs]
 ======
