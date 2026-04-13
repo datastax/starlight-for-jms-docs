@@ -71,10 +71,9 @@ To follow along with this quickstart as written, install a {pulsar-short} instan
 docker run --name pulsar-jms-runner -p 8080:8080 -p 6650:6650 apachepulsar/pulsar:latest /pulsar/bin/pulsar standalone
 ----
 +
-.Result
-[%collapsible]
-====
 Starting the Docker container produces many status messages and output similar to the following:
++
+.Result
 [source,bash]
 ----
 14:57:50.996 [pulsar-web-68-11] INFO  org.eclipse.jetty.server.RequestLog - 127.0.0.1 - - [07/May/2021:14:57:50 +0000] "GET /admin/v2/persistent/public/functions/coordinate/stats?getPreciseBacklog=false&subscriptionBacklogSize=false HTTP/1.1" 200 1677 "-" "Pulsar-Java-v2.7.1" 3
@@ -83,7 +82,6 @@ Starting the Docker container produces many status messages and output similar t
 14:59:20.892 [pulsar-web-68-2] INFO  org.eclipse.jetty.server.RequestLog - 127.0.0.1 - - [07/May/2021:14:59:20 +0000] "GET /admin/v2/persistent/public/functions/coordinate/stats?getPreciseBacklog=false&subscriptionBacklogSize=false HTTP/1.1" 200 1677 "-" "Pulsar-Java-v2.7.1" 4
 14:59:50.857 [pulsar-web-68-3] INFO  org.eclipse.jetty.server.RequestLog - 127.0.0.1 - - [07/May/2021:14:59:50 +0000] "GET /admin/v2/persistent/public/functions/coordinate/stats?getPreciseBacklog=false&subscriptionBacklogSize=false HTTP/1.1" 200 1677 "-" "Pulsar-Java-v2.7.1" 3
 ----
-====
 
 . Leave this terminal running in the background while you complete the rest of this quickstart.
 --
@@ -469,18 +467,15 @@ Received: Hello world! 9
 docker ps --all
 ----
 +
-.Result
-[%collapsible]
-====
 In the following example result, the container ID is `5116f0d16eb3`:
-
++
+.Result
 [source,bash]
 ----
 CONTAINER ID   IMAGE                        COMMAND                  CREATED       STATUS                       PORTS                  NAMES
 5116f0d16eb3   apachepulsar/pulsar:latest   "/pulsar/bin/pulsar …"   2 hours ago   Exited (130) 2 minutes ago                          pulsar-jms-runner
 7ed5fc6c9776   cassandra:latest             "docker-entrypoint.s…"   7 days ago    Exited (143) 7 days ago                             my_cass
 ----
-====
 .. Delete the container by its container ID:
 +
 [source,bash,subs="+quotes"]
