@@ -17,7 +17,8 @@ You can use the `resourceAdapter` {jms_repo}blob/master/resource-adapter[here].
 
 == How can I run the Test Compatibility Kit (TCK)
 
-You can download the TCK https://jakarta.ee/specifications/messaging/2.0/[here]. The repository contains a copy of the TCK that automates the execution of the tests.
+You can https://jakarta.ee/specifications/messaging/2.0/[download the TCK].
+The repository contains a copy of the TCK that automates the execution of the tests.
 
 In the tck-executor module you'll find:
 

@@ -36,7 +36,11 @@ Subscriptions can also be _shared_ or _non-shared_, which determines whether the
 | Exclusive durable subscription with the given name and `clientId`
 |===
 
-TIP: As of {pulsar-short} version 2.7.x, delayed messages don't work with exclusive subscriptions. You can, however, force the usage of shared non-durable subscriptions for simple consumers by setting `jms.useExclusiveSubscriptionsForSimpleConsumers=false`.
+[TIP]
+====
+As of {pulsar-short} version 2.7.x, delayed messages don't work with exclusive subscriptions.
+You can, however, force the usage of shared non-durable subscriptions for simple consumers by setting `jms.useExclusiveSubscriptionsForSimpleConsumers=false`.
+====
 
 For `SharedConsumer` and `SharedDurableConsumer`, set `jms.topicSharedSubscriptionType` to `Key_Shared` to use the `Key_Shared` subscription type.
 
@@ -65,7 +69,8 @@ Every access to the queue passes through the shared subscription and guarantees 
 
 You can change the name of the shared subscription using the `jms.queueSubscriptionName` configuration parameter, but you must ensure that you change it on every client.
 
-In order to implement `QueueBrowser`, {product} uses the {pulsar-short} Reader API, starting from the next message available on the `jms-queue` subscription. In order to peek at the next message {product} uses the {pulsar-short} Admin API `peekMessages`.
+In order to implement `QueueBrowser`, {product} uses the {pulsar-short} Reader API, starting from the next message available on the `jms-queue` subscription.
+In order to peek at the next message {product} uses the {pulsar-short} Admin API `peekMessages`.
 
 In certain cases, the `peekMessages` API can return the last consumed message of the subscription, so the `QueueBrowser` can return inaccurate results.
 
@@ -145,7 +150,8 @@ If both `allowAutoSubscriptionCreation` and `jms.precreateQueueSubscription` are
 [#consumer-mappings]
 == Mapping of JMS consumer modes to {pulsar-short} concepts
 
-There are five consumer mode session objects in JMS. This section describes how they map to {pulsar-short} concepts.
+There are five consumer mode session objects in JMS.
+This section describes how they map to {pulsar-short} concepts.
 
 [#auto-ack]
 === Session.AUTO_ACKNOWLEDGE
@@ -290,7 +296,8 @@ public class JMSExample {
 [#client-ack]
 === Session.CLIENT_ACKNOWLEDGE
 
-In this mode the JMS client works like `AUTO_ACKNOWLEDGE`, automatically acknowledging all messages received before the message inside the same session. To acknowledge only the individual message, use `<<individual,PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE>>`.
+In this mode the JMS client works like `AUTO_ACKNOWLEDGE`, automatically acknowledging all messages received before the message inside the same session.
+To acknowledge only the individual message, use `<<individual,PulsarJMSConstants.INDIVIDUAL_ACKNOWLEDGE>>`.
 
 The following example creates a consumer on `mytopic` with `Session.CLIENT_ACKNOWLEDGE`, sends 100 `foo` messages, and acknowledges them by calling `Message.acknowledge()`in the `onMessage` method.
 This message and all previous messages in the session are acknowledged.

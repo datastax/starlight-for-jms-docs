@@ -73,7 +73,8 @@ Other entries are ignored.
 | no
 | long
 | Disabled
-| Set timeout for unacked messages. Must be >1 second.
+| Set timeout for unacked messages.
+Must be greater than 1 second.
 
 | `ackTimeoutMillis`
 | no
@@ -84,9 +85,11 @@ Other entries are ignored.
 | `brokerServiceUrl`
 | no
 | String
-| If not specified, for {pulsar-short} standalone instances running on localhost, defaults to the same value as `webServiceUrl`, \`http://localhost:8080`. Can also be specified as \`pulsar://localhost:6650` for {pulsar-short} standalone instances on localhost.
+| If not specified, for {pulsar-short} standalone instances running on localhost, defaults to the same value as `webServiceUrl`, \`http://localhost:8080`.
+Can also be specified as \`pulsar://localhost:6650` for {pulsar-short} standalone instances on localhost.
 a| The URL to connect to the {pulsar-short} broker or proxy
-The `brokerServiceUrl` must be specified for {astra-stream}. Must be customized as required for {pulsar-short} standalone instances that aren't running on localhost.
+The `brokerServiceUrl` must be specified for {astra-stream}.
+Must be customized as required for {pulsar-short} standalone instances that aren't running on localhost.
 
 | `consumerConfig`
 | no
@@ -107,7 +110,8 @@ a| Enable transactions
 | boolean
 | false
 a| Force acknowledgment of filtered messages on shared subscriptions
-By default, filtered messages are negatively acknowledged on shared subscriptions. If this flag is `true`, they are acknowledged in order to skip them definitively.
+By default, filtered messages are negatively acknowledged on shared subscriptions.
+If this flag is `true`, they are acknowledged in order to skip them definitively.
 
 | `jms.allowTemporaryTopicWithoutAdmin`
 | no
@@ -202,7 +206,8 @@ Set this to `false` if your client cannot access the Admin HTTP API.
 | no
 | boolean
 | false
-a| Offloads message filtering to the Broker nodes. See xref:examples:pulsar-jms-server-side-filters.adoc[Server Side Filters].
+a| Offloads message filtering to the Broker nodes.
+See xref:examples:pulsar-jms-server-side-filters.adoc[Server Side Filters].
 
 | `jms.waitForServerStartupTimeout`
 | no
@@ -215,7 +220,8 @@ Used to wait for Queue subscriptions to be ready.
 | no
 | `RedeliveryBackoff`
 | MultiplierRedeliveryBackoff
-a| Interface for custom message is `ackTimeout` policy. You can specify `RedeliveryBackoff` for a consumer.
+a| Interface for custom message is `ackTimeout` policy.
+You can specify `RedeliveryBackoff` for a consumer.
 
 | `producerConfig`
 | no

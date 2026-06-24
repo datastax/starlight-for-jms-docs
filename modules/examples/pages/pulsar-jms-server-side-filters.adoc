@@ -3,7 +3,8 @@
 
 {product} offers server-side filtering, which executes JMS filtering features on the {pulsar-short} Broker instead of the Client.
 
-Previously, filtering was implemented with `jms.enableClientSideEmulation=true` on the Client side, which meant the Client application received all messages, even if they didn't match the filter. This caused inefficient network, CPU, and memory usage.
+Previously, filtering was implemented with `jms.enableClientSideEmulation=true` on the Client side, which meant the Client application received all messages, even if they didn't match the filter.
+This caused inefficient network, CPU, and memory usage.
 
 Server-side filtering offloads the filtering to the Broker nodes and includes the following JMS filtering features:
 
