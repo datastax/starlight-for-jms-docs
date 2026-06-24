@@ -23,7 +23,7 @@ You must modify both `broker.conf` and the `consumerConfig` JMS client property 
 
 . In your `broker.conf` file, add the configuration property `acknowledgmentAtBatchIndexLevelEnabled` and set it to `true`:
 +
-[source,conf]
+[source,plaintext]
 ----
 acknowledgmentAtBatchIndexLevelEnabled=true
 ----
@@ -32,9 +32,10 @@ acknowledgmentAtBatchIndexLevelEnabled=true
 +
 [source,java]
 ----
-    Map<String, Object> properties = new HashMap<>();
+Map<String, Object> properties = new HashMap<>();
     properties.put("webServiceUrl", cluster.getAddress());
-    Map<String, Object> consumerConfig = new HashMap<>();
+
+Map<String, Object> consumerConfig = new HashMap<>();
     consumerConfig.put("batchIndexAckEnabled", true);
     properties.put("consumerConfig", consumerConfig);
     try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties));
@@ -42,5 +43,5 @@ acknowledgmentAtBatchIndexLevelEnabled=true
 
 == See also
 
-* xref:pulsar-jms-server-side-filters.adoc[]
+* xref:examples:pulsar-jms-server-side-filters.adoc[]
 * xref:reference:pulsar-jms-mappings.adoc#consumer-mappings[Consumer mappings]

@@ -6,18 +6,23 @@ This page explains how {product} emulates some features that aren't directly sup
 [#client-id]
 == Client identifiers
 
-Each connection may have a client identifier that can be set programmatically or configured administratively using the  `jms.clientId` configuration parameters. Client identifiers must be globally unique but there is no way to enforce that constraint on a {pulsar-short} cluster.
+Each connection may have a client identifier that can be set programmatically or configured administratively using the  `jms.clientId` configuration parameters.
+Client identifiers must be globally unique but there is no way to enforce that constraint on a {pulsar-short} cluster.
 
 When you set a `clientId`, the actual subscription name in {pulsar-short} is constructed as `clientId_subscriptionName`.
 
 [#dead-letter-policy]
-== Dead letter topic configuration
+== Dead-letter topic configuration
 
-Dead letter policy controls {pulsar-short}'s handling of messages that can't be processed successfully. Under normal processing conditions, these messages cannot be processed successfully and the consumer cannot move to the next message.
+Dead letter policy controls {pulsar-short}'s handling of messages that can't be processed successfully.
+Under normal processing conditions, these messages cannot be processed successfully and the consumer cannot move to the next message.
 
-One solution for this situation is the *dead letter topic* policy. The *dead-letter topic* policy routes the unsuccessful messages to the *dead-letter topic* for storage, so consumers can keep consuming while the unsuccessful messages are stored in the dead-letter topic for processing or evaluation.
+One solution for this situation is the _dead-letter topic policy_ (`deadLetterPolicy`).
+The dead-letter topic policy routes the unsuccessful messages to the dead-letter topic for storage, so consumers can keep consuming while the unsuccessful messages are stored in the dead-letter topic for processing or evaluation.
 
-{product} allows further configuration of `deadLetterPolicy`. For more on `deadLetterTopic` configuration properties, see xref:reference:pulsar-jms-reference.adoc[].
+{product} allows further configuration of `deadLetterPolicy`.
+For more on `deadLetterTopic` configuration properties, see xref:reference:pulsar-jms-reference.adoc[].
+
 [source,java]
 ----
 Map<String, Object> deadLetterPolicy = new HashMap<>();
@@ -31,17 +36,18 @@ Map<String, Object> deadLetterPolicy = new HashMap<>();
 
 A message being written to the dead-letter topic is triggered in one of two ways:
 
-* xref:pulsar-jms-implementation.adoc#ack-timeout[Acknowledgement timeout]
-* xref:pulsar-jms-implementation.adoc#negative-ack[Negative acknowledgement]
+* <<ack-timeout,Acknowledgement timeout>>
+* <<negative-ack,Negative acknowledgement>>
 
 [#ack-timeout]
 === Acknowledgement timeout
 
 In an acknowledgement timeout, the broker fails to receive an acknowledgement from a consumer in the amount of time specified in `ackTimeout`.
 The `ackTimeoutRedeliveryBackoff` values control the time between the expiration of `ackTimeout` and the client sending a `redeliver unacknowledged messages` request to the broker.
+
 [source,java]
 ----
- Map<String, Object> ackTimeoutRedeliveryBackoff = new HashMap<>();
+Map<String, Object> ackTimeoutRedeliveryBackoff = new HashMap<>();
     consumerConfig.put("ackTimeoutRedeliveryBackoff", ackTimeoutRedeliveryBackoff);
     ackTimeoutRedeliveryBackoff.put("minDelayMs", 10);
     ackTimeoutRedeliveryBackoff.put("maxDelayMs", 100);
@@ -70,16 +76,19 @@ A few usage notes on negative acknowledgement in {product}:
 
 * Calling `Session.recover()` stops delivery in the session, restarts message delivery with the oldest unacked message, and sends negative acknowledgements to the broker for the unacked messages.
 
-* When using xref:reference:pulsar-jms-reference.adoc[client side emulation] with JMS Queues and Shared Subscriptions, if a message doesn't match the xref:pulsar-jms-implementation.adoc#message-selectors[Selector], the JMS Client negatively acknowledges the message to let another consume pick up the message.
+* When using xref:reference:pulsar-jms-reference.adoc[client side emulation] with JMS Queues and Shared Subscriptions, if a message doesn't match the <<message-selectors,Selector>>, the JMS Client negatively acknowledges the message to let another consume pick up the message.
 
-* When using xref:pulsar-jms-server-side-filters.adoc[server side filtering] and xref:pulsar-jms-implementation.adoc#message-selectors[Selectors], there is still a chance that a negative acknowledgement is sent when one message in a batch doesn't match the filter.
+* When using xref:examples:pulsar-jms-server-side-filters.adoc[server side filtering] and <<message-selectors,Selectors>>, there is still a chance that a negative acknowledgement is sent when one message in a batch doesn't match the filter.
 
-* Using negative acknowledgement increases the count of deliveries of the message, which can trigger routing to the dead-letter topic if the number exceeds `maxRedeliverCount`. So if you're seeing messages in the dead-letter topic that shouldn't be there, they might be hitting a consumer with a local selector that doesn't match too many times.
+* Using negative acknowledgement increases the count of deliveries of the message, which can trigger routing to the dead-letter topic if the number exceeds `maxRedeliverCount`.
+So if you're seeing messages in the dead-letter topic that shouldn't be there, they might be hitting a consumer with a local selector that doesn't match too many times.
 
 [#delayed-messages]
 == Delayed messages
 
-In {pulsar-short}, delayed messages are delivered immediately, without respecting the delay, in the case of exclusive subscriptions. In order to mitigate that behavior, {product} allows you to use shared subscriptions even where an exclusive subscription would be a better fit. The most notable case is `Session.createConsumer(destination)`, which creates an unnamed subscription, and an exclusive subscription would be a better fit.
+In {pulsar-short}, delayed messages are delivered immediately, without respecting the delay, in the case of exclusive subscriptions.
+In order to mitigate that behavior, {product} allows you to use shared subscriptions even where an exclusive subscription would be a better fit.
+The most notable case is `Session.createConsumer(destination)`, which creates an unnamed subscription, and an exclusive subscription would be a better fit.
 
 If you set `jms.useExclusiveSubscriptionsForSimpleConsumers=false` the client uses a Shared subscription, and the delay is respected.
 
@@ -88,14 +97,17 @@ See https://github.com/apache/pulsar/wiki/PIP-26:-Delayed-Message-Delivery[PIP-2
 [#global-registry]
 == Global registry of subscription names and of `clientIds`
 
-The JMS specifications require a subscription name, together with the `clientId`, to be globally unique in the system. In {pulsar-short}, the subscription name is defined in the scope of the Topic, so you can use the same subscription name on two different topics, referring to distinct entities.
+The JMS specifications require a subscription name, together with the `clientId`, to be globally unique in the system.
+In {pulsar-short}, the subscription name is defined in the scope of the Topic, so you can use the same subscription name on two different topics, referring to distinct entities.
 
 The most notable side effects while using {pulsar-short} with the JMS API are:
 
 * `Session.unsubscribe(String subscriptionName)` cannot be used, because it refers to the `subscriptionName` without a topic name.
 * In instances such as changing a message selector, you must _unsubscribe_ the old subscription and create a new subscription.
 
-In {pulsar-short}, {product} can't attach labels or metadata to subscriptions, and can't enforce that a subscription is accessed globally using the same "message selector" and `noLocal` options. {pulsar-short} doesn't have the concept of `clientId`, so it isn't possible to prevent the existence of multiple connections with the same `clientId` in the cluster. Such a check is performed only _locally_ in the context of the JVM/Classloader execution using a _static_ registry.
+In {pulsar-short}, {product} can't attach labels or metadata to subscriptions, and can't enforce that a subscription is accessed globally using the same "message selector" and `noLocal` options.
+{pulsar-short} doesn't have the concept of `clientId`, so it isn't possible to prevent the existence of multiple connections with the same `clientId` in the cluster.
+Such a check is performed only _locally_ in the context of the JVM/Classloader execution using a _static_ registry.
 
 [#message-listeners]
 == Message listeners and concurrency
@@ -116,11 +128,13 @@ For `CompletionListeners`, which are useful for asynchronous sending of messages
 [#message-properties]
 == Message properties
 
-In {pulsar-short} properties are always of type String, but the JMS specs require support for every Java primitive type. In order to emulate that behavior for every custom property set on the message, {product} sets an additional property that describes the original type of the property.
+In {pulsar-short} properties are always of type String, but the JMS specs require support for every Java primitive type.
+In order to emulate that behavior for every custom property set on the message, {product} sets an additional property that describes the original type of the property.
 
 For instance if you set a message property `my-key=1234` (integer), {product} adds a property `my-key_jmstype=integer` in order to properly reconstruct the value when the receiver calls `getObjectProperty`.
 
-The value is always serialized as string. For floating point numbers, {product} uses `Double.toString/parseString` and `Float.toString/parseString` with the behavior mandated by Java specifications.
+The value is always serialized as string.
+For floating point numbers, {product} uses `Double.toString/parseString` and `Float.toString/parseString` with the behavior mandated by Java specifications.
 
 [#message-selectors]
 == Message selectors and `noLocal` subscriptions
@@ -154,18 +168,21 @@ Properties processed by {product} in a special way:
 * `JMSPulsarMessageType`: Type of message.
 * `JMSMessageId`: Logical ID of the message.
 * `JMSReplyTo`: Fully qualified name of the topic referred to by the `JMSReplyTo` field.
-* `JMSReplyToType`: JMS type for the `JMSReplyTo` topic. Allowed values are `topic` or `queue` (default: `topic`).
+* `JMSReplyToType`: JMS type for the `JMSReplyTo` topic.
+Allowed values are `topic` or `queue` (default: `topic`).
 * `JMSDeliveryMode`: Integer value of the `JMSDeliveryMode` standard field, in case it differs from `DeliveryMode.PERSISTENT`.
 * `JMSPriority`: Integer value of the priority requested for the message, in case it differs from `Message.DEFAULT_PRIORITY`.
 * `JMSDeliveryTime`: Representation in milliseconds since the UNIX epoch of the `JMSDeliveryTime` field.
-* `JMSXGroupID`: Mapped to the `key` of the {pulsar-short} message. Not represented by a message property.
+* `JMSXGroupID`: Mapped to the `key` of the {pulsar-short} message.
+Not represented by a message property.
 * `JMSXGroupSeq`: Mapped to {pulsar-short} Message `sequenceId` if it isn't overridden with a custom value.
 * `JMSConnectionID`: ID of the connection.
 
 Special message field mappings:
 
 * property `JMSXDeliveryCount`: Mapped to `1` plus the {pulsar-short} message `RedeliveryCount` field.
-* field `JMSExpiration`: Representation in milliseconds since the UNIX epoch of the expiration date of the message. Used to emulate time to live.
+* field `JMSExpiration`: Representation in milliseconds since the UNIX epoch of the expiration date of the message.
+Used to emulate time to live.
 * field `JMSRedelivered`: Mapped to `true` if `JMSXDeliveryCount` is greater than 1.
 
 Ignored fields:
@@ -202,7 +219,8 @@ Map<String, Object> properties = new HashMap<>();
 [#unsupported-features]
 == Unsupported and emulated features
 
-The JMS 2.0 specifications describes broadly a generic messaging service and defines many interfaces and services. {pulsar-reg} doesn't support all of the required features, and {product} is a wrapper over the {pulsar} Client.
+The JMS 2.0 specifications describes broadly a generic messaging service and defines many interfaces and services.
+{pulsar-reg} doesn't support all of the required features, and {product} is a wrapper over the {pulsar} Client.
 
 Most of the features that aren't natively supported by {pulsar-short} are emulated by {product}, which helps in porting existing JMS based applications.
 
@@ -281,7 +299,8 @@ TIP: If you want to use emulated features, but the emulated behavior doesn't fit
 [#temporary-destinations]
 == Temporary destinations
 
-Temporary destinations are created using `Session.createTemporaryQueue` and `Session.createTemporaryTopic` and should create a destination that is automatically deleted then the connection is closed. In {pulsar-short}, since there is no concept of a JMS Connection, that behavior cannot be implemented.
+Temporary destinations are created using `Session.createTemporaryQueue` and `Session.createTemporaryTopic` and should create a destination that is automatically deleted then the connection is closed.
+In {pulsar-short}, since there is no concept of a JMS Connection, that behavior cannot be implemented.
 
 {product} emulates the behavior by trying to delete the destination on `Connection.close()` and in `ConnectionFactory.close()` but there is no guarantee that that will eventually happen, if, for instance, the client application crashes or a temporary error occurs during the deletion of the destination.
 
@@ -297,15 +316,16 @@ Creating a temporary destination requires the client to be allowed to create the
 
 Setting the configuration property `jms.useCredentialsFromCreateConnection=true` when creating a new connection passes the `username` and `password` pair from the `createConnection(username, password)` or `createContext(username, password, mode)` methods into `authParams`.
 
-To set the configuration when creating a new connection or context, add `jms.useCredentialsFromCreateConnection=true` as below:
+To set the configuration when creating a new connection or context, add `jms.useCredentialsFromCreateConnection=true`:
 
 [source,java]
 ----
 Map<String, Object> configuration = new HashMap<>();
-configuration.put("jms.precreateQueueSubscription", "true");
+    configuration.put("jms.precreateQueueSubscription", "true");
+
 ConnectionFactory factory = new PulsarConnectionFactory(configuration);
-...
-factory.close();
+    ...
+    factory.close();
 ----
 
 This passes the `username` and `password` pair into the `PulsarConnectionFactory` constructor.
@@ -328,16 +348,16 @@ Only one `PulsarClient` can be held by a `PulsarConnectionFactory`.
 
 The JMS API doesn't have a standard way to consume schema-driven data like https://avro.apache.org/docs/current/spec.html[AVRO], but the {pulsar-short} client can automatically apply schema and decode messages to a specific Java Object model.
 
-Set the `useSchema` flag to `true` with `consumerConfig` to apply schema when consuming data, as below:
+Set the `useSchema` flag to `true` with `consumerConfig` to apply schema when consuming data:
 
 [source,java]
 ----
 Map<String, Object> consumerConfig = new HashMap<>();
-properties.put("consumerConfig", consumerConfig);
+    properties.put("consumerConfig", consumerConfig);
 
 Map<String, Object> properties = new HashMap<>();
-properties.put("webServiceUrl", cluster.getAddress());
-consumerConfig.put("useSchema", true);
+    properties.put("webServiceUrl", cluster.getAddress());
+    consumerConfig.put("useSchema", true);
 ----
 
 The consumer returns a specific JMS message depending on the schema type:
@@ -383,11 +403,12 @@ This subscribes to the topics named "example", "foo" and "bar"
 |===
 
 To embed a multi-topic subscription name using a JMS queue:
+
 [source,java]
 ----
-try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); ){
-    Queue queue = session.createQueue("multi:example,foo,bar:subscription");
-}
+    try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); ){
+        Queue queue = session.createQueue("multi:example,foo,bar:subscription");
+    }
 ----
 
 For more on multi-topic subscriptions in {pulsar-short}, see the https://pulsar.apache.org/docs/client-libraries-java/#multi-topic-subscriptions[{pulsar-short} documentation].
@@ -395,11 +416,12 @@ For more on multi-topic subscriptions in {pulsar-short}, see the https://pulsar.
 [#jms-priority]
 == JMS priority
 
-*JMS priority* allows messages to be dispatched at different rates according to priority.
+JMS priority allows messages to be dispatched at different rates according to priority.
 
-Priorities are <<Mapping JMS priority to partitions,mapped to {pulsar-short} partition IDs>> with the `jms.priorityMapping` parameter in the ConnectionFactory.
+<<jms-priority-mapping,priorities are mapped to {pulsar-short} partition IDs>> with the `jms.priorityMapping` parameter in the `ConnectionFactory`.
 
-When a producer writes a message, the message is routed to a partition based on its priority mapping. By default, the higher the partition name (0 is highest priority), the higher the priority.
+When a producer writes a message, the message is routed to a partition based on its priority mapping.
+By default, the higher the partition name (0 is highest priority), the higher the priority.
 
 On the consumer side, messages are re-ordered in memory so high priority partitions are drained faster than other partitions.
 
@@ -412,7 +434,8 @@ Even if a consumer isn't looking for a message's priority mapping metadata, it s
 
 The parameter `jms.priorityMapping` controls how priorities are mapped to partitions.
 
-The `jms.priorityMapping` parameter can be set to `linear` or `non-linear`. The default is `linear`.
+The `jms.priorityMapping` parameter can be set to `linear` or `non-linear`.
+The default is `linear`.
 
 In `jms.priorityMapping = "linear"` mode, the priority level (from 0 to 9) is linearly mapped to the partition id.
 

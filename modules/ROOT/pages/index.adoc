@@ -2,19 +2,27 @@
 :navtitle: {product}
 
 {jms_repo}[{product}] is the first highly compliant JMS implementation designed to run on a modern streaming platform.
-It allows enterprises to take advantage of the scalability and resiliency of a modern streaming platform to run their existing JMS applications. Because {pulsar-reg} is open-source and cloud-native, {product} enables enterprises to move their JMS applications to run on-premises and in any cloud environment.
+It allows enterprises to take advantage of the scalability and resiliency of a modern streaming platform to run their existing JMS applications.
+Because {pulsar-reg} is open-source and cloud-native, {product} enables enterprises to move their JMS applications to run on-premises and in any cloud environment.
 
 == Key Features
 
 {product} key features include:
 
 * *Blazing fast JMS performance*: Achieve 1 million JMS messages per second with 99 percentile publish to acknowledge latency of less than 10 ms.
-* *Drop-in replacement for existing JMS applications*: Supports JMS/Jakarta 2.0 and is backwards compatible with JMS 1.1. 100% pass rate on JMS compliance test for supported features.
-* *Horizontally scalable JMS*: {pulsar} is a horizontally scaled distributed streaming platform. You can scale up or down without operational hassles. {pulsar-short} separates compute from storage, which means you can scale those dimensions independently, as required. {pulsar-short} supports offloading old data to object storage for practically infinite storage capacity.
-* *Reduced total cost of ownership*: Because {pulsar} is natively multi-tenant and high performance, you can consolidate JMS applications spread across multiple legacy JMS brokers onto a single {pulsar} installation. And since {pulsar-short} is easily horizontally scaled, you don't need to overprovision.
-* *Future proof*: {pulsar} can support traditional messaging workloads, but it can also support modern streaming use cases such as log collection, microservices integration, event streaming, event sourcing. New workloads can run alongside Legacy JMS applications.
-* *Open source to avoid lock in*: {product} and {pulsar} are 100% open source. You can run on-premise, in any cloud provider, or in Kubernetes.
-* *Adds message replay to JMS*: {pulsar} natively supports message retention and replay. This allows applications using Fast JMS for {pulsar} to travel back in time and replay previously consumed messages to recover from misconfiguration issues, recover from bugs in application code, and test new applications against real data.
+* *Drop-in replacement for existing JMS applications*: Supports JMS/Jakarta 2.0 and is backwards compatible with JMS 1.1 at a 100 percent pass rate on JMS compliance test for supported features.
+* *Horizontally scalable JMS*: {pulsar} is a horizontally scaled distributed streaming platform.
+You can scale up or down without operational hassles.
+{pulsar-short} separates compute from storage, which means you can scale those dimensions independently, as required.
+{pulsar-short} supports offloading old data to object storage for practically infinite storage capacity.
+* *Reduced total cost of ownership*: Because {pulsar} is natively multi-tenant and high performance, you can consolidate JMS applications spread across multiple legacy JMS brokers onto a single {pulsar} installation.
+And since {pulsar-short} is easily horizontally scaled, you don't need to overprovision.
+* *Future proof*: {pulsar} can support traditional messaging workloads, but it can also support modern streaming use cases such as log collection, microservices integration, event streaming, event sourcing.
+New workloads can run alongside Legacy JMS applications.
+* *Open source to avoid lock in*: {product} and {pulsar} are 100% open source.
+You can run on-premise, in any cloud provider, or in Kubernetes.
+* *Adds message replay to JMS*: {pulsar} natively supports message retention and replay.
+This allows applications using Fast JMS for {pulsar} to travel back in time and replay previously consumed messages to recover from misconfiguration issues, recover from bugs in application code, and test new applications against real data.
 
 == Get started with {product}
 

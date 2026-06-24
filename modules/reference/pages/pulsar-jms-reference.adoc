@@ -10,10 +10,10 @@ Configuration information is passed to the `PulsarConnectionFactory` constructor
 [source,java]
 ----
 Map<String, Object> configuration = new HashMap<>();
-configuration.put("...","...");
+    configuration.put("...","...");
 ConnectionFactory factory = new PulsarConnectionFactory(configuration);
-...
-factory.close();
+    ...
+    factory.close();
 ----
 
 Configuration information can also be passed as a JSON encoded string:
@@ -22,9 +22,9 @@ Configuration information can also be passed as a JSON encoded string:
 ----
 String configuration = "{.....}";
 ConnectionFactory factory = new PulsarConnectionFactory();
-factory.setJsonConfiguration(configuration);
-...
-factory.close();
+    factory.setJsonConfiguration(configuration);
+    ...
+    factory.close();
 ----
 
 Configuration information can be passed when a `JMSContext` or `Session` is created with `JMSContext.createContext` or `Session.createSession`.
@@ -35,7 +35,7 @@ Create a `PulsarConnectionFactory` with `initialContext` for configuration:
 ----
 Map<String, Object> configuration = new HashMap<>();
 Map<String, Object> consumerConfig = new HashMap<>();
-configuration.put("consumerConfig", consumerConfig);
+    configuration.put("consumerConfig", consumerConfig);
 PulsarConnectionFactory factory = new PulsarConnectionFactory(configuration);
 PulsarJMSContext initialContext = (PulsarJMSContext) factory.createContext();
 ----
@@ -44,9 +44,9 @@ The initial configuration in `initialContext` is overridden by the subsequent `J
 
 [source,java]
 ----
-Map<String, Object> perContextConfiguration new HashMap<>();
+Map<String, Object> perContextConfiguration = new HashMap<>();
 Map<String, Object> perContextConsumerConfig = new HashMap<>();
-perContextConsumerConfig.put("consumerConfig", perContextConsumerConfig);
+    perContextConsumerConfig.put("consumerConfig", perContextConsumerConfig);
 JMSContext withCustomConfiguration = initialContext.createContext(mode, perContextConfiguration);
 ----
 
@@ -73,7 +73,8 @@ Other entries are ignored.
 | no
 | long
 | Disabled
-| Set timeout for unacked messages. Must be >1 second.
+| Set timeout for unacked messages.
+Must be greater than 1 second.
 
 | `ackTimeoutMillis`
 | no
@@ -84,9 +85,11 @@ Other entries are ignored.
 | `brokerServiceUrl`
 | no
 | String
-| If not specified, for {pulsar-short} standalone instances running on localhost, defaults to the same value as `webServiceUrl`, \`http://localhost:8080`. Can also be specified as \`pulsar://localhost:6650` for {pulsar-short} standalone instances on localhost.
+| If not specified, for {pulsar-short} standalone instances running on localhost, defaults to the same value as `webServiceUrl`, \`http://localhost:8080`.
+Can also be specified as \`pulsar://localhost:6650` for {pulsar-short} standalone instances on localhost.
 a| The URL to connect to the {pulsar-short} broker or proxy
-The `brokerServiceUrl` must be specified for {astra-stream}. Must be customized as required for {pulsar-short} standalone instances that aren't running on localhost.
+The `brokerServiceUrl` must be specified for {astra-stream}.
+Must be customized as required for {pulsar-short} standalone instances that aren't running on localhost.
 
 | `consumerConfig`
 | no
@@ -107,7 +110,8 @@ a| Enable transactions
 | boolean
 | false
 a| Force acknowledgment of filtered messages on shared subscriptions
-By default, filtered messages are negatively acknowledged on shared subscriptions. If this flag is `true`, they are acknowledged in order to skip them definitively.
+By default, filtered messages are negatively acknowledged on shared subscriptions.
+If this flag is `true`, they are acknowledged in order to skip them definitively.
 
 | `jms.allowTemporaryTopicWithoutAdmin`
 | no
@@ -202,7 +206,8 @@ Set this to `false` if your client cannot access the Admin HTTP API.
 | no
 | boolean
 | false
-a| Offloads message filtering to the Broker nodes. See xref:examples:pulsar-jms-server-side-filters.adoc[Server Side Filters].
+a| Offloads message filtering to the Broker nodes.
+See xref:examples:pulsar-jms-server-side-filters.adoc[Server Side Filters].
 
 | `jms.waitForServerStartupTimeout`
 | no
@@ -215,7 +220,8 @@ Used to wait for Queue subscriptions to be ready.
 | no
 | `RedeliveryBackoff`
 | MultiplierRedeliveryBackoff
-a| Interface for custom message is `ackTimeout` policy. You can specify `RedeliveryBackoff` for a consumer.
+a| Interface for custom message is `ackTimeout` policy.
+You can specify `RedeliveryBackoff` for a consumer.
 
 | `producerConfig`
 | no
@@ -238,5 +244,5 @@ TIP: Please check https://pulsar.apache.org/docs/en/standalone/[{pulsar} documen
 
 == See also
 
-* xref:pulsar-jms-mappings.adoc[]
+* xref:reference:pulsar-jms-mappings.adoc[]
 * xref:examples:pulsar-jms-implementation.adoc[]

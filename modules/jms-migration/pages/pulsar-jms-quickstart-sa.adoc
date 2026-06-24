@@ -69,7 +69,7 @@ public class App
 ./src/main/java/org/example/App.java
 [source,java]
 ----
-    Map<String, Object> properties = new HashMap<>();
+Map<String, Object> properties = new HashMap<>();
     properties.put("webServiceUrl",webServiceUrl);
     properties.put("brokerServiceUrl",brokerServiceUrl);
     properties.put("authPlugin","org.apache.pulsar.client.impl.auth.AuthenticationToken");
@@ -133,7 +133,7 @@ If you everything was configured correctly, then the namespace's metrics should 
 {luna-streaming} was formerly DataStax Luna Streaming.
 ====
 
-. xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[Create a {luna-streaming} cluster].
+. xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[Create an {luna-streaming} cluster].
 
 . Make sure you have access to the cluster's admin port 8080 and the binary port 6650.
 +
@@ -141,7 +141,7 @@ If you everything was configured correctly, then the namespace's metrics should 
 ====
 You must modify the initialization properties in the quickstart code if your cluster's {pulsar-short} endpoints aren't accessible on `\http://localhost:8080` and `\http://localhost:6650`.
 Alternatively, enable port forwarding with `kubectl` to make the endpoints accessible on these URLs.
-For more information, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc#install-luna-streaming-locally[Install {luna-streaming} locally].
+For more information, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc#install-ibm-elite-support-for-apache-pulsar-locally[Install {luna-streaming} locally].
 ====
 
 . Produce and consume messages with {product}.
@@ -246,7 +246,7 @@ It can be easy to miss message `0` in the output because it is the first line of
 +
 Additionally, messages are consumed asynchronously, so the messages might not be sent and received sequentially.
 +
-[source,bash]
+[source,console]
 ----
 Sending: Hello world! 0
 
@@ -301,7 +301,7 @@ docker run --name pulsar-jms-runner -p 8080:8080 -p 6650:6650 apachepulsar/pulsa
 Starting the Docker container produces many status messages and output similar to the following:
 +
 .Result
-[source,bash]
+[source,console]
 ----
 14:57:50.996 [pulsar-web-68-11] INFO  org.eclipse.jetty.server.RequestLog - 127.0.0.1 - - [07/May/2021:14:57:50 +0000] "GET /admin/v2/persistent/public/functions/coordinate/stats?getPreciseBacklog=false&subscriptionBacklogSize=false HTTP/1.1" 200 1677 "-" "Pulsar-Java-v2.7.1" 3
 14:58:20.962 [pulsar-web-68-1] INFO  org.eclipse.jetty.server.RequestLog - 127.0.0.1 - - [07/May/2021:14:58:20 +0000] "GET /admin/v2/persistent/public/functions/coordinate/stats?getPreciseBacklog=false&subscriptionBacklogSize=false HTTP/1.1" 200 1677 "-" "Pulsar-Java-v2.7.1" 3
@@ -413,7 +413,7 @@ It can be easy to miss message `0` in the output because it is the first line of
 +
 Additionally, messages are consumed asynchronously, so the messages might not be sent and received sequentially.
 +
-[source,bash]
+[source,console]
 ----
 Sending: Hello world! 0
 
@@ -449,6 +449,7 @@ Received: Hello world! 9
 . If you used a {pulsar-short} Docker instance for this quickstart, stop and remove the Docker container when you are done testing the quickstart program:
 +
 .. In the terminal where you started the {pulsar-short} Docker instance, press kbd:[Ctrl]+kbd:[C] to stop the container.
++
 .. Get a list of all Docker containers, and then note the container ID for the `apachepulsar` container:
 +
 [source,bash]
@@ -459,12 +460,13 @@ docker ps --all
 In the following example result, the container ID is `5116f0d16eb3`:
 +
 .Result
-[source,bash]
+[source,console]
 ----
 CONTAINER ID   IMAGE                        COMMAND                  CREATED       STATUS                       PORTS                  NAMES
 5116f0d16eb3   apachepulsar/pulsar:latest   "/pulsar/bin/pulsar …"   2 hours ago   Exited (130) 2 minutes ago                          pulsar-jms-runner
 7ed5fc6c9776   cassandra:latest             "docker-entrypoint.s…"   7 days ago    Exited (143) 7 days ago                             my_cass
 ----
++
 .. Delete the container by its container ID:
 +
 [source,bash,subs="+quotes"]
@@ -474,7 +476,7 @@ docker rm **CONTAINER_ID**
 
 == Next steps
 
-* xref:starlight-for-jms:examples:pulsar-jms-implementation.adoc[]
-* xref:starlight-for-jms:reference:pulsar-jms-mappings.adoc[]
-* xref:starlight-for-jms:reference:pulsar-jms-reference.adoc[]
+* xref:examples:pulsar-jms-implementation.adoc[]
+* xref:reference:pulsar-jms-mappings.adoc[]
+* xref:reference:pulsar-jms-reference.adoc[]
 * xref:ROOT:pulsar-jms-faq.adoc[]
