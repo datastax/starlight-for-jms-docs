@@ -43,5 +43,5 @@ Map<String, Object> consumerConfig = new HashMap<>();
 
 == See also
 
-* xref:pulsar-jms-server-side-filters.adoc[]
+* xref:examples:pulsar-jms-server-side-filters.adoc[]
 * xref:reference:pulsar-jms-mappings.adoc#consumer-mappings[Consumer mappings]

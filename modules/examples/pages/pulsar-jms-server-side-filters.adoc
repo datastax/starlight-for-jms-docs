@@ -21,7 +21,7 @@ The Broker cannot selectively filter messages in a batch; it either passes compl
 +
 For example, if a batch message is partially accepted by the Broker filter, the Broker still sends the entire batch to the client, and the client executes the filter locally.
 If you don't want the client to receive unwanted messages, disable batching on your producers.
-For more information, see xref:pulsar-jms-batch-ack.adoc[Batch index acknowledgement].
+For more information, see xref:examples:pulsar-jms-batch-ack.adoc[Batch index acknowledgement].
 +
 [TIP]
 ====
@@ -94,5 +94,5 @@ If you set `jms.selector` on the subscription _and_ set a message selector on th
 == See also
 
 * xref:reference:pulsar-jms-mappings.adoc[]
-* xref:pulsar-jms-implementation.adoc[]
+* xref:examples:pulsar-jms-implementation.adoc[]
 * xref:reference:pulsar-jms-reference.adoc[]

@@ -238,5 +238,5 @@ TIP: Please check https://pulsar.apache.org/docs/en/standalone/[{pulsar} documen
 
 == See also
 
-* xref:pulsar-jms-mappings.adoc[]
+* xref:reference:pulsar-jms-mappings.adoc[]
 * xref:examples:pulsar-jms-implementation.adoc[]

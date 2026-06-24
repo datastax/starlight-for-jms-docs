@@ -476,7 +476,7 @@ docker rm **CONTAINER_ID**
 
 == Next steps
 
-* xref:starlight-for-jms:examples:pulsar-jms-implementation.adoc[]
-* xref:starlight-for-jms:reference:pulsar-jms-mappings.adoc[]
-* xref:starlight-for-jms:reference:pulsar-jms-reference.adoc[]
+* xref:examples:pulsar-jms-implementation.adoc[]
+* xref:reference:pulsar-jms-mappings.adoc[]
+* xref:reference:pulsar-jms-reference.adoc[]
 * xref:ROOT:pulsar-jms-faq.adoc[]

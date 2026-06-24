@@ -11,11 +11,11 @@ Each connection may have a client identifier that can be set programmatically or
 When you set a `clientId`, the actual subscription name in {pulsar-short} is constructed as `clientId_subscriptionName`.
 
 [#dead-letter-policy]
-== Dead letter topic configuration
+== Dead-letter topic configuration
 
 Dead letter policy controls {pulsar-short}'s handling of messages that can't be processed successfully. Under normal processing conditions, these messages cannot be processed successfully and the consumer cannot move to the next message.
 
-One solution for this situation is the *dead letter topic* policy. The *dead-letter topic* policy routes the unsuccessful messages to the *dead-letter topic* for storage, so consumers can keep consuming while the unsuccessful messages are stored in the dead-letter topic for processing or evaluation.
+One solution for this situation is the _dead-letter topic policy_ (`deadLetterPolicy`). The dead-letter topic policy routes the unsuccessful messages to the dead-letter topic for storage, so consumers can keep consuming while the unsuccessful messages are stored in the dead-letter topic for processing or evaluation.
 
 {product} allows further configuration of `deadLetterPolicy`. For more on `deadLetterTopic` configuration properties, see xref:reference:pulsar-jms-reference.adoc[].
 [source,java]
@@ -31,8 +31,8 @@ Map<String, Object> deadLetterPolicy = new HashMap<>();
 
 A message being written to the dead-letter topic is triggered in one of two ways:
 
-* xref:pulsar-jms-implementation.adoc#ack-timeout[Acknowledgement timeout]
-* xref:pulsar-jms-implementation.adoc#negative-ack[Negative acknowledgement]
+* <<ack-timeout,Acknowledgement timeout>>
+* <<negative-ack,Negative acknowledgement>>
 
 [#ack-timeout]
 === Acknowledgement timeout
@@ -71,9 +71,9 @@ A few usage notes on negative acknowledgement in {product}:
 
 * Calling `Session.recover()` stops delivery in the session, restarts message delivery with the oldest unacked message, and sends negative acknowledgements to the broker for the unacked messages.
 
-* When using xref:reference:pulsar-jms-reference.adoc[client side emulation] with JMS Queues and Shared Subscriptions, if a message doesn't match the xref:pulsar-jms-implementation.adoc#message-selectors[Selector], the JMS Client negatively acknowledges the message to let another consume pick up the message.
+* When using xref:reference:pulsar-jms-reference.adoc[client side emulation] with JMS Queues and Shared Subscriptions, if a message doesn't match the <<message-selectors,Selector>>, the JMS Client negatively acknowledges the message to let another consume pick up the message.
 
-* When using xref:pulsar-jms-server-side-filters.adoc[server side filtering] and xref:pulsar-jms-implementation.adoc#message-selectors[Selectors], there is still a chance that a negative acknowledgement is sent when one message in a batch doesn't match the filter.
+* When using xref:examples:pulsar-jms-server-side-filters.adoc[server side filtering] and <<message-selectors,Selectors>>, there is still a chance that a negative acknowledgement is sent when one message in a batch doesn't match the filter.
 
 * Using negative acknowledgement increases the count of deliveries of the message, which can trigger routing to the dead-letter topic if the number exceeds `maxRedeliverCount`. So if you're seeing messages in the dead-letter topic that shouldn't be there, they might be hitting a consumer with a local selector that doesn't match too many times.
 
@@ -298,7 +298,7 @@ Creating a temporary destination requires the client to be allowed to create the
 
 Setting the configuration property `jms.useCredentialsFromCreateConnection=true` when creating a new connection passes the `username` and `password` pair from the `createConnection(username, password)` or `createContext(username, password, mode)` methods into `authParams`.
 
-To set the configuration when creating a new connection or context, add `jms.useCredentialsFromCreateConnection=true` as below:
+To set the configuration when creating a new connection or context, add `jms.useCredentialsFromCreateConnection=true`:
 
 [source,java]
 ----
@@ -330,7 +330,7 @@ Only one `PulsarClient` can be held by a `PulsarConnectionFactory`.
 
 The JMS API doesn't have a standard way to consume schema-driven data like https://avro.apache.org/docs/current/spec.html[AVRO], but the {pulsar-short} client can automatically apply schema and decode messages to a specific Java Object model.
 
-Set the `useSchema` flag to `true` with `consumerConfig` to apply schema when consuming data, as below:
+Set the `useSchema` flag to `true` with `consumerConfig` to apply schema when consuming data:
 
 [source,java]
 ----
@@ -398,9 +398,9 @@ For more on multi-topic subscriptions in {pulsar-short}, see the https://pulsar.
 [#jms-priority]
 == JMS priority
 
-*JMS priority* allows messages to be dispatched at different rates according to priority.
+JMS priority allows messages to be dispatched at different rates according to priority.
 
-Priorities are <<Mapping JMS priority to partitions,mapped to {pulsar-short} partition IDs>> with the `jms.priorityMapping` parameter in the ConnectionFactory.
+<<jms-priority-mapping,priorities are mapped to {pulsar-short} partition IDs>> with the `jms.priorityMapping` parameter in the `ConnectionFactory`.
 
 When a producer writes a message, the message is routed to a partition based on its priority mapping. By default, the higher the partition name (0 is highest priority), the higher the priority.
 
