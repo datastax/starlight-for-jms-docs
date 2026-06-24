@@ -133,7 +133,7 @@ If you everything was configured correctly, then the namespace's metrics should 
 {luna-streaming} was formerly DataStax Luna Streaming.
 ====
 
-. xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[Create a {luna-streaming} cluster].
+. xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc[Create an {luna-streaming} cluster].
 
 . Make sure you have access to the cluster's admin port 8080 and the binary port 6650.
 +
@@ -141,7 +141,7 @@ If you everything was configured correctly, then the namespace's metrics should 
 ====
 You must modify the initialization properties in the quickstart code if your cluster's {pulsar-short} endpoints aren't accessible on `\http://localhost:8080` and `\http://localhost:6650`.
 Alternatively, enable port forwarding with `kubectl` to make the endpoints accessible on these URLs.
-For more information, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc#install-luna-streaming-locally[Install {luna-streaming} locally].
+For more information, see xref:luna-streaming:install-upgrade:quickstart-helm-installs.adoc#install-ibm-elite-support-for-apache-pulsar-locally[Install {luna-streaming} locally].
 ====
 
 . Produce and consume messages with {product}.
