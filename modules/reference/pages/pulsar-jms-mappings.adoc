@@ -75,6 +75,7 @@ In certain cases, the `peekMessages` API can return the last consumed message of
 By default, the subscription created by a JMS queue is named `jms-queue`, which can be overriden with `jms.queueSubscriptionName` in the `PulsarConnectionFactory` constructor.
 
 You can instead set the subscription name at queue creation:
+
 [source,java]
 ----
 try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); ){
@@ -89,10 +90,11 @@ You can override the default `public/default` namespace with `jms.systemNamespac
 [source,java]
 ----
 Map<String, Object> configuration = new HashMap<>();
-configuration.put("jms.systemNamespace", "<my-tenant>/<my-namespace>");
+    configuration.put("jms.systemNamespace", "<my-tenant>/<my-namespace>");
+
 ConnectionFactory factory = new PulsarConnectionFactory(configuration);
-...
-factory.close();
+    ...
+    factory.close();
 ----
 
 A fully-qualified namespace works similarly, but the topic destination points to a persistent topic URL:
@@ -133,7 +135,7 @@ public static void before() throws Exception {
 
 Or modify the {pulsar-short} broker's `broker.conf` file:
 
-[source,bash]
+[source,plaintext]
 ----
 allowAutoSubscriptionCreation=false
 ----

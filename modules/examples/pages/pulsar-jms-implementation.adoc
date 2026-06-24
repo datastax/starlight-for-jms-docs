@@ -39,9 +39,10 @@ A message being written to the dead-letter topic is triggered in one of two ways
 
 In an acknowledgement timeout, the broker fails to receive an acknowledgement from a consumer in the amount of time specified in `ackTimeout`.
 The `ackTimeoutRedeliveryBackoff` values control the time between the expiration of `ackTimeout` and the client sending a `redeliver unacknowledged messages` request to the broker.
+
 [source,java]
 ----
- Map<String, Object> ackTimeoutRedeliveryBackoff = new HashMap<>();
+Map<String, Object> ackTimeoutRedeliveryBackoff = new HashMap<>();
     consumerConfig.put("ackTimeoutRedeliveryBackoff", ackTimeoutRedeliveryBackoff);
     ackTimeoutRedeliveryBackoff.put("minDelayMs", 10);
     ackTimeoutRedeliveryBackoff.put("maxDelayMs", 100);
@@ -302,10 +303,11 @@ To set the configuration when creating a new connection or context, add `jms.use
 [source,java]
 ----
 Map<String, Object> configuration = new HashMap<>();
-configuration.put("jms.precreateQueueSubscription", "true");
+    configuration.put("jms.precreateQueueSubscription", "true");
+
 ConnectionFactory factory = new PulsarConnectionFactory(configuration);
-...
-factory.close();
+    ...
+    factory.close();
 ----
 
 This passes the `username` and `password` pair into the `PulsarConnectionFactory` constructor.
@@ -333,11 +335,11 @@ Set the `useSchema` flag to `true` with `consumerConfig` to apply schema when co
 [source,java]
 ----
 Map<String, Object> consumerConfig = new HashMap<>();
-properties.put("consumerConfig", consumerConfig);
+    properties.put("consumerConfig", consumerConfig);
 
 Map<String, Object> properties = new HashMap<>();
-properties.put("webServiceUrl", cluster.getAddress());
-consumerConfig.put("useSchema", true);
+    properties.put("webServiceUrl", cluster.getAddress());
+    consumerConfig.put("useSchema", true);
 ----
 
 The consumer returns a specific JMS message depending on the schema type:
@@ -383,11 +385,12 @@ This subscribes to the topics named "example", "foo" and "bar"
 |===
 
 To embed a multi-topic subscription name using a JMS queue:
+
 [source,java]
 ----
-try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); ){
-    Queue queue = session.createQueue("multi:example,foo,bar:subscription");
-}
+    try (PulsarConnectionFactory factory = new PulsarConnectionFactory(properties); ){
+        Queue queue = session.createQueue("multi:example,foo,bar:subscription");
+    }
 ----
 
 For more on multi-topic subscriptions in {pulsar-short}, see the https://pulsar.apache.org/docs/client-libraries-java/#multi-topic-subscriptions[{pulsar-short} documentation].

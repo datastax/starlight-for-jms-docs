@@ -53,15 +53,15 @@ For more information, see xref:jms-migration:pulsar-jms-quickstart-sa.adoc[quick
 
 . Modify `PulsarConnectionFactory` in {product} to disable client-side emulation and use server-side filtering:
 +
-[source,java]
+[source,plaintext]
 ----
-jms.enableClientSideEmulation = false;
-jms.useServerSideFiltering = true;
+jms.enableClientSideEmulation=false;
+jms.useServerSideFiltering=true;
 ----
 
 . Modify `broker.conf` to accept `entryFilterNames` and to look for the `.nar` file in `/pulsar/filters`:
 
-[source,java]
+[source,plaintext]
 ----
 entryFilterNames=jms
 entryFiltersDirectory=/pulsar/filters
@@ -75,7 +75,7 @@ You're ready to use server-side filtering.
 {product} allows you to pre-configure the `selector` property when creating your {pulsar-short} subscription.
 Modify `PulsarConnectionFactory` in {product} to include the following:
 
-[source,java]
+[source,plaintext]
 ----
 jms.filtering=true
 jms.selector=YOUR MESSAGE SELECTOR

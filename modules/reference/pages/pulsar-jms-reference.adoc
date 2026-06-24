@@ -10,10 +10,10 @@ Configuration information is passed to the `PulsarConnectionFactory` constructor
 [source,java]
 ----
 Map<String, Object> configuration = new HashMap<>();
-configuration.put("...","...");
+    configuration.put("...","...");
 ConnectionFactory factory = new PulsarConnectionFactory(configuration);
-...
-factory.close();
+    ...
+    factory.close();
 ----
 
 Configuration information can also be passed as a JSON encoded string:
@@ -22,9 +22,9 @@ Configuration information can also be passed as a JSON encoded string:
 ----
 String configuration = "{.....}";
 ConnectionFactory factory = new PulsarConnectionFactory();
-factory.setJsonConfiguration(configuration);
-...
-factory.close();
+    factory.setJsonConfiguration(configuration);
+    ...
+    factory.close();
 ----
 
 Configuration information can be passed when a `JMSContext` or `Session` is created with `JMSContext.createContext` or `Session.createSession`.
@@ -35,7 +35,7 @@ Create a `PulsarConnectionFactory` with `initialContext` for configuration:
 ----
 Map<String, Object> configuration = new HashMap<>();
 Map<String, Object> consumerConfig = new HashMap<>();
-configuration.put("consumerConfig", consumerConfig);
+    configuration.put("consumerConfig", consumerConfig);
 PulsarConnectionFactory factory = new PulsarConnectionFactory(configuration);
 PulsarJMSContext initialContext = (PulsarJMSContext) factory.createContext();
 ----
@@ -44,9 +44,9 @@ The initial configuration in `initialContext` is overridden by the subsequent `J
 
 [source,java]
 ----
-Map<String, Object> perContextConfiguration new HashMap<>();
+Map<String, Object> perContextConfiguration = new HashMap<>();
 Map<String, Object> perContextConsumerConfig = new HashMap<>();
-perContextConsumerConfig.put("consumerConfig", perContextConsumerConfig);
+    perContextConsumerConfig.put("consumerConfig", perContextConsumerConfig);
 JMSContext withCustomConfiguration = initialContext.createContext(mode, perContextConfiguration);
 ----
 
