@@ -1,6 +1,6 @@
 name: 'starlight-for-jms'
 title: 'Starlight for JMS'
-version: '3.2'
+version: '9.x'
 start_page: 'index.adoc'
 
 nav:
