@@ -7,9 +7,8 @@ For a guided tutorial on installing and using {product}, see the xref:jms-migrat
 ====
 
 Install {jms_repo}[{product}] by adding the dependency to your Java project.
-For example:
+For example, in `pom.xml`:
 
-.pom.xml
 [source,xml,subs="+quotes"]
 ----
 <dependency>
