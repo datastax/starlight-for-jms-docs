@@ -21,7 +21,6 @@ cd StarlightForJMSClient
 This quickstart uses the `pulsar-jms-all` package, which is a fat JAR file that includes all dependencies.
 {company} recommends using the {jms_repo}/releases[latest stable release].
 +
-.pom.xml
 [source,xml]
 ----
   <dependencies>
@@ -35,7 +34,6 @@ This quickstart uses the `pulsar-jms-all` package, which is a fat JAR file that 
 
 . Set the compiler source and target according to your Java version:
 +
-.pom.xml
 [source,xml]
 ----
   <properties>
@@ -50,7 +48,6 @@ This quickstart uses the `pulsar-jms-all` package, which is a fat JAR file that 
 * **`<descriptorRef>jar-with-dependencies</descriptorRef>`**: An additional descriptor appended to the compiled JAR file name.
 * **`<mainClass>org.example.App</mainClass>`**: The default package and class so you can run the compiled JAR file without any additional specifications.
 +
-.pom.xml
 [source,xml]
 ----
   <build>
